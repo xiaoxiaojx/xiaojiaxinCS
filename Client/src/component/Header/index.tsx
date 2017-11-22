@@ -141,13 +141,13 @@ class Header extends React.Component<{}, HeaderState> {
 					</Popover>
                 </div>
                 <nav className="nav">
-					<Link to="/about">
+					<Link to="/index">
 						<RaisedButton
 							label="首页"
 							primary={focusNavBtn === FocusNavBtn.Home}
 							onClick={() => this.setFocusNavBtn(FocusNavBtn.Home)}/>
 					</Link>
-					<Link to="/about">
+					<Link to="/articles">
 						<RaisedButton
 							label="文章"
 							primary={focusNavBtn === FocusNavBtn.Article}

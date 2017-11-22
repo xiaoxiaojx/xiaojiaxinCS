@@ -10,6 +10,8 @@ import Header from "./component/Header";
 import Main from "./component/Main";
 import Settings from "./component/Settings";
 import About from "./component/About";
+import Articles from "./component/Articles";
+import Index from "./component/Index";
 import "./app.scss";
 
 interface AppProps {
@@ -22,6 +24,8 @@ class App extends React.Component<AppProps, {}> {
                 <MuiThemeProvider>
                     <div>
                         <Header />
+                        <Route path="/index" component={Index}/>
+                        <Route path="/articles" component={Articles}/>
                         <Route path="/home" component={Main}/>
                         <Route path="/settings" component={Settings}/>
                         <Route path="/about" component={About}/>

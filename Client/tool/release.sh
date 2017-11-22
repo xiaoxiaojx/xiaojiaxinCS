@@ -7,6 +7,8 @@ folder="../../CampusMessageWall"
 if [[ -d $folder ]]; then
   cd $folder;
   git pull;
+  rm -rf dist;
+  mkdir dist;
   cp -r ../xiaojiaxinCS/Client/dist/* ./dist;
   git add .;
   git commit -m 'auto push';

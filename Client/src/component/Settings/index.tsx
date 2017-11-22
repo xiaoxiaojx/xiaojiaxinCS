@@ -5,7 +5,7 @@ class Settings extends React.Component<{}, {}> {
     render() {
         return (
             <div className="SettingsWrap">
-                sss
+                这里是个人设置模块(不过我还没做)
             </div>
         );
     }
