@@ -1,0 +1,85 @@
+@mixin HeaderChild($position) {
+    float: $position;
+    margin-#{$position}: 80px;
+    box-sizing: inherit;
+    height: 100%;
+}
+.HeaderWrap {
+    position: fixed;
+    z-index: 10;
+    background-color: #fff;
+    overflow: hidden;
+    box-sizing: border-box;
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px solid #ebebeb;
+
+    .logo {
+        @include HeaderChild(left);
+        display: flex;
+        align-items: center;
+        margin-left: 30px;
+        font-size: 16px;
+        font-family: 'Tangerine', serif;  
+        
+        & > :nth-child(1) {
+            background-image: url(../../common/image/qaq.png)
+        }
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        height: 100%;
+        width: 1000px;
+        box-sizing: inherit;
+        
+        & > a + a {
+            margin-left: 20px !important;
+        }
+    }
+
+    .welcome {
+        @include HeaderChild(right);
+        padding: 20px 0;
+    }
+
+    .loginForm {
+
+        .btnWrap {
+            margin-top: 50px;
+
+            & > :nth-child(2) {
+                margin-left: 20px;
+            }
+        }
+    }
+
+    .avatar {
+        cursor: pointer;
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px, rgba(0, 0, 0, 0.12) 0px 4px 8px;
+            transition: .2s ease-in-out;
+        }
+    }
+}
+
+.personalMenu {
+    display: flex;
+    align-items: center;
+    color: #6fbed5;
+
+    & > svg {
+        margin-right: 8px;
+    }
+
+    & > a {
+        color: #6fbed5 !important;
+        text-decoration: none;
+    }
+}
