@@ -1,12 +1,15 @@
 import * as React from "react";
+import { Card } from "material-ui/Card";
 import "./index.scss";
 
 class Index extends React.Component<{}, {}> {
     render() {
         return (
-            <div className="IndexWrap">
-                (首页模块)谁最帅?
-            </div>
+            <Card className="IndexWrap">
+                <header>
+                    Index
+                </header>
+            </Card>
         )
     }
 }

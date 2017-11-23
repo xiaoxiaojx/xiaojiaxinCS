@@ -12,6 +12,9 @@ import {
 import {
 	snackbarStyle
 } from "../../common/constant";
+import {
+	DEFAULT_AVATAR_IMG
+} from "../../common/baseImage";
 import "./index.scss";
 
 enum ShowModal {
@@ -87,6 +90,7 @@ class Header extends React.Component<{}, HeaderState> {
             <div className="HeaderWrap">
                 <div className="logo">
 					<FlatButton
+						label=" "
 						primary={true}
 						onClick={ () => this.setShowModal(ShowModal.LogoDialog) }>
 					</FlatButton>
@@ -102,7 +106,7 @@ class Header extends React.Component<{}, HeaderState> {
 						data ?
 						<img
 							className="avatar"
-							src={data["avatar"] ? data["avatar"] : require("../../common/image/testImg5.jpg") }
+							src={data["avatar"] ? data["avatar"] : DEFAULT_AVATAR_IMG }
 							onClick={this.onClickSettings} />
 						:
 						<FlatButton
@@ -141,7 +145,7 @@ class Header extends React.Component<{}, HeaderState> {
 					</Popover>
                 </div>
                 <nav className="nav">
-					<Link to="/index">
+					<Link to="/">
 						<RaisedButton
 							label="首页"
 							primary={focusNavBtn === FocusNavBtn.Home}

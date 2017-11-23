@@ -1,12 +1,14 @@
 import {
     User
 } from "../../services";
+
 export function getLocalStorageData(): Partial<User> | boolean {
+    let data: Partial<User> | boolean;
     try {
-        const data = JSON.parse(localStorage.getItem("qaqData") as any);
-        return data;
+        data = JSON.parse(localStorage.getItem("qaqData") as any);
     }
     catch (err) {
-        return false;
+        data =  false;
     }
+    return data;
 }

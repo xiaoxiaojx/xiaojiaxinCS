@@ -1,0 +1,14 @@
+$baseColor: #6fbed5;
+
+.container {
+    position: relative;
+    top: 70px;
+    width: 1000px;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+.flexAlignCenter{
+    display: flex;
+    align-items: center;
+}

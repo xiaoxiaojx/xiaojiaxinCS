@@ -1,9 +1,12 @@
+@import "../../common/baseStyle.scss";
+
 @mixin HeaderChild($position) {
     float: $position;
     margin-#{$position}: 80px;
     box-sizing: inherit;
     height: 100%;
 }
+
 .HeaderWrap {
     position: fixed;
     z-index: 10;
@@ -16,8 +19,7 @@
 
     .logo {
         @include HeaderChild(left);
-        display: flex;
-        align-items: center;
+        @extend .flexAlignCenter;
         margin-left: 30px;
         font-size: 16px;
         font-family: 'Tangerine', serif;  
@@ -28,8 +30,7 @@
     }
 
     .nav {
-        display: flex;
-        align-items: center;
+        @extend .flexAlignCenter;
         margin: 0 auto;
         height: 100%;
         width: 1000px;
@@ -70,16 +71,15 @@
 }
 
 .personalMenu {
-    display: flex;
-    align-items: center;
-    color: #6fbed5;
+    @extend .flexAlignCenter;
+    color: $baseColor;
 
     & > svg {
         margin-right: 8px;
     }
 
     & > a {
-        color: #6fbed5 !important;
+        color: $baseColor !important;
         text-decoration: none;
     }
 }

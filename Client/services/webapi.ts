@@ -9,12 +9,12 @@ function getApiPrefix(): string {
     }
 }
 
-function getRequestInit(params: any, method: Method): any {
+function getRequestInit(params: any, method: Method): RequestInit {
     return ({
         method,
-        headers: {
-            "Content-Type": "application/json"
-        },
+        // headers: {
+        //     "Content-Type": "application/json"
+        // },
         body: JSON.stringify(params)
 //        credentials: "include",
     });
@@ -22,7 +22,7 @@ function getRequestInit(params: any, method: Method): any {
 
 export function webapi<T>(service: string, params = {}, method: Method = "POST"): Promise<T> {
     const requestInput: RequestInfo = `${getApiPrefix()}${service}`;
-    const requestInit: any = getRequestInit(params, method);
+    const requestInit: RequestInit = getRequestInit(params, method);
     return fetch(requestInput, requestInit)
         .then( response => response.json())
         .catch(error => {

@@ -1,7 +1,20 @@
+@import "../../common/baseStyle.scss";
+
 .SettingsWrap {
-    position: relative;
-    top: 70px;
-    width: 1000px;
-    margin: auto;
-    box-sizing: border-box;
+
+    .avatarWrap {
+        @extend .flexAlignCenter;
+
+        img {
+            border-radius: 50px;
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        input {
+            display: none;
+        }
+    }
 }

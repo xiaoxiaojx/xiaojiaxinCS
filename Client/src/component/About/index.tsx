@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Card, CardHeader, CardMedia, CardTitle, CardText } from "material-ui/Card";
+import {
+    ABOUT_AVATAR_IMG,
+    ABOUT_BG_IMG
+} from "../../common/baseImage";
 import "./index.scss";
-
-const TEST_IMG_1 = require("../../common/image/testImg3.jpeg");
-const WU_KONG = require("../../common/image/testImg8.jpg");
 
 class About extends React.Component<{}, {}> {
     render() {
@@ -12,12 +13,12 @@ class About extends React.Component<{}, {}> {
                 <CardHeader
                     title="Xiao Jiaxin"
                     subtitle="17年毕业的前端攻城🦁️"
-                    avatar={WU_KONG}
+                    avatar={ABOUT_AVATAR_IMG}
                     />
                 <CardMedia
                     overlay={<CardTitle title="City" subtitle="Shang hai" />}
                     >
-                    <img src={TEST_IMG_1} alt="" />
+                    <img src={ABOUT_BG_IMG} alt="" />
                 </CardMedia>
                 <CardTitle title="专业" subtitle="计算机系软件工程" />
                 <CardText>

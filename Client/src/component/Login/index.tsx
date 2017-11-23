@@ -114,7 +114,7 @@ class Login extends React.Component<{}, LoginState> {
                 } else {
                     this.showModalMessage(result.message);
                     localStorage.setItem("qaqData", JSON.stringify(user));
-                    location.reload();
+                    location.reload();                   
                 }
                 this.setDisabled(false);
             })
