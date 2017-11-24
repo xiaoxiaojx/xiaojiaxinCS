@@ -11,6 +11,7 @@ import {
     RadioButton,
     RadioButtonGroup
 } from "material-ui/RadioButton";
+import Rules from "../../common/rules";
 import Modal from "../Modal";
 import {
 	DEFAULT_AVATAR_IMG
@@ -49,7 +50,9 @@ class Settings extends React.Component<{}, SettingsState> {
     setUserInfoService() {
         const { userInfo } = this.state;
         const qaqData = getLocalStorageData();
-        SetUserInfoService({...userInfo, userName: qaqData["userName"]} as SetUserInfoReq);
+        SetUserInfoService({...userInfo, userName: qaqData["userName"]} as SetUserInfoReq)
+            .then(result => {
+            });
     }
     getUserInfo() {
         const qaqData = getLocalStorageData();
@@ -82,16 +85,16 @@ class Settings extends React.Component<{}, SettingsState> {
         const { userInfo } = this.state;
         const modalText: string[] = [];
         if (!userInfo.nickname) {
-            modalText.push("昵称不能为空!");
+            modalText.push(Rules.nickname.error);
         }
         if (!userInfo.sex) {
-            modalText.push("性别不能为空!");
+            modalText.push(Rules.sex.error);
         }
-        if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(userInfo.email)) {
-            modalText.push("邮箱验证不正确!");
+        if (!Rules.email.RegExp.test(userInfo.email)) {
+            modalText.push(Rules.email.error);
         }
         if (!userInfo.selfIntroduction) {
-            modalText.push("个人介绍不能为空!");
+            modalText.push(Rules.selfIntroduction.error);
         }
         if (modalText.length === 0) {
             this.setUserInfoService();
@@ -125,7 +128,7 @@ class Settings extends React.Component<{}, SettingsState> {
                     </label>
                     <TextField
                         value={userInfo.nickname}
-                        onChange={ e => this.setUserInfo({nickname: e.target.value}) } />
+                        onChange={ (e: any) => this.setUserInfo({nickname: e.target.value}) } />
                 </div>
                 <hr />
                 <div className="avatarWrap">
@@ -153,7 +156,7 @@ class Settings extends React.Component<{}, SettingsState> {
                     <RadioButtonGroup
                         name="shipSpeed"
                         valueSelected={userInfo.sex}
-                        onChange={e => this.setUserInfo({sex: e.target.value})}>
+                        onChange={(e: any) => this.setUserInfo({sex: e.target.value})}>
                         <RadioButton
                             value="男"
                             label="男"
@@ -171,7 +174,7 @@ class Settings extends React.Component<{}, SettingsState> {
                     </label>
                     <TextField
                         value={userInfo.email}
-                        onChange={ e => this.setUserInfo({email: e.target.value}) }/>
+                        onChange={ (e: any) => this.setUserInfo({email: e.target.value}) }/>
                 </div>
                 <hr/>
                 <div className="nicknameWrap">
@@ -182,7 +185,7 @@ class Settings extends React.Component<{}, SettingsState> {
                         multiLine
                         rows={2}
                         value={userInfo.selfIntroduction}
-                        onChange={ e => this.setUserInfo({selfIntroduction: e.target.value}) } />
+                        onChange={ (e: any) => this.setUserInfo({selfIntroduction: e.target.value}) } />
                 </div>
                 <hr/>
                 <div className="nicknameWrap">

@@ -1,17 +1,16 @@
 import * as React from "react";
-import { FlatButton, Snackbar, Dialog, Tabs, Tab, Popover, Menu, MenuItem, RaisedButton } from "material-ui";
+import { FlatButton, Popover, Menu, MenuItem, RaisedButton } from "material-ui";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react";
 import ActionHome from "material-ui/svg-icons/action/home";
 import Settings from "material-ui/svg-icons/action/settings";
 import SignOut from "material-ui/svg-icons/action/exit-to-app";
-import Login from "../Login";
-import Register from "../Register";
+import Tooltip from "../Tooltip";
+import Store from "../../store";
 import {
-	getLocalStorageData
+	getLocalStorageData,
+	autoBindMethods
 } from "../../common/utils";
-import {
-	snackbarStyle
-} from "../../common/constant";
 import {
 	DEFAULT_AVATAR_IMG
 } from "../../common/baseImage";
@@ -20,7 +19,6 @@ import "./index.scss";
 enum ShowModal {
 	No = "No",
 	LogoDialog = "LogoDialog",
-	Login = "Login",
 	Settings = "Settings"
 }
 
@@ -31,18 +29,23 @@ enum FocusNavBtn {
 	Github = "Github"
 }
 
+interface HeaderProps {
+	store: Store;
+}
+
 interface HeaderState {
 	showModal: ShowModal;
 	focusNavBtn: FocusNavBtn;
 	anchorEl: JSX.Element | null;
 }
 
-class Header extends React.Component<{}, HeaderState> {
+@observer
+class Header extends React.Component<HeaderProps, HeaderState> {
 	constructor(props) {
 		super(props);
-		this.closeShowModal = this.closeShowModal.bind(this);
-		this.onClickSettings = this.onClickSettings.bind(this);
-		this.signOut = this.signOut.bind(this);
+		autoBindMethods([
+			"closeShowModal", "onClickSettings", "signOut"
+		], this);
 	}
 	state: HeaderState = {
 		showModal: ShowModal.No,
@@ -78,13 +81,9 @@ class Header extends React.Component<{}, HeaderState> {
 		location.reload();
 	}
 	render() {
-		const { showModal, focusNavBtn } = this.state;
+		const { showModal, focusNavBtn, anchorEl } = this.state;
+		const { store } = this.props;
 		const data = getLocalStorageData();
-		const actions: JSX.Element = <FlatButton
-			label="返回"
-			primary={true}
-			onClick={() => this.setShowModal(ShowModal.No)}
-			/>;
 
         return (
             <div className="HeaderWrap">
@@ -94,12 +93,9 @@ class Header extends React.Component<{}, HeaderState> {
 						primary={true}
 						onClick={ () => this.setShowModal(ShowModal.LogoDialog) }>
 					</FlatButton>
-					<Snackbar
-						{...snackbarStyle}
-						open={showModal === ShowModal.LogoDialog}
-						message="Hello Word"
-						autoHideDuration={4000}
-						onRequestClose={this.closeShowModal} />
+					<Tooltip
+						visible={showModal === ShowModal.LogoDialog}
+						message="Hello Word" />
                 </div>
                 <div className="welcome">
 					{
@@ -112,11 +108,11 @@ class Header extends React.Component<{}, HeaderState> {
 						<FlatButton
 							label="登录/注册"
 							primary
-							onClick={ () => this.setShowModal(ShowModal.Login) }/>
+							onClick={ () => store.setShowLoginRegisterModal(true) }/>
 					}
 					<Popover
 						open={showModal === ShowModal.Settings}
-						anchorEl={this.state.anchorEl}
+						anchorEl={anchorEl as any}
 						anchorOrigin={{horizontal: "left", vertical: "bottom"}}
 						targetOrigin={{horizontal: "left", vertical: "top"}}
 						onRequestClose={this.closeShowModal}
@@ -170,22 +166,6 @@ class Header extends React.Component<{}, HeaderState> {
 							onClick={() => this.setFocusNavBtn(FocusNavBtn.Github)}/>
 					</a>
                 </nav>
-				<Dialog
-					actions={actions}
-					modal={false}
-					open={showModal === ShowModal.Login}
-					onRequestClose={this.closeShowModal}
-					>
-					<Tabs>
-						<Tab label="登录" >
-							<Login />
-						</Tab>
-						<Tab label="注册" >
-							<Register />
-						</Tab>
-					</Tabs>
-				</Dialog>
-
             </div>
         );
     }

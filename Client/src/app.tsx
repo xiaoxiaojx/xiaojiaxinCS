@@ -1,13 +1,16 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
+import { observer } from "mobx-react";
 import {
     HashRouter as Router,
     Route,
     Switch
-  } from "react-router-dom";
+} from "react-router-dom";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import Store from "./store";
 import Header from "./component/Header";
 import Main from "./component/Main";
+import Footer from "./component/Footer";
 import Home from "./component/Home";
 import Settings from "./component/Settings";
 import About from "./component/About";
@@ -17,15 +20,19 @@ import PrivateRoute from "./component/PrivateRoute";
 import "./app.scss";
 
 interface AppProps {
+    store: Store;
 }
 
+@observer
 class App extends React.Component<AppProps, {}> {
     render() {
+        const { store } = this.props;
+
         return (
             <Router>
                 <MuiThemeProvider>
                     <div>
-                        <Header />
+                        <Header store={store} />
                         <Main>
                             <Switch>
                                 <Route path="/" component={Index} exact/>
@@ -35,6 +42,7 @@ class App extends React.Component<AppProps, {}> {
                                 <PrivateRoute path="/settings" component={Settings}/>
                             </Switch>
                         </Main>
+                        <Footer store={store} />
                     </div>
                 </MuiThemeProvider>
             </Router>
@@ -43,6 +51,6 @@ class App extends React.Component<AppProps, {}> {
 }
 
 ReactDom.render(
-    <App />,
+    <App store={new Store()}/>,
     document.getElementById("app")
 );

@@ -16,7 +16,6 @@ function getRequestInit(params: any, method: Method): any {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(params)
-//        credentials: "include",
     });
 }
 

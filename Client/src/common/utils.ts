@@ -1,3 +1,4 @@
+import createHistory from "history/createHashHistory";
 import {
     User
 } from "../../services";
@@ -11,4 +12,13 @@ export function getLocalStorageData(): Partial<User> | boolean {
         data =  false;
     }
     return data;
+}
+
+export function autoBindMethods(methods: string[], _this) {
+    methods.forEach(method => _this[method] = _this[method].bind(_this));
+}
+
+export function redirect(path: string) {
+    const history = createHistory();
+    history.push(path);
 }

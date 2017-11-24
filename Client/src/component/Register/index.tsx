@@ -1,17 +1,22 @@
 import * as React from "react";
 import {
     TextField,
-    RaisedButton,
-    Snackbar
+    RaisedButton
 } from "material-ui";
+import Tooltip from "../Tooltip";
+import Rules from "../../common/rules";
 import {
-	snackbarStyle
-} from "../../common/constant";
+    redirect
+} from "../../common/utils";
 import {
     RegisterReq,
     Register as RegisterService
 } from "../../../services";
 import "./index.scss";
+
+interface RegisterProps {
+    close: Function;
+}
 
 interface RegisterState {
     errorText: RegisterReq;
@@ -23,7 +28,7 @@ interface RegisterState {
     disabled: boolean;
 }
 
-class Register extends React.Component<{}, RegisterState> {
+class Register extends React.Component<RegisterProps, RegisterState> {
     state: RegisterState = {
         errorText: {
             userName: "",
@@ -56,14 +61,6 @@ class Register extends React.Component<{}, RegisterState> {
             disabled
         });
     }
-    onRequestClose() {
-        this.setState({
-            modalData: {
-                showModal: false,
-                message: ""
-            }
-        });
-    }
     hasCorrectText(): boolean {
         const { errorText } = this.state;
         return Object.keys(errorText).every(item => errorText[item] === "");
@@ -78,19 +75,20 @@ class Register extends React.Component<{}, RegisterState> {
     }
     register(): boolean {
         const { user } = this.state;
+        const { close } = this.props;
         this.setDisabled(true);
         if ( !user.nickname) {
-            this.setErrorText({nickname: "昵称不能为空"});
+            this.setErrorText({nickname: Rules.nickname.error});
             this.setDisabled(false);
             return false;
         }
         if (!user.userName) {
-            this.setErrorText({userName: "用户名必须以字母开头，长度为5-16字节，允许字母数字下划线"});
+            this.setErrorText({userName: Rules.userName.error});
             this.setDisabled(false);
             return false;
         }
         if (!user.password) {
-            this.setErrorText({password: "用户名长度必须为5-16字节，允许字母数字下划线"});
+            this.setErrorText({password: Rules.password.error});
             this.setDisabled(false);
             return false;
         }
@@ -105,7 +103,8 @@ class Register extends React.Component<{}, RegisterState> {
                 } else {
                     this.showModalMessage(result.message);
                     localStorage.setItem("qaqData", JSON.stringify(user));
-                    location.reload();
+                    close();
+                    redirect("/settings");
                 }
                 this.setDisabled(false);
             })
@@ -118,7 +117,7 @@ class Register extends React.Component<{}, RegisterState> {
     onChangeNickname(e) {
         const nickname = e.target.value;
         if (!nickname) {
-            this.setErrorText({nickname: "昵称不能为空"});
+            this.setErrorText({nickname: Rules.nickname.error});
         } else {
             this.setErrorText({nickname: ""});
         }
@@ -126,17 +125,17 @@ class Register extends React.Component<{}, RegisterState> {
     }
     onChangeUserName(e) {
         const userName = e.target.value;
-        if (!(/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/.test(userName))) {
-            this.setErrorText({userName: "用户名必须以字母开头，长度为5-16字节，允许字母数字下划线"});
+        if (!(Rules.userName.RegExp.test(userName))) {
+            this.setErrorText({userName: Rules.userName.error});
         } else {
             this.setErrorText({userName: ""});
         }
         this.setUser({ userName });
     }
-    onChangePassworde(e) {
+    onChangePassword(e) {
         const password = e.target.value;
-        if (!(/[a-zA-Z0-9_]{4,15}$/.test(password))) {
-            this.setErrorText({password: "用户名长度必须为5-16字节，允许字母数字下划线"});
+        if (!(Rules.password.RegExp.test(password))) {
+            this.setErrorText({password: Rules.password.error});
         } else {
             this.setErrorText({password: ""});
         }
@@ -161,7 +160,7 @@ class Register extends React.Component<{}, RegisterState> {
                     floatingLabelText="密码"
                     value={user.password}
                     errorText={errorText.password}
-                    onChange={this.onChangePassworde.bind(this)}/>
+                    onChange={this.onChangePassword.bind(this)}/>
                 <div className="btnWrap">
                     <RaisedButton
                         disabled={ disabled }
@@ -169,12 +168,9 @@ class Register extends React.Component<{}, RegisterState> {
                         primary
                         onClick={ this.register.bind(this) }/>
                 </div>
-                <Snackbar
-                    {...snackbarStyle}
-                    open={modalData.showModal}
-                    message={modalData.message}
-                    autoHideDuration={4000}
-                    onRequestClose={this.onRequestClose.bind(this)} />
+                <Tooltip
+                    visible={modalData.showModal}
+                    message={modalData.message} />
             </div>
         );
     }

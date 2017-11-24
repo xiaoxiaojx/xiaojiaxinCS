@@ -2,16 +2,21 @@ import * as React from "react";
 import {
     TextField,
     RaisedButton,
-    Snackbar
 } from "material-ui";
+import Tooltip from "../Tooltip";
+import Rules from "../../common/rules";
 import {
-	snackbarStyle
-} from "../../common/constant";
+    redirect
+} from "../../common/utils";
 import {
     LoginReq,
     Login as LoginService
 } from "../../../services";
 import "./index.scss";
+
+interface LoginProps {
+    close: Function;
+}
 
 interface LoginState {
     errorText: LoginReq;
@@ -23,7 +28,7 @@ interface LoginState {
     disabled: boolean;
 }
 
-class Login extends React.Component<{}, LoginState> {
+class Login extends React.Component<LoginProps, LoginState> {
     state: LoginState = {
         errorText: {
             userName: "",
@@ -58,27 +63,19 @@ class Login extends React.Component<{}, LoginState> {
         const { errorText } = this.state;
         return Object.keys(errorText).every(item => errorText[item] === "");
     }
-    onRequestClose() {
-        this.setState({
-            modalData: {
-                showModal: false,
-                message: ""
-            }
-        });
-    }
     onChangeUserName(e) {
         const userName = e.target.value;
-        if (!(/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/.test(userName))) {
-            this.setErrorText({userName: "用户名必须以字母开头，长度为5-16字节，允许字母数字下划线"});
+        if (!(Rules.userName.RegExp.test(userName))) {
+            this.setErrorText({userName: Rules.userName.error});
         } else {
             this.setErrorText({userName: ""});
         }
         this.setUser({ userName });
     }
-    onChangePassworde(e) {
+    onChangePassword(e) {
         const password = e.target.value;
-        if (!(/[a-zA-Z0-9_]{4,15}$/.test(password))) {
-            this.setErrorText({password: "用户名长度必须为5-16字节，允许字母数字下划线"});
+        if (!(Rules.password.RegExp.test(password))) {
+            this.setErrorText({password: Rules.password.error});
         } else {
             this.setErrorText({password: ""});
         }
@@ -94,14 +91,15 @@ class Login extends React.Component<{}, LoginState> {
     }
     login(): boolean {
         const { user } = this.state;
+        const { close } = this.props;
         this.setDisabled(true);
         if (!user.userName) {
-            this.setErrorText({userName: "用户名必须以字母开头，长度为5-16字节，允许字母数字下划线"});
+            this.setErrorText({userName: Rules.userName.error});
             this.setDisabled(false);
             return false;
         }
         if (!user.password) {
-            this.setErrorText({password: "用户名长度必须为5-16字节，允许字母数字下划线"});
+            this.setErrorText({password: Rules.password.error});
             this.setDisabled(false);
             return false;
         }
@@ -116,7 +114,8 @@ class Login extends React.Component<{}, LoginState> {
                 } else {
                     this.showModalMessage(result.message);
                     localStorage.setItem("qaqData", JSON.stringify(user));
-                    location.reload();                   
+                    close();
+                    redirect("/");
                 }
                 this.setDisabled(false);
             })
@@ -140,7 +139,7 @@ class Login extends React.Component<{}, LoginState> {
                     floatingLabelText="密码"
                     value={user.password}
                     errorText={errorText.password}
-                    onChange={this.onChangePassworde.bind(this)}/>
+                    onChange={this.onChangePassword.bind(this)}/>
                 <div className="btnWrap">
                     <RaisedButton
                         label="登录"
@@ -148,12 +147,9 @@ class Login extends React.Component<{}, LoginState> {
                         primary
                         onClick={this.login.bind(this)}/>
                 </div>
-                <Snackbar
-                    {...snackbarStyle}
-                    open={modalData.showModal}
-                    message={modalData.message}
-                    autoHideDuration={4000}
-                    onRequestClose={this.onRequestClose.bind(this)} />
+                <Tooltip
+                    visible={modalData.showModal}
+                    message={modalData.message} />
             </div>
         );
     }
