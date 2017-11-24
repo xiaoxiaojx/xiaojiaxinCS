@@ -29,5 +29,8 @@ app.get("/", homeController.index);
 app.post("/api/test", test.test);
 app.post("/api/register", Services.register);
 app.post("/api/login", Services.login);
+app.post("/api/getUserInfo", Services.getUserInfo);
+app.post("/api/setUserInfo", Services.setUserInfo);
+
 
 module.exports = app;

@@ -7,12 +7,15 @@ import {
 import {
 	snackbarStyle
 } from "../../common/constant";
-import * as Services from "../../../services";
+import {
+    LoginReq,
+    Login as LoginService
+} from "../../../services";
 import "./index.scss";
 
 interface LoginState {
-    errorText: Partial<Services.User>;
-    user: Partial<Services.User>;
+    errorText: LoginReq;
+    user: LoginReq;
     modalData: {
         showModal: boolean;
         message: string;
@@ -29,7 +32,6 @@ class Login extends React.Component<{}, LoginState> {
         user: {
             userName: "",
             password: "",
-            nickname: ""
         },
         modalData: {
             showModal: false,
@@ -37,12 +39,12 @@ class Login extends React.Component<{}, LoginState> {
         },
         disabled: false
     };
-    setUser(data: Partial<Services.User>) {
+    setUser(data: Partial<LoginReq>) {
         const { user } = this.state;
         const newUser = { ...user,  ...data};
         this.setState({ user: newUser });
     }
-    setErrorText(data: Partial<Services.User>) {
+    setErrorText(data: Partial<LoginReq>) {
         const { errorText } = this.state;
         const newErrorText = { ...errorText,  ...data};
         this.setState({ errorText: newErrorText });
@@ -107,7 +109,7 @@ class Login extends React.Component<{}, LoginState> {
             this.setDisabled(false);
             return false;
         }
-        Services.Login(user)
+        LoginService(user)
             .then(result => {
                 if (result.error) {
                     this.showModalMessage(result.message);

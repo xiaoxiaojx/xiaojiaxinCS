@@ -3,18 +3,18 @@ type Method = "GET" | "POST";
 function getApiPrefix(): string {
     switch (location.hostname) {
       case "localhost":
-        return `http://47.100.96.203:${process.env.PORT || "3000"}/api/`;
+        return `http://localhost:${process.env.PORT || "3000"}/api/`;
       default:
         return `http://47.100.96.203:${process.env.PORT || "3000"}/api/`;
     }
 }
 
-function getRequestInit(params: any, method: Method): RequestInit {
+function getRequestInit(params: any, method: Method): any {
     return ({
         method,
-        // headers: {
-        //     "Content-Type": "application/json"
-        // },
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify(params)
 //        credentials: "include",
     });

@@ -15,7 +15,7 @@
     box-sizing: border-box;
     height: 70px;
     width: 100%;
-    border-bottom: 1px solid #ebebeb;
+    border-bottom: 1px solid $borderColor;
 
     .logo {
         @include HeaderChild(left);

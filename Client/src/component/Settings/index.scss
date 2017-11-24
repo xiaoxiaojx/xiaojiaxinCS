@@ -1,9 +1,15 @@
 @import "../../common/baseStyle.scss";
 
 .SettingsWrap {
+    padding: 50px 45px;
+
+    .nicknameWrap {
+        margin: 15px 0;
+    }
 
     .avatarWrap {
         @extend .flexAlignCenter;
+        margin: 15px 0;
 
         img {
             border-radius: 50px;
@@ -15,6 +21,31 @@
 
         input {
             display: none;
+        }
+    }
+
+    hr {
+        opacity: 0.3;
+        border-top:1px solid $borderColor;
+    }
+
+    label {
+        margin-right: 30px;
+        width: 80px;
+    }
+
+    .sexWrap {
+        @extend .flexAlignCenter;
+        margin: 15px 0;
+
+        & > :nth-child(2) {
+            width: 100%;
+            @extend .flexAlignCenter;
+            justify-content: flex-start;
+
+            & > div {
+                width: 70px !important;
+            }
         }
     }
 }

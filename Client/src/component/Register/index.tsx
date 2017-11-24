@@ -7,12 +7,15 @@ import {
 import {
 	snackbarStyle
 } from "../../common/constant";
-import * as Services from "../../../services";
+import {
+    RegisterReq,
+    Register as RegisterService
+} from "../../../services";
 import "./index.scss";
 
 interface RegisterState {
-    errorText: Partial<Services.User>;
-    user: Partial<Services.User>;
+    errorText: RegisterReq;
+    user: RegisterReq;
     modalData: {
         showModal: boolean;
         message: string;
@@ -38,12 +41,12 @@ class Register extends React.Component<{}, RegisterState> {
         },
         disabled: false
     };
-    setUser(data: Partial<Services.User>) {
+    setUser(data: Partial<RegisterReq>) {
         const { user } = this.state;
         const newUser = { ...user,  ...data};
         this.setState({ user: newUser });
     }
-    setErrorText(data: Partial<Services.User>) {
+    setErrorText(data: Partial<RegisterReq>) {
         const { errorText } = this.state;
         const newErrorText = { ...errorText,  ...data};
         this.setState({ errorText: newErrorText });
@@ -95,7 +98,7 @@ class Register extends React.Component<{}, RegisterState> {
             this.setDisabled(false);
             return false;
         }
-        Services.Register(user)
+        RegisterService(user)
             .then(result => {
                 if (result.error) {
                     this.showModalMessage(result.message);

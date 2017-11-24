@@ -7,15 +7,15 @@ import {
 	getLocalStorageData
 } from "../../common/utils";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={props => (
-        getLocalStorageData() ? (
-            <Component {...props}/>
-        ) : 
-        <Redirect to={{
-          pathname: '/'
-        }}/>
-    )}/>
-)
-
-export default PrivateRoute;
+export default function PrivateRoute ({ component: Component, ...rest }) {
+    return (
+        <Route {...rest} render={props => (
+            getLocalStorageData() ? (
+                <Component {...props}/>
+            ) :
+            <Redirect to={{
+            pathname: "/"
+            }}/>
+        )}/>
+    );
+}
