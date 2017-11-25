@@ -60,8 +60,11 @@
     "material-ui": "^0.19.4",
     "mobx": "^3.3.1",
     "mobx-react": "^4.3.4",
+    "moment": "^2.19.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-markdown": "^3.0.2",
+    "react-quill": "^1.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2"
   }

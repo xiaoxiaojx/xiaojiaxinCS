@@ -1,4 +1,116 @@
 @import "../../common/baseStyle.scss";
 
 .HomeWrap {
+    padding-bottom: 30px;
+
+    header {
+        padding-top: 85px;
+        text-align: center;
+
+        img {
+            width: 85px;
+            height: 85px;
+            border-radius: 85px;
+        }
+
+        .setting {
+            margin-top: 1.1rem;
+            padding: 8px 35px;
+            opacity: 0.8;
+            color: #000;
+            border: 1px solid #000;
+            background-color: #fff;
+            font-size: 12px;
+            outline: none;
+            cursor: pointer;
+        }
+        .setting:hover {
+            opacity: 1;
+        }
+
+        .nickname {
+            margin-top: 25px;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #333;
+        }
+
+        .selfIntroduction {
+            margin: 5px 0;
+            font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
+            color: #8b8b8b;
+            font-size: 16px;
+        }
+
+        .email {
+            margin: 5px 0;
+            font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
+            color: #8b8b8b;
+            font-size: 16px;
+
+            a {
+                color: #8b8b8b !important;
+            }
+        }
+    }
+    main {
+        border-radius: 2px;
+        width: 600px;
+        margin: 25px auto;
+        padding: 0 25px;
+        background-color: rgba(244, 245, 245, 0.2);
+
+        .header {
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            border-bottom: 1px solid $borderColor;
+            font-weight: 600;
+            color: #2b445d;
+        }
+
+        .articles {
+            padding: 30px 0;
+
+            & > div {
+                padding-bottom: 10px;
+                border-bottom: 1px solid $borderColor;
+            }
+
+            .avatar {
+                @extend .flexAlignCenter;
+                font-size: 14px;
+                color: #8b8b8b;
+                width: 100%;
+
+                img {
+                    margin-right: 6px;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 30px;
+                }
+
+                span {
+                    margin: 0px 6px;
+                }
+            }
+
+            .title {
+                display: block;
+                color: #909090;
+                margin: 20px 0 10px;
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            .content {
+                display: block;
+                height: 45px;
+                overflow: hidden;
+                word-break: break-all;
+                color: #8b8b8b;
+                font-size: 16px;
+            }
+        }
+    }
 }

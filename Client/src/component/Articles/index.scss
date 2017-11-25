@@ -1,4 +1,53 @@
 @import "../../common/baseStyle.scss";
 
 .ArticlesWrap {
+    padding: 10px 0px;
+
+    .editorWrap {
+        @extend .flexAlignCenter;
+        justify-content: flex-end;
+        padding: 10px 0px;
+
+        & > div {
+            width: 100px !important;
+            font-size: 12px;
+        }
+    }
+
+    h1 {
+        margin: -10px 0 30px;
+        font-weight: 400;
+        & > div {
+            font-size: 28px !important;
+            width: 800px !important;
+        }
+    }
+
+    .ql-editor {
+        min-height: 600px;
+    }
+
+    footer {
+        display: flex;
+        margin-top: 4px;
+        padding-right: 20px;
+        justify-content: flex-end;
+    }
+
+    .markDownWrap {
+        display: flex;
+        justify-content: flex-start;
+
+        & > :nth-child(1) {
+            border: 1px solid $borderColor;
+            outline: none;
+            min-height: 600px;
+            max-width: 500px;
+            min-width: 500px;
+        }
+
+        & > :nth-child(2) {
+            word-break: break-all;
+        }
+    }
 }

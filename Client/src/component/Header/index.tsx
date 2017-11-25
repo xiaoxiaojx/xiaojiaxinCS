@@ -149,7 +149,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 					</Link>
 					<Link to="/articles">
 						<RaisedButton
-							label="文章"
+							label="写文章"
 							primary={focusNavBtn === FocusNavBtn.Article}
 							onClick={() => this.setFocusNavBtn(FocusNavBtn.Article)}/>
 					</Link>

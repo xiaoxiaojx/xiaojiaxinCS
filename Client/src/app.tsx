@@ -36,10 +36,10 @@ class App extends React.Component<AppProps, {}> {
                         <Main>
                             <Switch>
                                 <Route path="/" component={Index} exact/>
-                                <Route path="/articles" component={Articles}/>
+                                <Route path="/articles" component={() => <Articles store={store}/>}/>
                                 <Route path="/about" component={About}/>
-                                <PrivateRoute path="/home" component={Home}/>
-                                <PrivateRoute path="/settings" component={Settings}/>
+                                <PrivateRoute path="/home" component={() => <Home  store={store}/>}/>
+                                <PrivateRoute path="/settings" component={() => <Settings store={store} /> }/>
                             </Switch>
                         </Main>
                         <Footer store={store} />

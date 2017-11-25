@@ -1,4 +1,5 @@
 import * as React from "react";
+import { observer } from "mobx-react";
 import {
     FlatButton,
     TextField,
@@ -11,21 +12,26 @@ import {
     RadioButton,
     RadioButtonGroup
 } from "material-ui/RadioButton";
+import Store from "../../store";
 import Rules from "../../common/rules";
 import Modal from "../Modal";
 import {
 	DEFAULT_AVATAR_IMG
 } from "../../common/baseImage";
 import {
-	getLocalStorageData
+    getLocalStorageData,
+    redirect
 } from "../../common/utils";
 import {
-    GetUserInfo,
     SetUserInfo as SetUserInfoService,
     SetUserInfoReq,
     User
 } from "../../../services";
 import "./index.scss";
+
+interface SettingsProps {
+    store: Store;
+}
 
 interface SettingsState {
     userInfo: Partial<User>;
@@ -33,7 +39,8 @@ interface SettingsState {
     modalText: string[];
 }
 
-class Settings extends React.Component<{}, SettingsState> {
+@observer
+class Settings extends React.Component<SettingsProps, SettingsState> {
     state: SettingsState = {
         userInfo: {},
         showModal: false,
@@ -42,7 +49,8 @@ class Settings extends React.Component<{}, SettingsState> {
     fileNode: HTMLInputElement;
 
     componentDidMount() {
-        this.getUserInfo();
+        const { store } = this.props;
+        store.getUserInfo().then(result => this.setUserInfo(result.data));
     }
     setShowModal(showModal: boolean) {
         this.setState({ showModal });
@@ -52,14 +60,8 @@ class Settings extends React.Component<{}, SettingsState> {
         const qaqData = getLocalStorageData();
         SetUserInfoService({...userInfo, userName: qaqData["userName"]} as SetUserInfoReq)
             .then(result => {
+                redirect("/");
             });
-    }
-    getUserInfo() {
-        const qaqData = getLocalStorageData();
-        if (qaqData) {
-            GetUserInfo({userName: qaqData["userName"]})
-                .then(result => this.setState({ userInfo: result.data }));
-        }
     }
     setUserInfo(data: Partial<User>) {
         if (data.selfIntroduction && data.selfIntroduction.length >= 50) {

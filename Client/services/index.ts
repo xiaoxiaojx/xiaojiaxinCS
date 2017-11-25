@@ -44,6 +44,21 @@ export interface SetUserInfoReq {
 
 export type GetUserInfoRes = Result<User>;
 
+export interface PublishArticleReq {
+    title: string;
+    content: string;
+    date: string;
+    userName: string;
+    nickname: string;
+    avatar: string;
+}
+
+export interface GetArticlesReq {
+    userName?: string;
+}
+
+export type GetArticlesRes = Result<PublishArticleReq[]>;
+
 export function Register(data: RegisterReq): Promise<Result> {
     return webapi<Result>("register", data);
 }
@@ -58,4 +73,12 @@ export function GetUserInfo(data: GetUserInfoReq): Promise<GetUserInfoRes> {
 
 export function SetUserInfo(data: SetUserInfoReq): Promise<Result> {
     return webapi<Result>("setUserInfo", data);
+}
+
+export function PublishArticle(data: PublishArticleReq): Promise<Result> {
+    return webapi<Result>("publishArticle", data);
+}
+
+export function GetArticles(data: GetArticlesReq): Promise<GetArticlesRes> {
+    return webapi<GetArticlesRes>("getArticles", data);
 }

@@ -9,6 +9,7 @@ import * as cors from "cors";
 import * as homeController from "./controllers/home";
 import * as test from "./controllers/test";
 import * as Services from "./controllers";
+import * as Articles from "./controllers/article";
 
 const app = express();
 
@@ -31,6 +32,8 @@ app.post("/api/register", Services.register);
 app.post("/api/login", Services.login);
 app.post("/api/getUserInfo", Services.getUserInfo);
 app.post("/api/setUserInfo", Services.setUserInfo);
+app.post("/api/publishArticle", Articles.publishArticle);
+app.post("/api/getArticles", Articles.getArticles);
 
 
 module.exports = app;

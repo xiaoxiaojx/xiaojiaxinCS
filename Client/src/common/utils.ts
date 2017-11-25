@@ -22,3 +22,21 @@ export function redirect(path: string) {
     const history = createHistory();
     history.push(path);
 }
+
+export function initKeyboardEvent (e: any) {
+    const keyCode = e.keyCode || e.which;
+    const el = e.target;
+
+    if (keyCode === 9) {
+        let start = el.selectionStart,
+            end = el.selectionEnd;
+
+        el.value = el.value.substring(0, start)
+                + "\t"
+                + el.value.substring(end);
+
+//        el.selectionStart = el.selectionEnd = start + 1;
+
+        e.preventDefault();
+    }
+}
