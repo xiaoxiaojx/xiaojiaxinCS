@@ -5,9 +5,6 @@ import ArticleTmp from "../ArticleTmp";
 import {
     CircularProgress
 } from "material-ui";
-import {
-    PublishArticleReq
-} from "../../../services";
 import Store from "../../store";
 import "./index.scss";
 
@@ -16,21 +13,11 @@ interface IndexProps {
 }
 
 interface IndexState {
-    articles: PublishArticleReq[];
 }
 
 @observer
 class Index extends React.Component<IndexProps, IndexState> {
-    state: IndexState = {
-        articles: []
-    };
-
-    componentDidMount() {
-        const { store } = this.props;
-        store.getArticles().then(result => this.setState({articles: result.data.reverse()}));
-    }
     render() {
-        const { articles } = this.state;
         const { store } = this.props;
 
         return (
@@ -45,7 +32,7 @@ class Index extends React.Component<IndexProps, IndexState> {
                             size={100}
                             thickness={5} />
                         :
-                        articles.map((article, index) =>
+                        store.articles.map((article, index) =>
                             <ArticleTmp key={index} article={article}/>
                         )
                     }

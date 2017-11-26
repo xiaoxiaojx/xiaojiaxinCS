@@ -6,7 +6,8 @@ import {
     GetUserInfo,
     GetArticles,
     GetArticlesRes,
-    User
+    User,
+    PublishArticleReq
 } from "../../services";
 
 type Editor = "富文本" | "Markdown";
@@ -31,6 +32,7 @@ const defaultArticleData: ArticleData = {
 class Store {
     constructor() {
         this.getLocalStorageQaqData();
+        this.getArticles();
     }
     @observable public userInfo: Partial<User> | boolean = false;
     @action.bound public getUserInfo(userName?: string) {
@@ -47,6 +49,7 @@ class Store {
 
     @observable public loadingIndexPage: boolean = false;
 
+    @observable public articles: PublishArticleReq[] = [];
     @action.bound public getArticles(self?: boolean) {
         this.loadingIndexPage = true;
         const qaqData = this.localStorageQaqData;
@@ -55,6 +58,7 @@ class Store {
             .then(action(
                 (result: GetArticlesRes) => {
                     this.loadingIndexPage = false;
+                    this.articles = result.data;
                     return result;
                 }
             ));

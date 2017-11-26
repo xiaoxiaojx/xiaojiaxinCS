@@ -3,7 +3,7 @@ type Method = "GET" | "POST";
 function getApiPrefix(): string {
     switch (location.hostname) {
       case "localhost":
-        return `http://47.100.96.203:${process.env.PORT || "3000"}/api/`;
+        return `http://localhost:${process.env.PORT || "3000"}/api/`;
       default:
         return `http://47.100.96.203:${process.env.PORT || "3000"}/api/`;
     }

@@ -34,7 +34,9 @@ class Home extends React.Component<HomeProps, HomeState> {
     componentDidMount() {
         const { store } = this.props;
         store.getUserInfo().then(result => this.setState({userInfo: result.data}));
-        store.getArticles(true).then(result => this.setState({articles: result.data}));
+        this.setState({
+            articles: store.articles.filter(article => article.userName === store.localStorageQaqData["userName"])
+        });
     }
     render() {
         const { userInfo, articles } = this.state;
