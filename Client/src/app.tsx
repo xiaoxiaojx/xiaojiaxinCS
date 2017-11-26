@@ -17,6 +17,7 @@ import About from "./component/About";
 import Articles from "./component/Articles";
 import Index from "./component/Index";
 import PrivateRoute from "./component/PrivateRoute";
+import ViewArticle from "./component/ViewArticle";
 import "./app.scss";
 
 interface AppProps {
@@ -35,11 +36,12 @@ class App extends React.Component<AppProps, {}> {
                         <Header store={store} />
                         <Main>
                             <Switch>
-                                <Route path="/" component={Index} exact/>
-                                <Route path="/articles" component={() => <Articles store={store}/>}/>
+                                <Route path="/" component={() => <Index  store={store}/>} exact/>
+                                <Route path="/articles" component={() => <Articles store={store}/>} />
                                 <Route path="/about" component={About}/>
                                 <PrivateRoute path="/home" component={() => <Home  store={store}/>}/>
                                 <PrivateRoute path="/settings" component={() => <Settings store={store} /> }/>
+                                <Route path="/article/:id" component={match => <ViewArticle match={match}/>} />
                             </Switch>
                         </Main>
                         <Footer store={store} />

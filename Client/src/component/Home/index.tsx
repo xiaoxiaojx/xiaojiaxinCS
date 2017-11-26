@@ -2,6 +2,7 @@ import * as React from "react";
 import { observer } from "mobx-react";
 import { Card } from "material-ui/Card";
 import Store from "../../store";
+import ArticleTmp from "../ArticleTmp";
 import {
     redirect
 } from "../../common/utils";
@@ -33,7 +34,7 @@ class Home extends React.Component<HomeProps, HomeState> {
     componentDidMount() {
         const { store } = this.props;
         store.getUserInfo().then(result => this.setState({userInfo: result.data}));
-        store.getArticles().then(result => this.setState({articles: result.data}));
+        store.getArticles(true).then(result => this.setState({articles: result.data}));
     }
     render() {
         const { userInfo, articles } = this.state;
@@ -65,24 +66,14 @@ class Home extends React.Component<HomeProps, HomeState> {
                 <main>
                     <div className="header">
                         <span>
-                            0篇文章
+                            {articles.length}篇文章
                         </span>
                     </div>
                     <div className="articles">
                     {
                         articles.length > 0 ?
                         articles.map((article, index) =>
-                            <div key={index}>
-                                <div className="avatar">
-                                    <img src={article.avatar ? article.avatar : DEFAULT_AVATAR_IMG}/>
-                                    <span> {article.nickname} </span>
-                                    <span> {article.date} </span>
-                                </div>
-                                <a className="title"> {article.title} </a>
-                                <a className="content">
-                                    { article.content }
-                                </a>
-                            </div>
+                            <ArticleTmp key={index} article={article}/>
                         )
                         :
                         <div className="article">

@@ -19,7 +19,6 @@ import {
 	DEFAULT_AVATAR_IMG
 } from "../../common/baseImage";
 import {
-    getLocalStorageData,
     redirect
 } from "../../common/utils";
 import {
@@ -57,7 +56,8 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
     }
     setUserInfoService() {
         const { userInfo } = this.state;
-        const qaqData = getLocalStorageData();
+        const { store } = this.props;
+        const qaqData = store.localStorageQaqData;
         SetUserInfoService({...userInfo, userName: qaqData["userName"]} as SetUserInfoReq)
             .then(result => {
                 redirect("/");

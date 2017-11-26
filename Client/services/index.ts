@@ -59,6 +59,12 @@ export interface GetArticlesReq {
 
 export type GetArticlesRes = Result<PublishArticleReq[]>;
 
+export interface GetArticleReq {
+    id: string;
+}
+
+export type GetArticleRes = Result<PublishArticleReq>;
+
 export function Register(data: RegisterReq): Promise<Result> {
     return webapi<Result>("register", data);
 }
@@ -81,4 +87,8 @@ export function PublishArticle(data: PublishArticleReq): Promise<Result> {
 
 export function GetArticles(data: GetArticlesReq): Promise<GetArticlesRes> {
     return webapi<GetArticlesRes>("getArticles", data);
+}
+
+export function GetArticle(data: GetArticleReq): Promise<GetArticleRes> {
+    return webapi<GetArticleRes>("getArticle", data);
 }

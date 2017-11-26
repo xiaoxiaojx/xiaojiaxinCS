@@ -58,7 +58,7 @@
         width: 600px;
         margin: 25px auto;
         padding: 0 25px;
-        background-color: rgba(244, 245, 245, 0.2);
+        background-color: $articleBgc;
 
         .header {
             width: 100%;
@@ -67,50 +67,6 @@
             border-bottom: 1px solid $borderColor;
             font-weight: 600;
             color: #2b445d;
-        }
-
-        .articles {
-            padding: 30px 0;
-
-            & > div {
-                padding-bottom: 10px;
-                border-bottom: 1px solid $borderColor;
-            }
-
-            .avatar {
-                @extend .flexAlignCenter;
-                font-size: 14px;
-                color: #8b8b8b;
-                width: 100%;
-
-                img {
-                    margin-right: 6px;
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 30px;
-                }
-
-                span {
-                    margin: 0px 6px;
-                }
-            }
-
-            .title {
-                display: block;
-                color: #909090;
-                margin: 20px 0 10px;
-                font-size: 24px;
-                font-weight: 600;
-            }
-
-            .content {
-                display: block;
-                height: 45px;
-                overflow: hidden;
-                word-break: break-all;
-                color: #8b8b8b;
-                font-size: 16px;
-            }
         }
     }
 }

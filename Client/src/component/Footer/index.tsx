@@ -9,7 +9,6 @@ import Register from "../Register";
 import Store from "../../store";
 import Modal from "../Modal";
 import {
-    getLocalStorageData,
     autoBindMethods,
     redirect
 } from "../../common/utils";
@@ -34,7 +33,11 @@ class Footer extends React.Component<FooterProps, FooterState> {
     };
 
     componentDidMount() {
-        const qaqData = getLocalStorageData();
+        this.showModal1();
+    }
+    showModal1() {
+        const { store } = this.props;
+        const qaqData = store.localStorageQaqData;
         this.setState({
             visible: !qaqData
         });
@@ -80,11 +83,11 @@ class Footer extends React.Component<FooterProps, FooterState> {
 					<Tabs>
 						<Tab label="登录" >
 							<Login
-								close={this.onCancelM2}/>
+                                store={store} />
 						</Tab>
 						<Tab label="注册" >
 							<Register
-								close={this.onCancelM2}/>
+                                store={store} />
 						</Tab>
 					</Tabs>
 				</Modal>

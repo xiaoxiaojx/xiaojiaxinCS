@@ -61,37 +61,47 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
         const { articleData } = store;
         const hasTitle = Boolean(articleData.title);
         const hasContent = articleData.editor === "富文本" ?
-                Boolean(articleData.quillVal) :
-                Boolean(articleData.markVal);
+                articleData.quillVal !== "" :
+                articleData.markVal !== "";
         return !(hasTitle && hasContent);
     }
     handlePublish() {
         const { store } = this.props;
-        const { userInfo } = this.state;
-        const { userName, nickname,  avatar} = userInfo;
-        const { articleData, initArticleData } = store;
-        const { editor, title, quillVal, markVal } = articleData;
-        const date = moment(new Date()).format("YYYY-MM-DD hh:mm");
-        const data: PublishArticleReq = {
-            title,
-            content: editor === "富文本" ? quillVal : markVal,
-            date,
-            userName,
-            nickname,
-            avatar
-        };
-        PublishArticle(data)
-            .then(result => {
-                if (!result.error) {
-                    initArticleData();
-                }
-                this.setState({
-                    tooltip: {
-                        visible: true,
-                        message: result.message
+        const qaqData = store.localStorageQaqData;
+        if (qaqData) {
+            const { userInfo } = this.state;
+            const { userName, nickname,  avatar} = userInfo;
+            const { articleData, initArticleData } = store;
+            const { editor, title, quillVal, markVal } = articleData;
+            const date = moment(new Date()).format("YYYY-MM-DD hh:mm");
+            const data: PublishArticleReq = {
+                title,
+                content: editor === "富文本" ? quillVal : markVal,
+                date,
+                userName,
+                nickname,
+                avatar
+            };
+            PublishArticle(data)
+                .then(result => {
+                    if (!result.error) {
+                        initArticleData();
                     }
+                    this.setState({
+                        tooltip: {
+                            visible: true,
+                            message: result.message
+                        }
+                    });
                 });
+        } else {
+            this.setState({
+                tooltip: {
+                    visible: true,
+                    message: "只有登录了才能发表文章哦"
+                }
             });
+        }
     }
     render() {
         const { store } = this.props;

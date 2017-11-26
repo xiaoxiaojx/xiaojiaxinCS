@@ -8,7 +8,6 @@ import SignOut from "material-ui/svg-icons/action/exit-to-app";
 import Tooltip from "../Tooltip";
 import Store from "../../store";
 import {
-	getLocalStorageData,
 	autoBindMethods
 } from "../../common/utils";
 import {
@@ -52,6 +51,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 		focusNavBtn: FocusNavBtn.Home,
 		anchorEl: null
 	};
+
+	componentDidMount() {
+	}
 	setShowModal(showModal: ShowModal) {
 		this.setState({
 			showModal,
@@ -83,7 +85,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 	render() {
 		const { showModal, focusNavBtn, anchorEl } = this.state;
 		const { store } = this.props;
-		const data = getLocalStorageData();
+		const data = store.localStorageQaqData;
 
         return (
             <div className="HeaderWrap">

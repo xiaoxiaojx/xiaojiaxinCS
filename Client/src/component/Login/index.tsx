@@ -1,9 +1,11 @@
 import * as React from "react";
+import { observer } from "mobx-react";
 import {
     TextField,
     RaisedButton,
 } from "material-ui";
 import Tooltip from "../Tooltip";
+import Store from "../../store";
 import Rules from "../../common/rules";
 import {
     redirect
@@ -15,7 +17,7 @@ import {
 import "./index.scss";
 
 interface LoginProps {
-    close: Function;
+    store: Store;
 }
 
 interface LoginState {
@@ -28,6 +30,7 @@ interface LoginState {
     disabled: boolean;
 }
 
+@observer
 class Login extends React.Component<LoginProps, LoginState> {
     state: LoginState = {
         errorText: {
@@ -91,7 +94,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
     login(): boolean {
         const { user } = this.state;
-        const { close } = this.props;
+        const { store } = this.props;
         this.setDisabled(true);
         if (!user.userName) {
             this.setErrorText({userName: Rules.userName.error});
@@ -113,8 +116,8 @@ class Login extends React.Component<LoginProps, LoginState> {
                     this.showModalMessage(result.message);
                 } else {
                     this.showModalMessage(result.message);
-                    localStorage.setItem("qaqData", JSON.stringify(user));
-                    close();
+                    store.setLocalStorageQaqData(user);
+                    store.setShowLoginRegisterModal(false);
                     redirect("/");
                 }
                 this.setDisabled(false);

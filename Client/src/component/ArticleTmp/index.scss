@@ -1,0 +1,45 @@
+@import "../../common/baseStyle";
+
+.ArticleTmpWrap {
+    padding: 20px 0 10px;
+    border-bottom: 1px solid $borderColor;
+
+    .avatar {
+        @extend .flexAlignCenter;
+        font-size: 14px;
+        color: #8b8b8b;
+        width: 100%;
+
+        img {
+            margin-right: 6px;
+            width: 30px;
+            height: 30px;
+            border-radius: 30px;
+        }
+
+        span {
+            margin: 0px 6px;
+        }
+    }
+
+    a {
+        cursor: pointer !important;
+    }
+
+    .title {
+        display: block;
+        color: #909090;
+        margin: 20px 0 10px;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .content {
+        display: block;
+        height: 45px;
+        overflow: hidden;
+        word-break: break-all;
+        color: #8b8b8b;
+        font-size: 16px;
+    }
+}

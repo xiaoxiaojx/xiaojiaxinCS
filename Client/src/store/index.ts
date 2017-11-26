@@ -4,7 +4,8 @@ import {
 } from "../common/utils";
 import {
     GetUserInfo,
-    GetArticles
+    GetArticles,
+    User
 } from "../../services";
 
 type Editor = "富文本" | "Markdown";
@@ -27,18 +28,27 @@ const defaultArticleData: ArticleData = {
 };
 
 class Store {
-    @action.bound public getUserInfo() {
-        const qaqData = getLocalStorageData();
-        if (qaqData) {
-            return   GetUserInfo({userName: qaqData["userName"]});
+    constructor() {
+        this.getLocalStorageQaqData();
+    }
+    @observable public userInfo: Partial<User> | boolean = false;
+    @action.bound public getUserInfo(userName?: string) {
+        const qaqData = this.localStorageQaqData;
+        if (qaqData || userName) {
+            return   GetUserInfo({userName: userName ? userName : qaqData["userName"]})
+                .then(result => {
+                    this.userInfo = result.data;
+                    return result;
+                });
         }
         return Promise.reject("No login");
     }
 
-    @action.bound public getArticles() {
-        const qaqData = getLocalStorageData();
+    @action.bound public getArticles(self?: boolean) {
+        const qaqData = this.localStorageQaqData;
+        const filter = self ? { userName: qaqData["userName"] } : {};
         if (qaqData) {
-            return   GetArticles({userName: qaqData["userName"]});
+            return   GetArticles(filter);
         }
         return Promise.reject("No login");
     }
@@ -54,16 +64,34 @@ class Store {
         if (data.title && data.title.length > 50) {
             return;
         }
-        if (data.quillVal && data.quillVal.length > 2000) {
+        if (data.quillVal && data.quillVal.length > 10000) {
             return;
         }
-        if (data.markVal && data.markVal.length > 2000) {
+        if (data.markVal && data.markVal.length > 10000) {
             return;
         }
         this.articleData = { ...this.articleData, ...data };
     }
     @action.bound initArticleData() {
         this.articleData = defaultArticleData;
+    }
+
+    @observable public localStorageQaqData: Partial<User> | boolean = false;
+    @action.bound public setLocalStorageQaqData(data: Partial<User> | boolean) {
+        localStorage.setItem("qaqData", JSON.stringify(data));
+        this.localStorageQaqData = data ? { avatar: this.userInfo["avatar"], ...(data as any)} : false;
+    }
+    @action.bound public getLocalStorageQaqData() {
+        const data = getLocalStorageData();
+        this.localStorageQaqData = data;
+        if (data) {
+            this.getUserInfo(data["userName"])
+                .then(action(
+                    result => {
+                        this.localStorageQaqData = {avatar: result["data"].avatar, ...(data as any)};
+                    }
+                ));
+        }
     }
 }
 

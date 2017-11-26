@@ -1,9 +1,11 @@
 import * as React from "react";
+import { observer } from "mobx-react";
 import {
     TextField,
     RaisedButton
 } from "material-ui";
 import Tooltip from "../Tooltip";
+import Store from "../../store";
 import Rules from "../../common/rules";
 import {
     redirect
@@ -15,7 +17,7 @@ import {
 import "./index.scss";
 
 interface RegisterProps {
-    close: Function;
+    store: Store;
 }
 
 interface RegisterState {
@@ -28,6 +30,7 @@ interface RegisterState {
     disabled: boolean;
 }
 
+@observer
 class Register extends React.Component<RegisterProps, RegisterState> {
     state: RegisterState = {
         errorText: {
@@ -75,7 +78,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     }
     register(): boolean {
         const { user } = this.state;
-        const { close } = this.props;
+        const { store } = this.props;
         this.setDisabled(true);
         if ( !user.nickname) {
             this.setErrorText({nickname: Rules.nickname.error});
@@ -102,8 +105,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                     this.showModalMessage(result.message);
                 } else {
                     this.showModalMessage(result.message);
-                    localStorage.setItem("qaqData", JSON.stringify(user));
-                    close();
+                    store.setLocalStorageQaqData(user);
+                    store.setShowLoginRegisterModal(false);
                     redirect("/settings");
                 }
                 this.setDisabled(false);

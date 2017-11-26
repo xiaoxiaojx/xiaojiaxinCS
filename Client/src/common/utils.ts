@@ -40,3 +40,7 @@ export function initKeyboardEvent (e: any) {
         e.preventDefault();
     }
 }
+
+export function replaceHtmlTag(str: string): string {
+    return str.replace(/<[^>]*>/g, "");
+}
