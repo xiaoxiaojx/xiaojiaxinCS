@@ -54,7 +54,7 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
             <div className="ViewArticleWrap">
                 <main>
                     <div className="avatar">
-                        <img src={src}/>
+                        <img src={src} onClick={() => redirect(`/home/${article.userName}`)}/>
                         <span>
                             <div className="nickname">
                                 { article.nickname }
@@ -79,7 +79,7 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                 <nav>
                     <div className="allArticles">
                         <div>
-                            所有文章
+                            Ta的所有文章
                         </div>
                         {
                             articles.map((art, index) =>

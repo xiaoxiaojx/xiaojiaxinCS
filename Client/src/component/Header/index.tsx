@@ -139,7 +139,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 							<MenuItem>
 								<div className="personalMenu">
 									<ActionHome />
-									<Link to="/home"> 主页 </Link>
+									<Link to={`/home/${data["userName"]}`}> 主页 </Link>
 								</div>
 							</MenuItem>
 							<MenuItem>

@@ -11,12 +11,15 @@ import {
 } from "../../common/baseImage";
 import {
     User,
-    PublishArticleReq
+    PublishArticleReq,
+    GetUserInfo,
+    GetArticles
 } from "../../../services";
 import "./index.scss";
 
 interface HomeProps {
     store: Store;
+    match: any;
 }
 
 interface HomeState {
@@ -32,11 +35,30 @@ class Home extends React.Component<HomeProps, HomeState> {
     };
 
     componentDidMount() {
-        const { store } = this.props;
-        store.getUserInfo().then(result => this.setState({userInfo: result.data}));
-        this.setState({
-            articles: store.articles.filter(article => article.userName === store.localStorageQaqData["userName"])
-        });
+        this.getUserInfo();
+        this.getArticles();
+    }
+    getUserInfo() {
+        const { match } = this.props;
+        const { userName } = match.match.params;
+        GetUserInfo({userName})
+            .then(result => {
+                this.setState({userInfo: result.data});
+            });
+    }
+    getArticles() {
+        const { match } = this.props;
+        const { userName } = match.match.params;
+        GetArticles({userName})
+            .then(result => {
+                this.setState({articles: result.data});
+            });
+    }
+    isSelf() {
+        const { store, match } = this.props;
+        const { userName } = match.match.params;
+        const { localStorageQaqData } = store;
+        return localStorageQaqData && userName === localStorageQaqData["userName"];
     }
     render() {
         const { userInfo, articles } = this.state;
@@ -59,11 +81,15 @@ class Home extends React.Component<HomeProps, HomeState> {
                         </a>
                     </div>
                     <div className="selfIntroduction"> {selfIntroduction} </div>
-                    <button
-                        className="setting"
-                        onClick={() => redirect("/settings")}>
-                        设置
-                    </button>
+                    {
+                        this.isSelf() ?
+                        <button
+                            className="setting"
+                            onClick={() => redirect("/settings")}>
+                            设置
+                        </button> : null
+
+                    }
                 </header>
                 <main>
                     <div className="header">

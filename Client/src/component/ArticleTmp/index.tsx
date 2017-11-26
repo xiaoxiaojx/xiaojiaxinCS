@@ -1,5 +1,8 @@
 import * as React from "react";
 import {
+    IconButton
+} from "material-ui";
+import {
     redirect,
     replaceHtmlTag
 } from "../../common/utils";
@@ -22,7 +25,12 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
         return (
             <div className="ArticleTmpWrap">
                 <div className="avatar">
-                    <img src={article.avatar ? article.avatar : DEFAULT_AVATAR_IMG}/>
+                    <IconButton
+                        onClick={() => redirect(`/home/${article.userName}`)}
+                        tooltip="点击进入我的主页">
+                        <img
+                            src={article.avatar ? article.avatar : DEFAULT_AVATAR_IMG}/>
+                    </IconButton>
                     <span> {article.nickname} </span>
                     <span> {article.date} </span>
                 </div>
