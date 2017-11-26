@@ -78,7 +78,10 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                             articles.map((art, index) =>
                             <div key={index} className="articlesList">
                                 <a
-                                    onClick={() => redirect(`/article/${art["_id"]}`)}>
+                                    onClick={() => {
+                                        redirect(`/article/${art["_id"]}`);
+                                        location.reload();
+                                    }}>
                                     {art.title}
                                 </a>
                                 <span className="date"> {art.date} </span>

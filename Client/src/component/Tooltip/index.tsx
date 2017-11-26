@@ -22,14 +22,12 @@ export default function Tooltip(props: TooltipProps) {
     const {
         visible,
         message,
-        autoHideDuration = 4000
     } = props;
 
     return (
         <Snackbar
             {...snackbarStyle}
             open={visible}
-            message={message}
-            autoHideDuration={autoHideDuration} />
+            message={message} />
     );
 }

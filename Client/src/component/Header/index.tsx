@@ -5,10 +5,10 @@ import { observer } from "mobx-react";
 import ActionHome from "material-ui/svg-icons/action/home";
 import Settings from "material-ui/svg-icons/action/settings";
 import SignOut from "material-ui/svg-icons/action/exit-to-app";
-import Tooltip from "../Tooltip";
 import Store from "../../store";
 import {
-	autoBindMethods
+	autoBindMethods,
+	redirect
 } from "../../common/utils";
 import {
 	DEFAULT_AVATAR_IMG
@@ -17,7 +17,6 @@ import "./index.scss";
 
 enum ShowModal {
 	No = "No",
-	LogoDialog = "LogoDialog",
 	Settings = "Settings"
 }
 
@@ -53,6 +52,23 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 	};
 
 	componentDidMount() {
+		this.setCorrectFocusNavBtn();
+	}
+	setCorrectFocusNavBtn() {
+		let focusNavBtn: FocusNavBtn;
+		const { hash } = location;
+		switch ( hash ) {
+			case "#/articles":
+				focusNavBtn = FocusNavBtn.Article;
+				break;
+			case "#/about":
+				focusNavBtn = FocusNavBtn.AboutUs;
+				break;
+			default:
+				focusNavBtn = FocusNavBtn.Home;
+				break;
+		}
+		this.setFocusNavBtn(focusNavBtn);
 	}
 	setShowModal(showModal: ShowModal) {
 		this.setState({
@@ -93,11 +109,11 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 					<FlatButton
 						label=" "
 						primary={true}
-						onClick={ () => this.setShowModal(ShowModal.LogoDialog) }>
+						onClick={ () => {
+							this.setFocusNavBtn(FocusNavBtn.Home);
+							redirect("/");
+						} }>
 					</FlatButton>
-					<Tooltip
-						visible={showModal === ShowModal.LogoDialog}
-						message="Hello Word" />
                 </div>
                 <div className="welcome">
 					{

@@ -3,6 +3,9 @@ import { observer } from "mobx-react";
 import { Card } from "material-ui/Card";
 import ArticleTmp from "../ArticleTmp";
 import {
+    CircularProgress
+} from "material-ui";
+import {
     PublishArticleReq
 } from "../../../services";
 import Store from "../../store";
@@ -28,6 +31,7 @@ class Index extends React.Component<IndexProps, IndexState> {
     }
     render() {
         const { articles } = this.state;
+        const { store } = this.props;
 
         return (
             <Card className="IndexWrap">
@@ -35,6 +39,12 @@ class Index extends React.Component<IndexProps, IndexState> {
                 </header>
                 <section>
                     {
+                        store.loadingIndexPage ?
+                        <CircularProgress
+                            className="progress"
+                            size={100}
+                            thickness={5} />
+                        :
                         articles.map((article, index) =>
                             <ArticleTmp key={index} article={article}/>
                         )

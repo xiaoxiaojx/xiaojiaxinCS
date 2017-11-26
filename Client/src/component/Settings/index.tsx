@@ -61,6 +61,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         SetUserInfoService({...userInfo, userName: qaqData["userName"]} as SetUserInfoReq)
             .then(result => {
                 redirect("/");
+                store.getLocalStorageQaqData();
             });
     }
     setUserInfo(data: Partial<User>) {

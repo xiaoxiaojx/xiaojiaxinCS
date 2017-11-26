@@ -36,7 +36,7 @@ class App extends React.Component<AppProps, {}> {
                         <Header store={store} />
                         <Main>
                             <Switch>
-                                <Route path="/" component={() => <Index  store={store}/>} exact/>
+                                <Route path="/" component={() => <Index store={store}/>} exact/>
                                 <Route path="/articles" component={() => <Articles store={store}/>} />
                                 <Route path="/about" component={About}/>
                                 <PrivateRoute path="/home" component={() => <Home  store={store}/>}/>

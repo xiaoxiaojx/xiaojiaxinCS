@@ -4,5 +4,12 @@
 
     section {
         padding: 30px 50px;
+        min-height: 700px;
+        transition: all 1s ease-in-out;
+    }
+
+    .progress {
+        margin: 200px 430px;
+        width: 200px !important;
     }
 }

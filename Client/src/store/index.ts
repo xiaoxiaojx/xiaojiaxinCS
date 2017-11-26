@@ -5,6 +5,7 @@ import {
 import {
     GetUserInfo,
     GetArticles,
+    GetArticlesRes,
     User
 } from "../../services";
 
@@ -44,13 +45,19 @@ class Store {
         return Promise.reject("No login");
     }
 
+    @observable public loadingIndexPage: boolean = false;
+
     @action.bound public getArticles(self?: boolean) {
+        this.loadingIndexPage = true;
         const qaqData = this.localStorageQaqData;
         const filter = self ? { userName: qaqData["userName"] } : {};
-        if (qaqData) {
-            return   GetArticles(filter);
-        }
-        return Promise.reject("No login");
+        return GetArticles(filter)
+            .then(action(
+                (result: GetArticlesRes) => {
+                    this.loadingIndexPage = false;
+                    return result;
+                }
+            ));
     }
 
     @observable public showLoginRegisterModal: boolean = false;

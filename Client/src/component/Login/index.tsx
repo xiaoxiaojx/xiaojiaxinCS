@@ -85,12 +85,21 @@ class Login extends React.Component<LoginProps, LoginState> {
         this.setUser({ password });
     }
     showModalMessage(message: string) {
+        const _this = this;
         this.setState({
             modalData: {
                 showModal: true,
                 message
             }
         });
+        setTimeout(() => {
+            _this.setState({
+                modalData: {
+                    showModal: false,
+                    message: ""
+                }
+            });
+        }, 4000);
     }
     login(): boolean {
         const { user } = this.state;
