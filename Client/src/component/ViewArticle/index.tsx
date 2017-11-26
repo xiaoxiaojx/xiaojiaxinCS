@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactMarkdown from "react-markdown";
 import {
     GetArticle,
     PublishArticleReq,
@@ -66,8 +67,14 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                     <h1 className="title">
                         { article.title }
                     </h1>
-                    <p dangerouslySetInnerHTML={{__html: article.content}}>
-                    </p>
+                    {
+                        article.editor === "Markdown" ?
+                        <ReactMarkdown
+                            source={article.content} />
+                        :
+                        <p dangerouslySetInnerHTML={{__html: article.content}}>
+                        </p>
+                    }
                 </main>
                 <nav>
                     <div className="allArticles">

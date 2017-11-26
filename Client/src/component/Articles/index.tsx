@@ -76,6 +76,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
             const date = moment(new Date()).format("YYYY-MM-DD hh:mm");
             const data: PublishArticleReq = {
                 title,
+                editor,
                 content: editor === "富文本" ? quillVal : markVal,
                 date,
                 userName,

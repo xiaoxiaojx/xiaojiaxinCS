@@ -4,8 +4,8 @@ import Article from "../models/Article";
 const $findNot = {"__v": 0};
 
 export const publishArticle = (req: Request, res: Response) => {
-    const { userName, nickname, avatar, title, content, date } = req.body;
-    Article.insertMany({userName, nickname, avatar, title, content, date}, (err, doc) => {
+    const { userName, nickname, avatar, title, content, date, editor } = req.body;
+    Article.insertMany({userName, nickname, avatar, title, content, date, editor}, (err, doc) => {
         if ( err ) throw err;
         if (doc) {
             res.send({

@@ -6,7 +6,8 @@ const articleSchema = new mongoose.Schema({
     avatar: String,
     title: String,
     content: String,
-    date: String
+    date: String,
+    editor: String
 });
 
 const Article = mongoose.model("Article", articleSchema);

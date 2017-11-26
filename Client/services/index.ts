@@ -44,8 +44,11 @@ export interface SetUserInfoReq {
 
 export type GetUserInfoRes = Result<User>;
 
+export type Editor = "富文本" | "Markdown";
+
 export interface PublishArticleReq {
     title: string;
+    editor: Editor;
     content: string;
     date: string;
     userName: string;
