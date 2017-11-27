@@ -102,6 +102,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 		const { showModal, focusNavBtn, anchorEl } = this.state;
 		const { store } = this.props;
 		const data = store.localStorageQaqData;
+		const toHome = data ? `/home/${data["userName"]}` : `/`;
 
         return (
             <div className="HeaderWrap">
@@ -139,7 +140,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 							<MenuItem>
 								<div className="personalMenu">
 									<ActionHome />
-									<Link to={`/home/${data["userName"]}`}> 主页 </Link>
+									<Link to={toHome}> 主页 </Link>
 								</div>
 							</MenuItem>
 							<MenuItem>
