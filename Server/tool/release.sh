@@ -8,6 +8,7 @@ if [[ -d $folder ]]; then
   cd $folder;
   git pull;
   cp -r ../xiaojiaxinCS/Server/bin/* ./;
+  cp -r ../xiaojiaxinCS/Server/package.json ./;
   git add .;
   git commit -m 'auto push';
   git push;

@@ -1,5 +1,6 @@
 import {
-    webapi
+    webapi,
+    getApiPrefix
 } from "./webapi";
 
 export interface Result<T = null> {
@@ -94,4 +95,20 @@ export function GetArticles(data: GetArticlesReq): Promise<GetArticlesRes> {
 
 export function GetArticle(data: GetArticleReq): Promise<GetArticleRes> {
     return webapi<GetArticleRes>("getArticle", data);
+}
+
+export function UploadImg(data)  {
+    return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        const formData = new FormData();
+        request.responseType = "json";
+        formData.append("avatar", data);
+        request.open("post", `${getApiPrefix()}uploadImg`);
+        request.onreadystatechange = () => {
+            if ( request.readyState === 4 ) {
+                resolve(request.response);
+            }
+        };
+        request.send(formData);
+    });
 }

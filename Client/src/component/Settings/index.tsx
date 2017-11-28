@@ -24,7 +24,8 @@ import {
 import {
     SetUserInfo as SetUserInfoService,
     SetUserInfoReq,
-    User
+    User,
+    UploadImg
 } from "../../../services";
 import "./index.scss";
 
@@ -74,15 +75,16 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
     handleUpload() {
         this.fileNode.click();
     }
-    handleFileChange(e) {
+    handleFileChange() {
         const file = this.fileNode.files[0];
-        const fileReader = new FileReader();
-        fileReader.onload =  (event: any) => {
-            this.setUserInfo({
-                avatar: event.target.result
+        UploadImg(file)
+            .then((result: any) => {
+                if (!result.error) {
+                    this.setUserInfo({
+                        avatar: result.data
+                    });
+                }
             });
-        };
-        fileReader.readAsDataURL(file);
     }
     handleSubmit() {
         const { userInfo } = this.state;
