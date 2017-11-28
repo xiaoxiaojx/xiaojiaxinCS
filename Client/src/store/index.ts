@@ -58,7 +58,7 @@ class Store {
             .then(action(
                 (result: GetArticlesRes) => {
                     this.loadingIndexPage = false;
-                    this.articles = result.data;
+                    this.articles = result.data.reverse();
                     return result;
                 }
             ));
