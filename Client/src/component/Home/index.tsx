@@ -51,7 +51,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         const { userName } = match.match.params;
         GetArticles({userName})
             .then(result => {
-                this.setState({articles: result.data});
+                this.setState({articles: result.data.reverse()});
             });
     }
     isSelf() {
