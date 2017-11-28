@@ -44,3 +44,13 @@ export function initKeyboardEvent (e: any) {
 export function replaceHtmlTag(str: string): string {
     return str.replace(/<[^>]*>/g, "");
 }
+
+export function getElementByAttr(tag, attr, value) {
+    const aElements = document.getElementsByTagName(tag);
+    const aEle = [];
+    for (let i = 0; i < aElements.length; i++) {
+        if (aElements[i].getAttribute(attr).includes(value))
+            aEle.push( aElements[i] );
+    }
+    return aEle;
+}

@@ -21,12 +21,14 @@ import {
     formats
 } from "../../common/constant";
 import {
-    initKeyboardEvent
+    initKeyboardEvent,
+    getElementByAttr
 } from "../../common/utils";
 import {
     User,
     PublishArticleReq,
-    PublishArticle
+    PublishArticle,
+    UploadImg
 } from "../../../services";
 import "./index.scss";
 
@@ -55,6 +57,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
     componentDidMount() {
         const { store } = this.props;
         store.getUserInfo().then(result => this.setState({userInfo: result.data}));
+        this.addEventListener();
     }
     isDisabled() {
         const { store } = this.props;
@@ -64,6 +67,21 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                 articleData.quillVal !== "" :
                 articleData.markVal !== "";
         return !(hasTitle && hasContent);
+    }
+    addEventListener() {
+        const uploadImageBtn = document.getElementsByClassName("ql-image")[0];
+        uploadImageBtn.addEventListener("click", () => {
+            const hidFileInput = getElementByAttr("input", "type", "file")[0];
+            hidFileInput.addEventListener("change", () => {
+                const file = hidFileInput.files[0];
+                UploadImg(file)
+                    .then(result => {
+                        const base64ImgLength = getElementByAttr("img", "src", "data:image/").length;
+                        const targetImg = getElementByAttr("img", "src", "data:image/")[base64ImgLength - 1];
+                        targetImg.src = result["data"];
+                    });
+            });
+        });
     }
     handlePublish() {
         const { store } = this.props;
@@ -109,6 +127,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
         const { tooltip } = this.state;
         const { setArticleData, articleData } = store;
         const { editor, title, quillVal, markVal } = articleData;
+        console.log(quillVal);
 
         return (
             <Card className="ArticlesWrap">
