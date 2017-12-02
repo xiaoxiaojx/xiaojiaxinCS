@@ -11,9 +11,9 @@ import {
 } from "../../common/baseImage";
 import {
     User,
-    PublishArticleRes,
+    PublishArticlesRes,
     GetUserInfo,
-    GetArticles
+    GetArticles,
 } from "../../../services";
 import "./index.scss";
 
@@ -24,7 +24,7 @@ interface HomeProps {
 
 interface HomeState {
     userInfo: Partial<User>;
-    articles: PublishArticleRes[];
+    articles: PublishArticlesRes[];
 }
 
 @observer

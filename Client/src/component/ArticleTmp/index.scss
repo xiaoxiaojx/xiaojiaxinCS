@@ -46,9 +46,13 @@
 
     .comment {
         display: flex;
-        align-content: flex-start;
+        align-items: center;
         font-size: 12px;
         color: #b4b4b4;
+
+        span {
+            margin-right: 10px;
+        }
         
         svg {
             color: #b4b4b4 !important;

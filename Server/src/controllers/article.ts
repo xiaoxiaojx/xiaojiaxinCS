@@ -41,7 +41,12 @@ export const getArticles = async (req: Request, res: Response) => {
         title: articleDocs[index]["title"],
         content: articleDocs[index]["content"],
         date: articleDocs[index]["date"],
-        like: [],
+        like: articleDocs[index]["like"].reduce((pVal, cVal) => {
+            return ++ pVal;
+        }, 0),
+        comment: articleDocs[index]["comment"].reduce((pVal, cVal) => {
+            return ++ pVal;
+        }, 0),
         editor: articleDocs[index]["editor"],
         nickname: item["nickname"],
         avatar: item["avatar"],

@@ -11,6 +11,7 @@ import IFavorite from "material-ui/svg-icons/action/favorite";
 import {
     GetArticle,
     PublishArticleRes,
+    PublishArticlesRes,
     GetArticles,
     SetArticle,
     User
@@ -32,7 +33,7 @@ interface ViewArticleProps {
 
 interface ViewArticleState {
     article: PublishArticleRes;
-    articles: PublishArticleRes[];
+    articles: PublishArticlesRes[];
     commentContent: string;
 }
 

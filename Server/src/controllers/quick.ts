@@ -6,13 +6,13 @@ const userInfo = {};
 
 export function quickGetUserInfo(userName: string) {
     return new Promise((res, rej) => {
-        if (userInfo["userName"]) {
-            res(userInfo["userName"]);
+        if (userInfo[userName]) {
+            res(userInfo[userName]);
         } else {
             User.findOne({userName}, $findNot, (err, doc) => {
                 if ( err ) throw err;
                 if (doc) {
-                    userInfo["userName"] = doc;
+                    userInfo[userName] = doc;
                     res(doc);
                 }
                 else {

@@ -68,11 +68,24 @@ export interface PublishArticleRes {
     avatar: string;
 }
 
+export interface PublishArticlesRes {
+    _id: string;
+    title: string;
+    editor: Editor;
+    content: string;
+    date: string;
+    likeLength: number;
+    commentLength: number;
+    userName: string;
+    nickname: string;
+    avatar: string;
+}
+
 export interface GetArticlesReq {
     userName?: string;
 }
 
-export type GetArticlesRes = Result<PublishArticleRes[]>;
+export type GetArticlesRes = Result<PublishArticlesRes[]>;
 
 export interface GetArticleReq {
     id: string;

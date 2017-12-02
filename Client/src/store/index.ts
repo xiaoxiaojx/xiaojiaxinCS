@@ -7,7 +7,7 @@ import {
     GetArticles,
     GetArticlesRes,
     User,
-    PublishArticleRes
+    PublishArticlesRes
 } from "../../services";
 
 type Editor = "富文本" | "Markdown";
@@ -51,7 +51,7 @@ class Store {
 
     @observable public loadingIndexPage: boolean = false;
 
-    @observable public articles: PublishArticleRes[] = [];
+    @observable public articles: PublishArticlesRes[] = [];
     @action.bound public getArticles(self?: boolean) {
         this.loadingIndexPage = true;
         const qaqData = this.localStorageQaqData;

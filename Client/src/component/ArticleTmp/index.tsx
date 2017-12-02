@@ -13,12 +13,12 @@ import {
 	DEFAULT_AVATAR_IMG
 } from "../../common/baseImage";
 import {
-    PublishArticleRes
+    PublishArticlesRes
 } from "../../../services";
 import "./index.scss";
 
 interface ArticleTmpProps {
-    article: PublishArticleRes;
+    article: PublishArticlesRes;
 }
 
 class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
@@ -48,9 +48,9 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                 </a>
                 <div className="comment">
                     <IChat />
-                    <span> 122 </span>
+                    <span> {article.likeLength} </span>
                     <IFavorite />
-                    <span> 122 </span>
+                    <span> {article.commentLength} </span>
                 </div>
             </div>
         );
