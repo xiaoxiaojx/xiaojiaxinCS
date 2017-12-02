@@ -34,6 +34,11 @@ export const getArticles = async (req: Request, res: Response) => {
             resolve(docs);
         });
     });
+    const getLength = (arr: any[]): number => {
+        let targetArr: any[] = [];
+        targetArr = arr.map((item, index) => index);
+        return targetArr.length;
+    };
     const userInfos = await Promise.all(articleDocs.map(item => quickGetUserInfo(item["userName"])));
     const data = userInfos.map((item, index) => ({
         _id: articleDocs[index]["_id"],
@@ -41,12 +46,8 @@ export const getArticles = async (req: Request, res: Response) => {
         title: articleDocs[index]["title"],
         content: articleDocs[index]["content"],
         date: articleDocs[index]["date"],
-        like: articleDocs[index]["like"].reduce((pVal, cVal) => {
-            return ++ pVal;
-        }, 0),
-        comment: articleDocs[index]["comment"].reduce((pVal, cVal) => {
-            return ++ pVal;
-        }, 0),
+        like: getLength(articleDocs[index]["like"]),
+        comment: getLength(articleDocs[index]["comment"]),
         editor: articleDocs[index]["editor"],
         nickname: item["nickname"],
         avatar: item["avatar"],
