@@ -32,6 +32,8 @@ import {
 } from "../../../services";
 import "./index.scss";
 
+const NewReactQuill: any = ReactQuill;
+
 interface ArticlesProps {
     store: Store;
 }
@@ -56,7 +58,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
 
     componentDidMount() {
         const { store } = this.props;
-        store.getUserInfo().then(result => this.setState({userInfo: result.data}));
+        store.getUserInfo().then(result => result.data && this.setState({userInfo: result.data}));
         this.addEventListener();
     }
     isDisabled() {
@@ -71,13 +73,13 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
     addEventListener() {
         const uploadImageBtn = document.getElementsByClassName("ql-image")[0];
         uploadImageBtn.addEventListener("click", () => {
-            const hidFileInput = getElementByAttr("input", "type", "file")[0];
+            const hidFileInput: HTMLInputElement = getElementByAttr("input", "type", "file")[0];
             hidFileInput.addEventListener("change", () => {
-                const file = hidFileInput.files[0];
+                const file = hidFileInput.files ? hidFileInput.files[0] : "";
                 UploadImg(file)
                     .then(result => {
                         const base64ImgLength = getElementByAttr("img", "src", "data:image/").length;
-                        const targetImg = getElementByAttr("img", "src", "data:image/")[base64ImgLength - 1];
+                        const targetImg: HTMLImageElement = getElementByAttr("img", "src", "data:image/")[base64ImgLength - 1];
                         targetImg.src = result["data"];
                     });
             });
@@ -88,19 +90,17 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
         const qaqData = store.localStorageQaqData;
         if (qaqData) {
             const { userInfo } = this.state;
-            const { userName, nickname,  avatar} = userInfo;
+            const { userName } = userInfo;
             const { articleData, initArticleData } = store;
             const { editor, title, quillVal, markVal } = articleData;
             const date = moment(new Date()).format("YYYY-MM-DD hh:mm");
-            const data: PublishArticleReq = {
+            const data = {
                 title,
                 editor,
                 content: editor === "富文本" ? quillVal : markVal,
                 date,
                 userName,
-                nickname,
-                avatar
-            };
+            } as PublishArticleReq;
             PublishArticle(data)
                 .then(result => {
                     if (!result.error) {
@@ -157,7 +157,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                     <div>
                         {
                             editor === "富文本" ?
-                            <ReactQuill
+                            <NewReactQuill
                                 modules={modules}
                                 formats={formats}
                                 theme="snow"

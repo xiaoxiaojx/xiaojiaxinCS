@@ -7,7 +7,7 @@ import {
     GetArticles,
     GetArticlesRes,
     User,
-    PublishArticleReq
+    PublishArticleRes
 } from "../../services";
 
 type Editor = "富文本" | "Markdown";
@@ -40,7 +40,9 @@ class Store {
         if (qaqData || userName) {
             return   GetUserInfo({userName: userName ? userName : qaqData["userName"]})
                 .then(result => {
-                    this.userInfo = result.data;
+                    if (result.data) {
+                        this.userInfo = result.data;
+                    }
                     return result;
                 });
         }
@@ -49,7 +51,7 @@ class Store {
 
     @observable public loadingIndexPage: boolean = false;
 
-    @observable public articles: PublishArticleReq[] = [];
+    @observable public articles: PublishArticleRes[] = [];
     @action.bound public getArticles(self?: boolean) {
         this.loadingIndexPage = true;
         const qaqData = this.localStorageQaqData;
@@ -58,7 +60,9 @@ class Store {
             .then(action(
                 (result: GetArticlesRes) => {
                     this.loadingIndexPage = false;
-                    this.articles = result.data.reverse();
+                    if (result.data) {
+                        this.articles = result.data.reverse();
+                    }
                     return result;
                 }
             ));

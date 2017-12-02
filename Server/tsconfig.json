@@ -1,33 +1,31 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
-		"target": "es5",
+		"target": "ES6",
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
-		"jsx": "react",
 		"noImplicitAny": false,
-		"sourceMap": true,
-	    "strictNullChecks": true,
+		"sourceMap": false,
+//	    "strictNullChecks": true,
 		"experimentalDecorators": true,
 		"baseUrl": "./",
 		"noUnusedLocals": true,
         "checkJs": true,
         "lib":[
-            "dom",
             "es5",
             "es6",
             "es2015",
+            "es2016",
             "es7"
         ]
     },
     "types": [
-        "react",
-        "react-dom",
         "node"
     ],
     "include": [
-        "./**/*.ts",
-        "./**/*.tsx"
+        "./src/**/*.ts",
+        "./src/app.ts",
+        "./*.ts"
     ],
     "exclude": [
         "node_modules"

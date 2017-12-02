@@ -9,9 +9,9 @@ const compiler = webpack(config);
 
 app.use(webpackDevMiddleware(compiler, {
     stats: {
-      colors: true,
-      chunks: false,
-      children: false
+        colors: true,
+        chunks: false,
+        children: false
     }
 }));
 app.use(webpackHotMiddleware(compiler));

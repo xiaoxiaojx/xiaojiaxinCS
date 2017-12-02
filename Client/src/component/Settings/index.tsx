@@ -50,7 +50,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
 
     componentDidMount() {
         const { store } = this.props;
-        store.getUserInfo().then(result => this.setUserInfo(result.data));
+        store.getUserInfo().then(result => result.data && this.setUserInfo(result.data));
     }
     setShowModal(showModal: boolean) {
         this.setState({ showModal });
@@ -76,7 +76,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         this.fileNode.click();
     }
     handleFileChange() {
-        const file = this.fileNode.files[0];
+        const file = this.fileNode.files ? this.fileNode.files[0] : "";
         UploadImg(file)
             .then((result: any) => {
                 if (!result.error) {
@@ -95,7 +95,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         if (!userInfo.sex) {
             modalText.push(Rules.sex.error);
         }
-        if (!Rules.email.RegExp.test(userInfo.email)) {
+        if (!Rules.email.RegExp.test(userInfo.email as any)) {
             modalText.push(Rules.email.error);
         }
         if (!userInfo.selfIntroduction) {
@@ -147,7 +147,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                         primary
                         onClick={this.handleUpload.bind(this)} />
                     <input
-                        ref={node => this.fileNode = node}
+                        ref={node =>  this.fileNode = node as HTMLInputElement}
                         accept=".png, .jpg, .jpeg"
                         type="file"
                         name="avatar"

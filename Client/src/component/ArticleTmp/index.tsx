@@ -1,7 +1,10 @@
 import * as React from "react";
 import {
-    IconButton
+    IconButton,
+    Avatar
 } from "material-ui";
+import IChat from "material-ui/svg-icons/communication/chat";
+import IFavorite from "material-ui/svg-icons/action/favorite";
 import {
     redirect,
     replaceHtmlTag
@@ -10,12 +13,12 @@ import {
 	DEFAULT_AVATAR_IMG
 } from "../../common/baseImage";
 import {
-    PublishArticleReq
+    PublishArticleRes
 } from "../../../services";
 import "./index.scss";
 
 interface ArticleTmpProps {
-    article: PublishArticleReq;
+    article: PublishArticleRes;
 }
 
 class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
@@ -28,7 +31,8 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                     <IconButton
                         onClick={() => redirect(`/home/${article.userName}`)}
                         tooltip="点击进入我的主页">
-                        <img
+                        <Avatar
+                            size={40}
                             src={article.avatar ? article.avatar : DEFAULT_AVATAR_IMG}/>
                     </IconButton>
                     <span> {article.nickname} </span>
@@ -42,6 +46,12 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                 <a className="content">
                     { replaceHtmlTag(article.content) }
                 </a>
+                <div className="comment">
+                    <IChat />
+                    <span> 122 </span>
+                    <IFavorite />
+                    <span> 122 </span>
+                </div>
             </div>
         );
     }

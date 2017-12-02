@@ -39,6 +39,7 @@ app.post("/api/setUserInfo", Services.setUserInfo);
 app.post("/api/publishArticle", Articles.publishArticle);
 app.post("/api/getArticles", Articles.getArticles);
 app.post("/api/getArticle", Articles.getArticle);
+app.post("/api/setArticle", Articles.setArticle);
 app.post("/api/uploadImg", upload.single("avatar"), Upload.uploadImg);
 
 

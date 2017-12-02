@@ -53,6 +53,17 @@ export interface PublishArticleReq {
     content: string;
     date: string;
     userName: string;
+}
+
+export interface PublishArticleRes {
+    _id: string;
+    title: string;
+    editor: Editor;
+    content: string;
+    date: string;
+    like: SimpleUserInfo[];
+    comment: SimpleComment[];
+    userName: string;
     nickname: string;
     avatar: string;
 }
@@ -61,40 +72,72 @@ export interface GetArticlesReq {
     userName?: string;
 }
 
-export type GetArticlesRes = Result<PublishArticleReq[]>;
+export type GetArticlesRes = Result<PublishArticleRes[]>;
 
 export interface GetArticleReq {
     id: string;
 }
 
-export type GetArticleRes = Result<PublishArticleReq>;
+export type GetArticleRes = Result<PublishArticleRes>;
 
-export function Register(data: RegisterReq): Promise<Result> {
-    return webapi<Result>("register", data);
+export interface UpdateArticleReq {
+    title: string;
+    editor: Editor;
+    content: string;
+    date: string;
+    like: SimpleUserInfo[];
+    comment: SimpleComment[];
 }
 
-export function Login(data: LoginReq): Promise<Result> {
-    return webapi<Result>("login", data);
+export interface SimpleUserInfo {
+    userName: string;
+    nickname?: string;
+    avatar?: string;
 }
 
-export function GetUserInfo(data: GetUserInfoReq): Promise<GetUserInfoRes> {
-    return webapi<GetUserInfoRes>("getUserInfo", data);
+export interface SimpleComment {
+    userName: string;
+    nickname?: string;
+    avatar?: string;
+    content: string;
+    date: string;
 }
 
-export function SetUserInfo(data: SetUserInfoReq): Promise<Result> {
-    return webapi<Result>("setUserInfo", data);
+export type SetArticleReq = {
+    id: string;
+    reqData: Partial<UpdateArticleReq>;
+};
+
+export function Register(parm: RegisterReq): Promise<Result> {
+    return webapi<Result>("register", parm);
 }
 
-export function PublishArticle(data: PublishArticleReq): Promise<Result> {
-    return webapi<Result>("publishArticle", data);
+export function Login(parm: LoginReq): Promise<Result> {
+    return webapi<Result>("login", parm);
 }
 
-export function GetArticles(data: GetArticlesReq): Promise<GetArticlesRes> {
-    return webapi<GetArticlesRes>("getArticles", data);
+export function GetUserInfo(parm: GetUserInfoReq): Promise<GetUserInfoRes> {
+    return webapi<GetUserInfoRes>("getUserInfo", parm);
 }
 
-export function GetArticle(data: GetArticleReq): Promise<GetArticleRes> {
-    return webapi<GetArticleRes>("getArticle", data);
+export function SetUserInfo(parm: SetUserInfoReq): Promise<Result> {
+    return webapi<Result>("setUserInfo", parm);
+}
+
+export function PublishArticle(parm: PublishArticleReq): Promise<Result> {
+    return webapi<Result>("publishArticle", parm);
+}
+
+export function GetArticles(parm: GetArticlesReq): Promise<GetArticlesRes> {
+    return webapi<GetArticlesRes>("getArticles", parm);
+}
+
+export function GetArticle(parm: GetArticleReq): Promise<GetArticleRes> {
+    return webapi<GetArticleRes>("getArticle", parm);
+}
+
+export function SetArticle(parm: SetArticleReq): Promise<Result> {
+    return webapi<Result>("setArticle", parm);
 }
 
 export function UploadImg(data)  {

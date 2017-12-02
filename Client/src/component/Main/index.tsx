@@ -8,7 +8,7 @@ class Main extends React.Component<{}, {}> {
             <Card className="MainWrap">
                 {this.props.children}
             </Card>
-        )
+        );
     }
 }
 

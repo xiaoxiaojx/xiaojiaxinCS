@@ -4,7 +4,7 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require("path");
-var hotMiddlewareScript = "webpack-hot-middleware/client?reload=true";
+var hotMiddlewareScript = "webpack-hot-middleware/client?reload=true&path=/__webpack_hmr";
 var isProduction = process.env.NODE_ENV === "production";
 var commonsEntry = [];
 if (!isProduction) {
@@ -90,6 +90,10 @@ var config = {
                 loader: "html-loader"
             }
         ]
+    },
+    devServer: {
+        hot: true,
+        contentBase: "./"
     }
 };
 exports["default"] = config;

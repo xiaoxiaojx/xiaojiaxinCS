@@ -1,0 +1,39 @@
+@import "../../common/baseStyle";
+
+.CommentTmpWrap {
+    padding: 20px 0 10px;
+    border-bottom: 1px solid $borderColor;
+
+    .avatar {
+        display: flex;
+        font-size: 14px;
+        color: #8b8b8b;
+        width: 100%;
+
+        & > :nth-child(2) {
+            margin-left: 8px;
+        }
+
+        .detail {
+            & > :nth-child(1) {
+                font-size: 14px;
+                color: #222;
+            }
+            & > :nth-child(2) {
+                font-size: 12px;
+            }
+        }
+
+        span {
+            margin: 0px 6px;
+        }
+    }
+
+    .commentContent {
+        margin-top: 15px;
+        overflow: hidden;
+        word-break: break-all;
+        color: #222;
+        font-size: 16px;
+    }
+}

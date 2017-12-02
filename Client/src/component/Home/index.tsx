@@ -11,7 +11,7 @@ import {
 } from "../../common/baseImage";
 import {
     User,
-    PublishArticleReq,
+    PublishArticleRes,
     GetUserInfo,
     GetArticles
 } from "../../../services";
@@ -24,7 +24,7 @@ interface HomeProps {
 
 interface HomeState {
     userInfo: Partial<User>;
-    articles: PublishArticleReq[];
+    articles: PublishArticleRes[];
 }
 
 @observer
@@ -43,7 +43,8 @@ class Home extends React.Component<HomeProps, HomeState> {
         const { userName } = match.match.params;
         GetUserInfo({userName})
             .then(result => {
-                this.setState({userInfo: result.data});
+                if (result.data)
+                    this.setState({userInfo: result.data});
             });
     }
     getArticles() {
@@ -51,7 +52,8 @@ class Home extends React.Component<HomeProps, HomeState> {
         const { userName } = match.match.params;
         GetArticles({userName})
             .then(result => {
-                this.setState({articles: result.data.reverse()});
+                if (result.data)
+                    this.setState({articles: result.data.reverse()});
             });
     }
     isSelf() {

@@ -47,7 +47,7 @@ export function replaceHtmlTag(str: string): string {
 
 export function getElementByAttr(tag, attr, value) {
     const aElements = document.getElementsByTagName(tag);
-    const aEle = [];
+    const aEle: any[] = [];
     for (let i = 0; i < aElements.length; i++) {
         if (aElements[i].getAttribute(attr).includes(value))
             aEle.push( aElements[i] );
