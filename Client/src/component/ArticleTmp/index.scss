@@ -5,11 +5,16 @@
     border-bottom: 1px solid $borderColor;
 
     .avatar {
+        position: relative;
         @extend .flexAlignCenter;
         align-items: center;
         font-size: 14px;
         color: #8b8b8b;
         width: 100%;
+
+        & > :nth-child(1) {
+            margin: -10px 10px 0 0 !important;
+        }
 
         img {
             margin-right: 6px;

@@ -36,8 +36,10 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                             size={40}
                             src={article.avatar ? article.avatar : DEFAULT_AVATAR_IMG}/>
                     </IconButton>
-                    <span> {article.nickname} </span>
-                    <span> {article.date} </span>
+                    <div>
+                        <div> {article.nickname} </div>
+                        <div> {article.date} </div>
+                    </div>
                 </div>
                 <a
                     className="title"
