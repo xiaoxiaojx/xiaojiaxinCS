@@ -9,7 +9,8 @@ const articleSchema = new mongoose.Schema({
     like: Array,
     comment: Array,
     date: String,
-    editor: String
+    editor: String,
+    views: Number,
 });
 
 const Article = mongoose.model("Article", articleSchema);

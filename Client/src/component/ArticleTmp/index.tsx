@@ -5,6 +5,7 @@ import {
 } from "material-ui";
 import IChat from "material-ui/svg-icons/communication/chat";
 import IFavorite from "material-ui/svg-icons/action/favorite";
+import IFace from "material-ui/svg-icons/action/face";
 import {
     redirect,
     replaceHtmlTag
@@ -47,10 +48,12 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                     { replaceHtmlTag(article.content) }
                 </a>
                 <div className="comment">
+                    <IFace />
+                    <span> {article.views} </span>
                     <IChat />
-                    <span> {article.likeLength} </span>
+                    <span> {article.like} </span>
                     <IFavorite />
-                    <span> {article.commentLength} </span>
+                    <span> {article.comment} </span>
                 </div>
             </div>
         );

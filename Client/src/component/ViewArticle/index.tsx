@@ -19,7 +19,8 @@ import {
 import Store from "../../store";
 import CommentTmp from "../CommentTmp";
 import {
-    redirect
+    redirect,
+    replaceHtmlTag
 } from "../../common/utils";
 import {
 	DEFAULT_AVATAR_IMG
@@ -46,15 +47,15 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
     };
 
     componentDidMount() {
-        this.getArticle();
+        this.getArticle(this.viewArticle);
     }
-    async getArticle() {
+    async getArticle(cb = () => {}) {
         const { match } = this.props;
         const { id } = match.match.params;
         const article = await GetArticle({id})
             .then(result => {
                 if ( result.data ) {
-                    this.setState({ article: result.data });
+                    this.setState({ article: result.data }, cb);
                 }
                 return result.data;
             });
@@ -123,6 +124,13 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
             });
         }
     }
+    viewArticle() {
+        const { article } = this.state;
+        SetArticle({
+            id: article._id,
+            reqData: { views: article.views ? ++article.views : 1 }
+        });
+    }
     getArticles(userName: string) {
         GetArticles({userName})
             .then(result => result.data && this.setState({
@@ -143,7 +151,11 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                                 { article.nickname }
                             </div>
                             <div className="date">
-                                { article.date }
+                                <span>{ article.date }</span>
+                                <label>字数</label>
+                                <span>{ article.content ? replaceHtmlTag(article.content).length : 0}</span>
+                                <label>阅读</label>
+                                <span>{article.views}</span>
                             </div>
                         </span>
                     </div>

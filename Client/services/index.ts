@@ -63,6 +63,7 @@ export interface PublishArticleRes {
     date: string;
     like: SimpleUserInfo[];
     comment: SimpleComment[];
+    views: number;
     userName: string;
     nickname: string;
     avatar: string;
@@ -74,8 +75,9 @@ export interface PublishArticlesRes {
     editor: Editor;
     content: string;
     date: string;
-    likeLength: number;
-    commentLength: number;
+    like: number;
+    comment: number;
+    views: number;
     userName: string;
     nickname: string;
     avatar: string;
@@ -100,6 +102,7 @@ export interface UpdateArticleReq {
     date: string;
     like: SimpleUserInfo[];
     comment: SimpleComment[];
+    views: number;
 }
 
 export interface SimpleUserInfo {

@@ -43,6 +43,8 @@
 
     .welcome {
         @include HeaderChild(right);
+        margin-right: 30px;
+        width: 90px;
         padding: 20px 0;
     }
 
