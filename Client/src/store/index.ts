@@ -74,6 +74,10 @@ class Store {
             this.showLoginRegisterModal = data;
     }
 
+    @observable public currentEditArticleId: string = "";
+    @action.bound public setCurrentEditArticleId(id: string) {
+        this.currentEditArticleId = id;
+    }
     @observable public articleData: ArticleData = defaultArticleData;
     @action.bound public setArticleData(data: Partial<ArticleData>) {
         if (data.title && data.title.length > 50) {

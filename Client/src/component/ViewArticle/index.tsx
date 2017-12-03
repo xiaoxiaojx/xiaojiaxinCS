@@ -5,22 +5,25 @@ import * as moment from "moment";
 import {
     Avatar,
     TextField,
-    RaisedButton
+    RaisedButton,
+    FlatButton
 } from "material-ui";
 import IFavorite from "material-ui/svg-icons/action/favorite";
+import Modal from "../Modal";
 import {
     GetArticle,
     PublishArticleRes,
     PublishArticlesRes,
     GetArticles,
     SetArticle,
+    DelArticle,
     User
 } from "../../../services";
 import Store from "../../store";
 import CommentTmp from "../CommentTmp";
 import {
-    redirect,
-    replaceHtmlTag
+    replaceHtmlTag,
+    redirect
 } from "../../common/utils";
 import {
 	DEFAULT_AVATAR_IMG
@@ -36,6 +39,7 @@ interface ViewArticleState {
     article: PublishArticleRes;
     articles: PublishArticlesRes[];
     commentContent: string;
+    visible: boolean;
 }
 
 @observer
@@ -43,7 +47,8 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
     state: ViewArticleState = {
         article: {} as PublishArticleRes,
         articles: [],
-        commentContent: ""
+        commentContent: "",
+        visible: false
     };
 
     componentDidMount() {
@@ -137,8 +142,33 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                 articles: result.data
             }));
     }
+    delArticles() {
+        const { store } = this.props;
+        const { article } = this.state;
+        DelArticle({id: article._id})
+            .then(result => {
+                if (!result.error) {
+                    store.getArticles();
+                    redirect("/");
+                }
+            });
+        this.setState({visible: false});
+    }
+    setArticles() {
+        const { store } = this.props;
+        const { article } = this.state;
+        store.setCurrentEditArticleId(article._id);
+        store.setArticleData({
+            editor: article.editor,
+            title: article.title,
+            quillVal: article.editor === "富文本" ? article.content : "",
+            markVal: article.editor === "Markdown" ? article.content : ""
+        });
+        redirect("/articles");
+    }
     render() {
-        const { article, articles, commentContent } = this.state;
+        const { store } = this.props;
+        const { article, articles, commentContent, visible } = this.state;
         const src = article["avatar"] ? article["avatar"] : DEFAULT_AVATAR_IMG;
 
         return (
@@ -162,6 +192,19 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                     <h1 className="title">
                         { article.title }
                     </h1>
+                    {
+                        store.localStorageQaqData && article.userName === store.localStorageQaqData["userName"] &&
+                        <div className="action">
+                            <FlatButton
+                                label="编辑文章"
+                                primary
+                                onClick={this.setArticles.bind(this)} />
+                            <FlatButton
+                                label="删除文章"
+                                secondary
+                                onClick={() => this.setState({visible: true})} />
+                        </div>
+                    }
                     <div className="content">
                     {
                         article.editor === "Markdown" ?
@@ -242,6 +285,13 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                         }
                     </div>
                 </nav>
+                <Modal
+                    title="确认要删除这篇文章吗?"
+                    visible={visible}
+                    onCancel={() => this.setState({visible: false})}
+                    onOk={this.delArticles.bind(this)}>
+                    ( ⊙ o ⊙ )啊！
+                </Modal>
             </div>
         );
     }

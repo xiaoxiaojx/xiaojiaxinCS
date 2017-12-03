@@ -124,6 +124,10 @@ export type SetArticleReq = {
     reqData: Partial<UpdateArticleReq>;
 };
 
+export interface DelArticleReq {
+    id: string;
+}
+
 export function Register(parm: RegisterReq): Promise<Result> {
     return webapi<Result>("register", parm);
 }
@@ -154,6 +158,10 @@ export function GetArticle(parm: GetArticleReq): Promise<GetArticleRes> {
 
 export function SetArticle(parm: SetArticleReq): Promise<Result> {
     return webapi<Result>("setArticle", parm);
+}
+
+export function DelArticle(parm: DelArticleReq): Promise<Result> {
+    return webapi<Result>("delArticle", parm);
 }
 
 export function UploadImg(data)  {

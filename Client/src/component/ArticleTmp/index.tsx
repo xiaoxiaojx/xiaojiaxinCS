@@ -46,9 +46,9 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                     onClick={() => redirect(`/article/${article["_id"]}`)}>
                     {article.title}
                 </a>
-                <a className="content">
+                <div className="content">
                     { replaceHtmlTag(article.content) }
-                </a>
+                </div>
                 <div className="comment">
                     <IFace />
                     <span> {article.views} </span>

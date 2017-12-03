@@ -116,3 +116,21 @@ export const setArticle = (req: Request, res: Response) => {
         }
     });
 };
+
+export const delArticle = (req: Request, res: Response) => {
+    const { id } = req.body;
+    Article.remove({_id: id}, err => {
+        if (!err) {
+            res.send({
+                message: "更新成功",
+                error: false
+            });
+        }
+        else {
+            res.send({
+                message: "更新失败",
+                error: true
+            });
+        }
+    });
+};

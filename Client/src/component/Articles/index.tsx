@@ -22,13 +22,15 @@ import {
 } from "../../common/constant";
 import {
     initKeyboardEvent,
-    getElementByAttr
+    getElementByAttr,
+    redirect
 } from "../../common/utils";
 import {
     User,
     PublishArticleReq,
     PublishArticle,
-    UploadImg
+    UploadImg,
+    SetArticle
 } from "../../../services";
 import "./index.scss";
 
@@ -91,8 +93,9 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
         if (qaqData) {
             const { userInfo } = this.state;
             const { userName } = userInfo;
-            const { articleData, initArticleData } = store;
+            const { articleData, initArticleData, currentEditArticleId } = store;
             const { editor, title, quillVal, markVal } = articleData;
+            const isAddArticle = currentEditArticleId === "";
             const date = moment(new Date()).format("YYYY-MM-DD hh:mm");
             const data = {
                 title,
@@ -101,10 +104,13 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                 date,
                 userName,
             } as PublishArticleReq;
+            isAddArticle ?
             PublishArticle(data)
                 .then(result => {
                     if (!result.error) {
                         initArticleData();
+                        redirect("/");
+                        store.getArticles();
                     }
                     this.setState({
                         tooltip: {
@@ -112,7 +118,30 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                             message: result.message
                         }
                     });
+                })
+            :
+            SetArticle({
+                id: currentEditArticleId,
+                reqData: {
+                    title,
+                    editor,
+                    content: editor === "富文本" ? quillVal : markVal,
+                    date
+                }
+            }).then(result => {
+                if (!result.error) {
+                    initArticleData();
+                    redirect("/");
+                    store.getArticles();
+                    store.setCurrentEditArticleId("");
+                }
+                this.setState({
+                    tooltip: {
+                        visible: true,
+                        message: result.message
+                    }
                 });
+            });
         } else {
             this.setState({
                 tooltip: {
@@ -122,12 +151,17 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
             });
         }
     }
+    handleCancel() {
+        const { store } = this.props;
+        redirect("/");
+        store.initArticleData();
+        store.setCurrentEditArticleId("");
+    }
     render() {
         const { store } = this.props;
         const { tooltip } = this.state;
-        const { setArticleData, articleData } = store;
+        const { setArticleData, articleData, currentEditArticleId } = store;
         const { editor, title, quillVal, markVal } = articleData;
-        console.log(quillVal);
 
         return (
             <Card className="ArticlesWrap">
@@ -176,6 +210,13 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                     </div>
                 </section>
                 <footer>
+                    {
+                        currentEditArticleId === "" ? null :
+                        <RaisedButton
+                            style={{marginRight: "20px"}}
+                            onClick={this.handleCancel.bind(this)}
+                            label="取消" />
+                    }
                     <RaisedButton
                         disabled={this.isDisabled()}
                         onClick={this.handlePublish.bind(this)}
