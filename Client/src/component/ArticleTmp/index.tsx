@@ -53,9 +53,9 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                     <IFace />
                     <span> {article.views} </span>
                     <IChat />
-                    <span> {article.like} </span>
-                    <IFavorite />
                     <span> {article.comment} </span>
+                    <IFavorite />
+                    <span> {article.like} </span>
                 </div>
             </div>
         );

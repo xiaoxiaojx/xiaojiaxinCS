@@ -3,7 +3,7 @@
 .IndexWrap {
 
     section {
-        padding: 30px 50px;
+        padding: 10px 0 0 50px;
         min-height: 700px;
         transition: all 1s ease-in-out;
     }
@@ -11,5 +11,61 @@
     .progress {
         margin: 200px 430px;
         width: 200px !important;
+    }
+
+    .indexArticles {
+        display: flex;
+
+        & > :nth-child(2) {
+            width: 270px;
+        }
+    }
+
+    .articlesList {
+        box-sizing: border-box;
+        width: 650px;
+        margin-right: 30px;
+    }
+
+    .search {
+        position: relative;
+        margin-top: -20px;
+
+        & > :nth-child(2) {
+            color: $baseColor !important;
+            position: absolute;
+            right: 10px;
+            bottom:  10px;
+        }
+    }
+
+    .other {
+        margin-top: 30px;
+        img {
+            display: block;
+            height: 160px;
+            width: 270px;
+        }
+    }
+
+    .indexOtherList {
+        margin-top: 10px;
+        color: #909090;
+
+        & > :nth-child(2) {
+            font-size: 12px !important;
+        }
+    }
+
+    .readList {
+        @extend .indexOtherList;
+    }
+
+    .contact {
+        @extend .indexOtherList;
+
+        & > :nth-child(2) {
+            margin: 10px 0 0 15px;
+        }
     }
 }

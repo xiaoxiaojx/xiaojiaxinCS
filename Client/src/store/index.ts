@@ -52,6 +52,7 @@ class Store {
     @observable public loadingIndexPage: boolean = false;
 
     @observable public articles: PublishArticlesRes[] = [];
+    @observable public cpArticles: PublishArticlesRes[] = [];
     @action.bound public getArticles(self?: boolean) {
         this.loadingIndexPage = true;
         const qaqData = this.localStorageQaqData;
@@ -62,10 +63,20 @@ class Store {
                     this.loadingIndexPage = false;
                     if (result.data) {
                         this.articles = result.data.reverse();
+                        this.cpArticles = result.data;
                     }
                     return result;
                 }
             ));
+    }
+    @observable public searchArticlesTitle: string = "";
+    @action.bound public setSearchArticlesTitle(val: string) {
+        this.searchArticlesTitle = val;
+        this.articles = this.cpArticles.filter(art => art.title.includes(val));
+    }
+    @action.bound public realSearchArticlesTitle(val: string) {
+        this.searchArticlesTitle = val;
+        this.articles = this.cpArticles.filter(art => art.title === val);
     }
 
     @observable public showLoginRegisterModal: boolean = false;
