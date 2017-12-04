@@ -23,8 +23,6 @@ enum ShowModal {
 enum FocusNavBtn {
 	Home = "Home",
 	Article = "Article",
-	AboutUs = "AboutUs",
-	Github = "Github"
 }
 
 interface HeaderProps {
@@ -60,9 +58,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 		switch ( hash ) {
 			case "#/articles":
 				focusNavBtn = FocusNavBtn.Article;
-				break;
-			case "#/about":
-				focusNavBtn = FocusNavBtn.AboutUs;
 				break;
 			default:
 				focusNavBtn = FocusNavBtn.Home;
@@ -172,18 +167,6 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 							primary={focusNavBtn === FocusNavBtn.Article}
 							onClick={() => this.setFocusNavBtn(FocusNavBtn.Article)}/>
 					</Link>
-					<Link to="/about">
-						<RaisedButton
-							label="关于我们"
-							primary={focusNavBtn === FocusNavBtn.AboutUs}
-							onClick={() => this.setFocusNavBtn(FocusNavBtn.AboutUs)}/>
-					</Link>
-					<a href="https://github.com/xiaoxiaojx">
-						<RaisedButton
-							label="Github"
-							primary={focusNavBtn === FocusNavBtn.Github}
-							onClick={() => this.setFocusNavBtn(FocusNavBtn.Github)}/>
-					</a>
                 </nav>
             </div>
         );

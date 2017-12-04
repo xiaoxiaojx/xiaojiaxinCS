@@ -149,6 +149,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                     onChange={this.onChangeUserName.bind(this)}/>
                 <TextField
                     floatingLabelText="密码"
+                    type="password"
                     value={user.password}
                     errorText={errorText.password}
                     onChange={this.onChangePassword.bind(this)}/>

@@ -160,6 +160,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                     value={user.userName}
                     onChange={this.onChangeUserName.bind(this)}/>
                 <TextField
+                    type="password"
                     floatingLabelText="密码"
                     value={user.password}
                     errorText={errorText.password}
