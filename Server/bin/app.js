@@ -24,6 +24,7 @@ mongoose.connection.on("error", function () {
 });
 if (isDevelopment) {
     app.use(cors({ "origin": "http://localhost:3333" }));
+    console.log("只有在开发模式中才允许跨域访问, 且主机必须为 http://localhost:3333 !");
 }
 app.use(logger("dev"));
 app.use(bodyParser.json());
