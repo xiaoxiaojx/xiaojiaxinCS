@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-export function uploadImg(req: any, res: Response) {
-    const { filename } = req.file;
+export function uploadImg(req: Request, res: Response) {
+    const { filename } = (req as any).file;
     if (filename) {
         res.send({
             message: "上传成功",

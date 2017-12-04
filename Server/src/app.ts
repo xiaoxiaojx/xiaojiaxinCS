@@ -15,6 +15,8 @@ import * as Upload from "./controllers/upload";
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
+const NODE_ENV = process.env.NODE_ENV;
+const isDevelopment: boolean = NODE_ENV === "development";
 
 mongoose.connect("mongodb://localhost:27017");
 mongoose.connection.on("error", () => {
@@ -22,11 +24,15 @@ mongoose.connection.on("error", () => {
   process.exit();
 });
 
-app.use(cors());
-app.use(logger("dev") as any);
+if (isDevelopment) {
+  app.use(cors({ "origin": "http://localhost:3333" }));
+  console.log("只有在开发模式中才允许跨域访问, 且主机必须为 http://localhost:3333 !");
+}
+
+app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser() as any);
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "dist")));
 app.use(express.static(path.join(__dirname, "uploads")));
 

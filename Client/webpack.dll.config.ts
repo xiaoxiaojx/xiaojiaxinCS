@@ -1,6 +1,13 @@
 import * as webpack from "webpack";
 import * as path from "path";
 
+// async function getPackageJson() {
+//     const json = await require("../package.json");
+//     return json;
+// }
+
+// console.log(getPackageJson());
+
 const joinDir = p => path.join(__dirname, p);
 
 const config: webpack.Configuration = {
@@ -9,7 +16,14 @@ const config: webpack.Configuration = {
             "react",
             "react-dom",
             "mobx-react",
-            "mobx"
+            "mobx",
+            "moment",
+            "history",
+            "material-ui",
+            "react-markdown",
+            "react-quill",
+            "react-router",
+            "react-router-dom"
         ]
     },
     output: {

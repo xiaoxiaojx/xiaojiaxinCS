@@ -35,7 +35,7 @@ var devPlugins = [
 ];
 var currentPlugins = isProduction ? proPlugins : devPlugins;
 var config = {
-    entry: commonsEntry.concat([joinDir("../src/app.tsx")]),
+    entry: commonsEntry.concat([joinDir("../src/index.tsx")]),
     output: {
         path: joinDir("../dist"),
         publicPath: "./",
@@ -71,7 +71,7 @@ var config = {
                 exclude: /node_modules/,
                 loader: "babel-loader",
                 query: {
-                    presets: ["stage-1", "es2015", "react"]
+                    presets: ["stage-1", "env", "react"]
                 }
             },
             {
@@ -90,10 +90,6 @@ var config = {
                 loader: "html-loader"
             }
         ]
-    },
-    devServer: {
-        hot: true,
-        contentBase: "./"
     }
 };
 exports["default"] = config;

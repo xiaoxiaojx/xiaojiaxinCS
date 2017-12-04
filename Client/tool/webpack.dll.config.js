@@ -2,6 +2,11 @@
 exports.__esModule = true;
 var webpack = require("webpack");
 var path = require("path");
+// async function getPackageJson() {
+//     const json = await require("../package.json");
+//     return json;
+// }
+// console.log(getPackageJson());
 var joinDir = function (p) { return path.join(__dirname, p); };
 var config = {
     entry: {
@@ -9,7 +14,14 @@ var config = {
             "react",
             "react-dom",
             "mobx-react",
-            "mobx"
+            "mobx",
+            "moment",
+            "history",
+            "material-ui",
+            "react-markdown",
+            "react-quill",
+            "react-router",
+            "react-router-dom"
         ]
     },
     output: {

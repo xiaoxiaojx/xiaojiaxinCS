@@ -35,12 +35,11 @@ const devPlugins: webpack.ResolvePlugin[] = [
       		NODE_ENV: JSON.stringify("development")
     	}
 	}),
-	new webpack.HotModuleReplacementPlugin()
-];
+	new webpack.HotModuleReplacementPlugin()];
 const currentPlugins = isProduction ? proPlugins : devPlugins;
 
 const config: webpack.Configuration = {
-	entry: [...commonsEntry, joinDir("../src/app.tsx")],
+	entry: [...commonsEntry, joinDir("../src/index.tsx")],
   	output: {
 		path: joinDir("../dist"),
 		publicPath: "./",
@@ -77,7 +76,7 @@ const config: webpack.Configuration = {
 				loader: "babel-loader",
 				query:
 				{
-					presets: ["stage-1", "es2015", "react"]
+					presets: ["stage-1", "env", "react"]
 				}
 			},
 			{
@@ -96,10 +95,6 @@ const config: webpack.Configuration = {
 				loader: "html-loader"
 			}
     	]
-	},
-	devServer: {
-		hot: true,
-		contentBase: "./"
 	}
 };
 
