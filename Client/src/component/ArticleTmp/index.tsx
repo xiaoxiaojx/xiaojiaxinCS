@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
     IconButton,
-    Avatar
+    Avatar,
 } from "material-ui";
 import IChat from "material-ui/svg-icons/communication/chat";
 import IFavorite from "material-ui/svg-icons/action/favorite";

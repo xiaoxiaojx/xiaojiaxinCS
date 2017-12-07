@@ -25,7 +25,7 @@
         @extend .flexAlignCenter;
 
         & > :nth-child(1) {
-            max-width: 100px;
+            width: 140px;
             overflow: hidden;
             word-break: break-all;
             max-height: 16px;

@@ -10,9 +10,3 @@ body {
 svg, a {
     cursor: pointer;
 }
-
-canvas {
-    top: 0px;
-    position: absolute !important;
-    z-index: -1 !important;
-}

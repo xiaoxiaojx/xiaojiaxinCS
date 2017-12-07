@@ -83,11 +83,11 @@ class Index extends React.Component<IndexProps, IndexState> {
                                         floatingLabelText="搜索文章" />
                                     <ISearch />
                                 </div>
-                                <div className="other">
+                                <Card className="other">
                                     <a onClick={this.handleFunny.bind(this)}>
                                         <img src="http://upload-images.jianshu.io/upload_images/2738521-72b26ecb7788fa6c.jpg"/>
                                     </a>
-                                </div>
+                                </Card>
                                 <div className="readList">
                                     <div>点赞·排行</div>
                                     <div>
@@ -100,7 +100,7 @@ class Index extends React.Component<IndexProps, IndexState> {
                                 </div>
                                 <div className="contact">
                                     <div>联系·作者</div>
-                                    <div>邮箱 784487301@qq.com</div>
+                                    <div>邮箱 xiaojiaixn@gmail.com</div>
                                 </div>
                                 <div className="contact">
                                     <div>更多·信息</div>
