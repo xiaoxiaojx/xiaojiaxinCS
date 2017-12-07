@@ -78,7 +78,6 @@ class Footer extends React.Component<FooterProps, FooterState> {
                 <Modal
 					visible={store.showLoginRegisterModal}
 					onCancel={this.onCancelM2}
-					onOk={this.onCancelM2}
 					>
 					<Tabs>
 						<Tab label="登录" >

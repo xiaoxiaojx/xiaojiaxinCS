@@ -38,7 +38,7 @@ class App extends React.Component<AppProps, {}> {
                                 <Route path="/" component={() => <Index store={store}/>} exact/>
                                 <Route path="/articles" component={() => <Articles store={store}/>} />
                                 <Route path="/about" component={About}/>
-                                <PrivateRoute path="/home/:userName" component={match => <Home match={match} store={store}/>}/>
+                                <Route path="/home/:userName" component={match => <Home match={match} store={store}/>}/>
                                 <PrivateRoute path="/settings" component={() => <Settings store={store} /> }/>
                                 <Route path="/article/:id" component={match => <ViewArticle match={match} store={store}/>} />
                             </Switch>

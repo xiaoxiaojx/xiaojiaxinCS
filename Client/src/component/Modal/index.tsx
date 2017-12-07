@@ -11,7 +11,7 @@ interface ModalProps {
     children?: ReactChild;
     title?: ReactChild;
     visible: boolean;
-    onOk: Function;
+    onOk?: Function;
     onCancel: Function;
 }
 
@@ -24,25 +24,29 @@ export default function Modal(props: ModalProps) {
         onCancel,
         visible
     } = props;
+    const hasOk: boolean = Boolean(onOk);
     const actions: JSX.Element[] = [
         <FlatButton
         label={cancelText}
         primary={true}
         onClick={onCancel}
-        />,
-        <FlatButton
-        label={okText}
-        primary={true}
-        onClick={onOk}
         />
-    ];
+    ].concat(
+        hasOk ?
+        [
+            <FlatButton
+                label={okText}
+                primary={true}
+                onClick={onOk}
+                />
+        ] : []
+    );
 
     return <Dialog
         title={title}
         actions={actions}
         modal={false}
         open={visible}
-        onRequestClose={onCancel}
         >
         { props.children }
     </Dialog>;

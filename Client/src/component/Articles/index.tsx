@@ -182,12 +182,12 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                     </RadioButtonGroup>
                 </header>
                 <section>
-                    <h1>
+                    <div className="title">
                         <TextField
                             floatingLabelText="标题"
                             value={title}
                             onChange={ (e: any) => setArticleData({title: e.target.value}) } />
-                    </h1>
+                    </div>
                     <div>
                         {
                             editor === "富文本" ?

@@ -126,6 +126,9 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
             }).then(result => {
                 if (!result.error)
                     this.getArticle();
+                    this.setState({
+                        commentContent: ""
+                    });
             });
         }
     }

@@ -119,7 +119,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     }
     onChangeNickname(e) {
         const nickname = e.target.value;
-        if (!nickname) {
+        if (!nickname || nickname.length > 10) {
             this.setErrorText({nickname: Rules.nickname.error});
         } else {
             this.setErrorText({nickname: ""});
@@ -150,7 +150,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
         return (
             <div className="RegisterWrap">
                 <TextField
-                    floatingLabelText="用户名"
+                    floatingLabelText="昵称"
                     errorText={errorText.nickname}
                     value={user.nickname}
                     onChange={this.onChangeNickname.bind(this)}/>

@@ -4,6 +4,7 @@
     padding: 50px 45px;
 
     .nicknameWrap {
+        @extend .flexAlignCenter;
         margin: 15px 0;
     }
 

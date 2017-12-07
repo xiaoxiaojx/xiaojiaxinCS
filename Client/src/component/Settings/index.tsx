@@ -15,12 +15,10 @@ import {
 import Store from "../../store";
 import Rules from "../../common/rules";
 import Modal from "../Modal";
+import Tooltip from "../Tooltip";
 import {
 	DEFAULT_AVATAR_IMG
 } from "../../common/baseImage";
-import {
-    redirect
-} from "../../common/utils";
 import {
     SetUserInfo as SetUserInfoService,
     SetUserInfoReq,
@@ -29,22 +27,30 @@ import {
 } from "../../../services";
 import "./index.scss";
 
+enum ShowModal {
+    None = "None",
+    Modal = "Modal",
+    Tooltip = "Tooltip"
+}
+
 interface SettingsProps {
     store: Store;
 }
 
 interface SettingsState {
     userInfo: Partial<User>;
-    showModal: boolean;
+    showModal: ShowModal;
     modalText: string[];
+    message: string;
 }
 
 @observer
 class Settings extends React.Component<SettingsProps, SettingsState> {
     state: SettingsState = {
         userInfo: {},
-        showModal: false,
-        modalText: []
+        showModal: ShowModal.None,
+        modalText: [],
+        message: ""
     };
     fileNode: HTMLInputElement;
 
@@ -52,7 +58,22 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         const { store } = this.props;
         store.getUserInfo().then(result => result.data && this.setUserInfo(result.data));
     }
-    setShowModal(showModal: boolean) {
+    showTooltip(message: string) {
+        const _this = this;
+        const autoClose = () => {
+            setTimeout(() => {
+                _this.setState({
+                    message: "",
+                    showModal: ShowModal.None
+                });
+            }, 2000);
+        };
+        this.setState({
+            message,
+            showModal: ShowModal.Tooltip
+        }, autoClose);
+    }
+    setShowModal(showModal: ShowModal) {
         this.setState({ showModal });
     }
     setUserInfoService() {
@@ -61,12 +82,15 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
         const qaqData = store.localStorageQaqData;
         SetUserInfoService({...userInfo, userName: qaqData["userName"]} as SetUserInfoReq)
             .then(result => {
-                redirect("/");
+                this.showTooltip(result.message);
                 store.getLocalStorageQaqData();
             });
     }
     setUserInfo(data: Partial<User>) {
         if (data.selfIntroduction && data.selfIntroduction.length >= 50) {
+            return;
+        }
+        if (data.nickname && data.nickname.length > 10) {
             return;
         }
         const userInfo = {...this.state.userInfo, ...data};
@@ -105,20 +129,20 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
             this.setUserInfoService();
         }
         else if (modalText.length !== 0) {
-            this.setShowModal(true);
+            this.setShowModal(ShowModal.Modal);
         }
         this.setState({ modalText });
     }
     onCancel() {
-        this.setShowModal(false);
+        this.setShowModal(ShowModal.None);
     }
     render() {
-        const { userInfo, showModal, modalText } = this.state;
+        const { userInfo, showModal, modalText, message } = this.state;
         const { avatar = "" } = userInfo;
         const src = avatar ? avatar : DEFAULT_AVATAR_IMG;
         const modalContent = modalText.length > 0 ?
             modalText.map((text, index) =>
-                <h5 key={index}> {text} </h5>
+                <h5 key={index} style={{color: "red"}}> {text} </h5>
             ) : null;
 
         return (
@@ -187,8 +211,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                         个人介绍:
                     </label>
                     <TextField
-                        multiLine
-                        rows={2}
+                        fullWidth
                         value={userInfo.selfIntroduction}
                         onChange={ (e: any) => this.setUserInfo({selfIntroduction: e.target.value}) } />
                 </div>
@@ -202,11 +225,13 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                 <hr/>
                 <Modal
                     title="提交失败"
-                    visible={showModal}
-                    onOk={() => this.setShowModal(false)}
-                    onCancel={() => this.setShowModal(false)}>
+                    visible={ showModal === ShowModal.Modal}
+                    onCancel={() => this.setShowModal(ShowModal.None)}>
                     <div> { modalContent } </div>
                 </Modal>
+                <Tooltip
+                    visible={ showModal === ShowModal.Tooltip}
+                    message={message} />
             </Card>
         );
     }

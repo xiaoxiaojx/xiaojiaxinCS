@@ -36,14 +36,14 @@ class LikeListTmp extends React.Component<LikeListTmpProps, {}> {
                     </a>
                     <div className="likeTotal">
                         <span>
-                            作者: {data.userName}
+                            作者: {data.nickname}
                         </span>
                         <span> { data.like }个喜欢 </span>
                         <IFavorite />
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
