@@ -2,6 +2,9 @@ import createHistory from "history/createHashHistory";
 import {
     User
 } from "../../services";
+import {
+    getApiPrefix
+} from "../../services/webapi";
 
 export function getLocalStorageData(): Partial<User> | boolean {
     let data: Partial<User> | boolean;
@@ -53,4 +56,12 @@ export function getElementByAttr(tag, attr, value) {
             aEle.push( aElements[i] );
     }
     return aEle;
+}
+
+export function getCompleteImgUrl(str: string) {
+    if (str[0] !== "/") {
+        return str;
+    }
+    const apiPrefix = getApiPrefix();
+    return apiPrefix.substr(0, apiPrefix.length - 5) + str;
 }

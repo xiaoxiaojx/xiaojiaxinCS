@@ -21,7 +21,8 @@ var config = {
             "react-markdown",
             "react-quill",
             "react-router",
-            "react-router-dom"
+            "react-router-dom",
+            "react-swipe"
         ]
     },
     output: {

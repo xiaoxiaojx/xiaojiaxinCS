@@ -2,6 +2,7 @@ import * as React from "react";
 import { observer } from "mobx-react";
 import { Card } from "material-ui/Card";
 import ISearch from "material-ui/svg-icons/action/search";
+import * as ReactSwipe from 'react-swipe';
 import ArticleTmp from "../ArticleTmp";
 import LikeListTmp from "../LikeListTmp";
 import {
@@ -13,6 +14,7 @@ import {
     redirect
 } from "../../common/utils";
 import Store from "../../store";
+import Banner from "./banner";
 import "./index.scss";
 
 interface IndexProps {
@@ -84,9 +86,17 @@ class Index extends React.Component<IndexProps, IndexState> {
                                     <ISearch />
                                 </div>
                                 <Card className="other">
-                                    <a onClick={this.handleFunny.bind(this)}>
-                                        <img src="http://upload-images.jianshu.io/upload_images/2738521-72b26ecb7788fa6c.jpg"/>
-                                    </a>
+                                    <ReactSwipe
+                                        className="carousel"
+                                        swipeOptions={{continuous: true, auto: 3000, speed: 800}}>
+                                        {
+                                            Banner.map((item, index) =>
+                                                <a key={index} onClick={this.handleFunny.bind(this)}>
+                                                    <img src={item.img}/>
+                                                </a>
+                                            )
+                                        }
+                                    </ReactSwipe>
                                 </Card>
                                 <div className="readList">
                                     <div>点赞·排行</div>
@@ -126,7 +136,7 @@ class Index extends React.Component<IndexProps, IndexState> {
                 <footer>
                     <Tooltip
                         visible={visible}
-                        message="Hello Word, 我只是个单纯的图片, 别点了"/>
+                        message="年轻过..."/>
                 </footer>
             </Card>
         );

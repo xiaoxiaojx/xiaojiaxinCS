@@ -8,7 +8,8 @@ import IFavorite from "material-ui/svg-icons/action/favorite";
 import IFace from "material-ui/svg-icons/action/face";
 import {
     redirect,
-    replaceHtmlTag
+    replaceHtmlTag,
+    getCompleteImgUrl
 } from "../../common/utils";
 import {
 	DEFAULT_AVATAR_IMG
@@ -34,7 +35,7 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                         tooltip="点击进入我的主页">
                         <Avatar
                             size={40}
-                            src={article.avatar ? article.avatar : DEFAULT_AVATAR_IMG}/>
+                            src={article.avatar ? getCompleteImgUrl(article.avatar) : DEFAULT_AVATAR_IMG}/>
                     </IconButton>
                     <div>
                         <div> {article.nickname} </div>

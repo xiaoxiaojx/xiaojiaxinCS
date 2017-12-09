@@ -1,5 +1,11 @@
 import * as React from "react";
-import { FlatButton, Popover, Menu, MenuItem, RaisedButton } from "material-ui";
+import {
+	FlatButton,
+	Popover,
+	Menu,
+	MenuItem,
+	RaisedButton,
+} from "material-ui";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import ActionHome from "material-ui/svg-icons/action/home";
@@ -8,7 +14,8 @@ import SignOut from "material-ui/svg-icons/action/exit-to-app";
 import Store from "../../store";
 import {
 	autoBindMethods,
-	redirect
+	redirect,
+	getCompleteImgUrl
 } from "../../common/utils";
 import {
 	DEFAULT_AVATAR_IMG
@@ -116,7 +123,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 						data ?
 						<img
 							className="avatar"
-							src={data["avatar"] ? data["avatar"] : DEFAULT_AVATAR_IMG }
+							src={data["avatar"] ? getCompleteImgUrl(data["avatar"]) : DEFAULT_AVATAR_IMG }
 							onClick={this.onClickSettings} />
 						:
 						<FlatButton
