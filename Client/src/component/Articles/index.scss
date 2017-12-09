@@ -56,5 +56,9 @@
         & > :nth-child(2) {
             word-break: break-all;
         }
+
+        img {
+            max-width:400px !important; 
+        }
     }
 }

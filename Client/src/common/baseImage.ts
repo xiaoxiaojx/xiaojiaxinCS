@@ -22,12 +22,12 @@ export const C5527_1 = require("./image/banner6.jpeg");
 
 export const C5527_2 = require("./image/banner7.jpeg");
 
-export const SHUAI_YI = require("./image/banner8.JPG");
+export const SHUAI_YI = require("./image/banner8.png");
 
-export const MO_CA = require("./image/banner9.JPG");
+export const MO_CA = require("./image/banner9.png");
 
-export const SHUAI_MAO_1 = require("./image/banner10.JPG");
+export const SHUAI_MAO_1 = require("./image/banner10.png");
 
-export const SHUAI_MAO_2 = require("./image/banner11.JPG");
+export const SHUAI_MAO_2 = require("./image/banner11.png");
 
 export const BI_YE = require("./image/banner12.png");
