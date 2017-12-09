@@ -1,6 +1,7 @@
 import createHistory from "history/createHashHistory";
 import {
-    User
+    User,
+    PublishArticlesRes
 } from "../../services";
 import {
     getApiPrefix
@@ -13,6 +14,17 @@ export function getLocalStorageData(): Partial<User> | boolean {
     }
     catch (err) {
         data =  false;
+    }
+    return data;
+}
+
+export function getLocalStorageArticlesData(): PublishArticlesRes[] {
+    let data: PublishArticlesRes[] = [];
+    try {
+        data = JSON.parse(localStorage.getItem("articlesData") as any);
+    }
+    catch (err) {
+        data =  [];
     }
     return data;
 }

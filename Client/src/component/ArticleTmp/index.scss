@@ -35,15 +35,15 @@
 
     .title {
         display: block;
-        color: #909090;
-        margin: 20px 0 10px;
+        color: #969696;
+        margin: 0 0 10px;
         font-size: 24px;
         font-weight: 600;
     }
 
     .content {
         display: block;
-        height: 45px;
+        max-height: 45px;
         overflow: hidden;
         word-break: break-all;
         color: #8b8b8b;
@@ -65,6 +65,17 @@
             color: #b4b4b4 !important;
             width: 14px !important;
             height: 14px !important;
+        }
+    }
+
+    .imageContent {
+        display: flex;
+        justify-content: space-between;
+
+        img {
+            margin-left: 10px;
+            width: 150px !important;
+            height: 120px !important;
         }
     }
 }

@@ -20,19 +20,24 @@ class About extends React.Component<{}, {}> {
                     >
                     <img src={ABOUT_BG_IMG} alt="" />
                 </CardMedia>
-                <CardTitle title="专业" subtitle="计算机系软件工程" />
                 <CardText>
                     <h3>
-                        为什么要写这样一个网站?
+                        网站的定位
                     </h3>
                     <p>
-                        当然是为了写一个更轻量的网站, 能够快速记录笔者的优美的文章。 据权威资料显示, 该网站已经大大方便了人们的生活(第二句话如有人投诉或者质疑, 立删)。
+                        致力于带来更轻量, 更快速写文章的体验
                     </p>
                     <h3>
-                        请说真说!
+                        基本信息
                     </h3>
                     <p>
-                        作业太少了。
+                        专业: 计算机·软件工程
+                    </p>
+                    <p>
+                        邮箱: xiaojiaixn@gmail.com
+                    </p>
+                    <p>
+                        微信: xjx784487301
                     </p>
                 </CardText>
             </Card>

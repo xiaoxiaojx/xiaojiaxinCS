@@ -24,8 +24,16 @@ interface ArticleTmpProps {
 }
 
 class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
+    contentImage(): string {
+        const { article } = this.props;
+        if (!article.content.includes("<img src=")) {
+            return "";
+        }
+        return article.content.split("<img src=\"")[1].split("\"")[0];
+    }
     render() {
         const { article } = this.props;
+        const contentImage = this.contentImage();
 
         return (
             <div className="ArticleTmpWrap">
@@ -42,13 +50,21 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                         <div> {article.date} </div>
                     </div>
                 </div>
-                <a
-                    className="title"
-                    onClick={() => redirect(`/article/${article["_id"]}`)}>
-                    {article.title}
-                </a>
-                <div className="content">
-                    { replaceHtmlTag(article.content) }
+                <div className="imageContent">
+                    <div>
+                        <a
+                            className="title"
+                            onClick={() => redirect(`/article/${article["_id"]}`)}>
+                            {article.title}
+                        </a>
+                        <div className="content">
+                            { replaceHtmlTag(article.content) }
+                        </div>
+                    </div>
+                    <img
+                        style={{display: contentImage ? "block" : "none"}}
+                        src={contentImage}
+                        alt="图片未正确显示" />
                 </div>
                 <div className="comment">
                     <IFace />

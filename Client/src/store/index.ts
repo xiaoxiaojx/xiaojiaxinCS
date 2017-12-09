@@ -64,6 +64,7 @@ class Store {
                     if (result.data) {
                         this.articles = result.data.reverse();
                         this.cpArticles = result.data;
+                        localStorage.setItem("articlesData", JSON.stringify(this.articles));
                     }
                     return result;
                 }

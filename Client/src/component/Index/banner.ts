@@ -1,10 +1,13 @@
 import {
-    WU_Zhong,
+    WU_ZHONG,
     WEN_ZI,
-    ABOUT_BG_IMG,
+    SHUAI_YI,
     XIANG,
     DE_XIN,
-    DOU_BI
+    MO_CA,
+    SHUAI_MAO_1,
+    SHUAI_MAO_2,
+    BI_YE
 } from "../../common/baseImage";
 
 export default [{
@@ -14,11 +17,17 @@ export default [{
 }, {
     img: WEN_ZI
 }, {
-    img: WU_Zhong
+    img: WU_ZHONG
 }, {
     img: DE_XIN
 }, {
-    img: DOU_BI
+    img: SHUAI_YI
 }, {
-    img: ABOUT_BG_IMG
-}]
+    img: MO_CA
+}, {
+    img: SHUAI_MAO_1
+}, {
+    img: SHUAI_MAO_2
+}, {
+    img: BI_YE
+}];
