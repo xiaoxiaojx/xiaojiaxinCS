@@ -26,10 +26,13 @@ interface ArticleTmpProps {
 class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
     contentImage(): string {
         const { article } = this.props;
-        if (!article.content.includes("src=\"")) {
-            return "";
+        if (article.content.includes("src=\"")) {
+            return article.content.split("src=\"")[1].split("\"")[0];
         }
-        return article.content.split("src=\"")[1].split("\"")[0];
+        if (article.content.includes("![image](")) {
+            return article.content.split("![image](")[1].split("\)")[0];
+        }
+        return "";
     }
     render() {
         const { article } = this.props;
