@@ -26,6 +26,9 @@ import {
     redirect
 } from "../../common/utils";
 import {
+    ChipType
+} from "../../common/chips";
+import {
 	DEFAULT_AVATAR_IMG
 } from "../../common/baseImage";
 import "./index.scss";
@@ -164,6 +167,7 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
         store.setArticleData({
             editor: article.editor,
             title: article.title,
+            chipType: article.chipType || ChipType.Prose,
             quillVal: article.editor === "富文本" ? article.content : "",
             markVal: article.editor === "Markdown" ? article.content : ""
         });
