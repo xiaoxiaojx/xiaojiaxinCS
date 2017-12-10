@@ -11,6 +11,7 @@ const articleSchema = new mongoose.Schema({
     date: String,
     editor: String,
     views: Number,
+    chipType: String
 });
 
 const Article = mongoose.model("Article", articleSchema);

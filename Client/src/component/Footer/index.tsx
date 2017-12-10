@@ -6,6 +6,7 @@ import {
 }  from "material-ui";
 import Login from "../Login";
 import Register from "../Register";
+import BackTop from "../BackTop";
 import Store from "../../store";
 import Modal from "../Modal";
 import {
@@ -90,6 +91,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
 						</Tab>
 					</Tabs>
 				</Modal>
+                <BackTop />
             </div>
         );
     }

@@ -14,8 +14,12 @@ import {
     redirect,
     getLocalStorageArticlesData
 } from "../../common/utils";
+import {
+    ChipType
+} from "../../common/chips";
 import Store from "../../store";
 import Banner from "./banner";
+import Chips from "../Chips";
 import "./index.scss";
 
 interface IndexProps {
@@ -54,7 +58,7 @@ class Index extends React.Component<IndexProps, IndexState> {
         const { store } = this.props;
         const { visible } = this.state;
         const likeList = this. getLikeList();
-        const articles = store.articles && store.articles.length > 0 ? store.articles : getLocalStorageArticlesData();
+        const articles = store.articles && (store.articles.length > 0 || store.filterArticles.chipType !== ChipType.All) ? store.articles : getLocalStorageArticlesData();
 
         return (
             <Card className="IndexWrap">
@@ -70,6 +74,7 @@ class Index extends React.Component<IndexProps, IndexState> {
                                         thickness={5} />
                                 </div>
                             }
+                            <Chips store={store}/>
                             <div className="articlesList">
                                 {
                                     articles.map((article, index) =>
@@ -81,9 +86,9 @@ class Index extends React.Component<IndexProps, IndexState> {
                         <div>
                             <div className="search">
                                 <AutoComplete
-                                    value={store.searchArticlesTitle}
-                                    onUpdateInput={val => store.setSearchArticlesTitle(val)}
-                                    onNewRequest={val => store.realSearchArticlesTitle(val)}
+                                    value={store.filterArticles.title}
+                                    onUpdateInput={val => store.setFilterArticles({title: val})}
+                                    onNewRequest={val => store.setFilterArticles({title: val}, false)}
                                     dataSource={store.articles.map(art => art.title)}
                                     hintText="请输入文章标题"
                                     floatingLabelText="搜索文章" />

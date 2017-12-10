@@ -8,8 +8,8 @@ declare var Promise;
 const $findNot = {"__v": 0};
 
 export const publishArticle = (req: Request, res: Response) => {
-    const { userName, nickname, avatar, title, content, date, editor } = req.body;
-    Article.insertMany({userName, nickname, avatar, title, content, date, editor}, (err, doc) => {
+    const { userName, nickname, avatar, title, content, date, editor, chipType } = req.body;
+    Article.insertMany({userName, nickname, avatar, title, content, date, editor, chipType}, (err, doc) => {
         if ( err ) throw err;
         if (doc) {
             res.send({
@@ -44,6 +44,7 @@ export const getArticles = async (req: Request, res: Response) => {
         like: articleDocs[index]["like"].length,
         comment: articleDocs[index]["comment"].length,
         editor: articleDocs[index]["editor"],
+        chipType: articleDocs[index]["chipType"],
         nickname: item["nickname"],
         avatar: item["avatar"],
         views: articleDocs[index]["views"],
@@ -87,6 +88,7 @@ export const getArticle = async (req: Request, res: Response) => {
         like,
         comment,
         editor: articleDoc["editor"],
+        chipType: articleDoc["chipType"],
         nickname: userInfo["nickname"],
         avatar: userInfo["avatar"],
         views: articleDoc["views"],

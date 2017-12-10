@@ -77,3 +77,18 @@ export function getCompleteImgUrl(str: string) {
     const apiPrefix = getApiPrefix();
     return apiPrefix.substr(0, apiPrefix.length - 5) + str;
 }
+
+export function throttle(handel: Function, time: number = 1000) {
+    let canTrigger: boolean = true;
+
+    return () => {
+        if (canTrigger) {
+            canTrigger = false;
+            handel();
+
+            setTimeout(() => {
+                canTrigger = true;
+            }, time);
+        }
+    };
+}

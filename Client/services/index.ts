@@ -2,6 +2,9 @@ import {
     webapi,
     getApiPrefix
 } from "./webapi";
+import {
+    ChipType
+} from "../src/common/chips";
 
 export interface Result<T = null> {
     message: string;
@@ -53,6 +56,7 @@ export interface PublishArticleReq {
     content: string;
     date: string;
     userName: string;
+    chipType: ChipType;
 }
 
 export interface PublishArticleRes {
@@ -67,6 +71,7 @@ export interface PublishArticleRes {
     userName: string;
     nickname: string;
     avatar: string;
+    chipType: ChipType;
 }
 
 export interface PublishArticlesRes {
@@ -81,6 +86,7 @@ export interface PublishArticlesRes {
     userName: string;
     nickname: string;
     avatar: string;
+    chipType: ChipType;
 }
 
 export interface GetArticlesReq {
@@ -103,6 +109,7 @@ export interface UpdateArticleReq {
     like: SimpleUserInfo[];
     comment: SimpleComment[];
     views: number;
+    chipType: ChipType;
 }
 
 export interface SimpleUserInfo {

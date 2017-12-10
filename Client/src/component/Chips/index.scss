@@ -1,0 +1,22 @@
+@import "../../common/baseStyle";
+
+.ChipsWrap {
+    padding: 30px 0 0 50px;
+
+    .chipsList {
+        @extend .flexAlignCenter;
+    
+        .chip {
+            margin-right: 10px !important;
+        }
+    }
+    
+    .toggle {
+        max-width: 110px !important;
+    }
+
+    .toggleWrap {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

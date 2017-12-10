@@ -4,22 +4,23 @@ import * as ReactMarkdown from "react-markdown";
 import * as moment from "moment";
 import { observer } from "mobx-react";
 import {
-    Card
-} from "material-ui/Card";
-import {
     RadioButton,
     RadioButtonGroup
 } from "material-ui/RadioButton";
 import Tooltip from "../Tooltip";
 import {
     TextField,
-    RaisedButton
+    RaisedButton,
+    SelectField,
+    Card,
+    MenuItem
 } from "material-ui";
 import Store from "../../store";
 import {
     modules,
     formats
 } from "../../common/constant";
+import * as Chips from "../../common/chips";
 import {
     initKeyboardEvent,
     getElementByAttr,
@@ -74,18 +75,19 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
     }
     addEventListener() {
         const uploadImageBtn = document.getElementsByClassName("ql-image")[0];
-        uploadImageBtn.addEventListener("click", () => {
-            const hidFileInput: HTMLInputElement = getElementByAttr("input", "type", "file")[0];
-            hidFileInput.addEventListener("change", () => {
-                const file = hidFileInput.files ? hidFileInput.files[0] : "";
-                UploadImg(file)
-                    .then(result => {
-                        const base64ImgLength = getElementByAttr("img", "src", "data:image/").length;
-                        const targetImg: HTMLImageElement = getElementByAttr("img", "src", "data:image/")[base64ImgLength - 1];
-                        targetImg.src = result["data"];
-                    });
+        if (uploadImageBtn)
+            uploadImageBtn.addEventListener("click", () => {
+                const hidFileInput: HTMLInputElement = getElementByAttr("input", "type", "file")[0];
+                hidFileInput.addEventListener("change", () => {
+                    const file = hidFileInput.files ? hidFileInput.files[0] : "";
+                    UploadImg(file)
+                        .then(result => {
+                            const base64ImgLength = getElementByAttr("img", "src", "data:image/").length;
+                            const targetImg: HTMLImageElement = getElementByAttr("img", "src", "data:image/")[base64ImgLength - 1];
+                            targetImg.src = result["data"];
+                        });
+                });
             });
-        });
     }
     handlePublish() {
         const { store } = this.props;
@@ -94,7 +96,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
             const { userInfo } = this.state;
             const { userName } = userInfo;
             const { articleData, initArticleData, currentEditArticleId } = store;
-            const { editor, title, quillVal, markVal } = articleData;
+            const { editor, title, quillVal, markVal, chipType } = articleData;
             const isAddArticle = currentEditArticleId === "";
             const date = moment(new Date()).format("YYYY-MM-DD hh:mm");
             const data = {
@@ -103,6 +105,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                 content: editor === "富文本" ? quillVal : markVal,
                 date,
                 userName,
+                chipType
             } as PublishArticleReq;
             isAddArticle ?
             PublishArticle(data)
@@ -126,7 +129,8 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                     title,
                     editor,
                     content: editor === "富文本" ? quillVal : markVal,
-                    date
+                    date,
+                    chipType
                 }
             }).then(result => {
                 if (!result.error) {
@@ -161,7 +165,8 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
         const { store } = this.props;
         const { tooltip } = this.state;
         const { setArticleData, articleData, currentEditArticleId } = store;
-        const { editor, title, quillVal, markVal } = articleData;
+        const { editor, title, quillVal, markVal, chipType } = articleData;
+        const ChipsItems = Chips.default.slice(1);
 
         return (
             <Card className="ArticlesWrap">
@@ -187,6 +192,23 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                             floatingLabelText="标题"
                             value={title}
                             onChange={ (e: any) => setArticleData({title: e.target.value}) } />
+                    </div>
+                    <div className="chipSelect">
+                        <label>
+                            文章类型
+                        </label>
+                        <SelectField
+                            value={chipType}
+                            onChange={(event, index, value) => setArticleData({chipType: value})}>
+                            {
+                                ChipsItems.map((item, index) =>
+                                    <MenuItem
+                                        key={index}
+                                        value={item.value}
+                                        primaryText={item.label}/>
+                            )
+                            }
+                        </SelectField>
                     </div>
                     <div>
                         {

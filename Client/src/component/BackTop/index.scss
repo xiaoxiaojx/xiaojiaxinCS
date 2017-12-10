@@ -1,0 +1,12 @@
+@import "../../common/baseStyle";
+
+.BackTopWrap {
+    position: fixed;
+    right: 40px;
+    bottom: 50px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 50px;
+}

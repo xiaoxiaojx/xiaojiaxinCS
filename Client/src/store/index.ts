@@ -3,6 +3,9 @@ import {
     getLocalStorageData
 } from "../common/utils";
 import {
+    ChipType
+} from "../common/chips";
+import {
     GetUserInfo,
     GetArticles,
     GetArticlesRes,
@@ -17,6 +20,13 @@ interface ArticleData {
     title: string;
     quillVal: string;
     markVal: string;
+    chipType: ChipType;
+}
+
+interface FilterArticles {
+    title: string;
+    chipType: ChipType;
+    lookAll: boolean;
 }
 
 useStrict(true);
@@ -26,7 +36,8 @@ const defaultArticleData: ArticleData = {
     editor: "富文本",
     title: "",
     quillVal: "",
-    markVal: ""
+    markVal: "",
+    chipType: ChipType.Prose
 };
 
 class Store {
@@ -70,14 +81,34 @@ class Store {
                 }
             ));
     }
-    @observable public searchArticlesTitle: string = "";
-    @action.bound public setSearchArticlesTitle(val: string) {
-        this.searchArticlesTitle = val;
-        this.articles = this.cpArticles.filter(art => art.title.includes(val));
-    }
-    @action.bound public realSearchArticlesTitle(val: string) {
-        this.searchArticlesTitle = val;
-        this.articles = this.cpArticles.filter(art => art.title === val);
+    @observable public filterArticles: FilterArticles = {
+        title: "",
+        chipType: ChipType.All,
+        lookAll: true
+    };
+    @action.bound public setFilterArticles(data: Partial<FilterArticles>, includes: boolean = true) {
+        this.filterArticles = {...this.filterArticles, ...data};
+        this.articles = this.cpArticles
+            .filter(art => {
+                const chipType = art.chipType ? art.chipType : ChipType.Prose;
+                return (includes ?
+                    art.title.includes(this.filterArticles.title)
+                    :
+                    art.title === this.filterArticles.title
+                )
+                &&
+                (this.filterArticles.chipType === ChipType.All ?
+                    true
+                    :
+                    this.filterArticles.chipType === chipType
+                )
+                &&
+                (this.filterArticles.lookAll ?
+                    true
+                    :
+                    art.userName === this.localStorageQaqData["userName"]
+                );
+            });
     }
 
     @observable public showLoginRegisterModal: boolean = false;
