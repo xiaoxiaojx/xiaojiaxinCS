@@ -21,7 +21,7 @@ export function getLocalStorageData(): Partial<User> | boolean {
 export function getLocalStorageArticlesData(): PublishArticlesRes[] {
     let data: PublishArticlesRes[] = [];
     try {
-        data = JSON.parse(localStorage.getItem("articlesData") as any);
+        data = JSON.parse(localStorage.getItem("articlesData") as any) || [];
     }
     catch (err) {
         data =  [];
