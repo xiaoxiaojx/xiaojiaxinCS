@@ -1,7 +1,7 @@
 @import "../../common/baseStyle";
 
 .ArticleTmpWrap {
-    padding: 20px 0 10px;
+    padding: 10px 0 10px;
     border-top: 1px solid $borderColor;
 
     .avatar {
@@ -36,7 +36,6 @@
     .title {
         display: block;
         color: #969696;
-        margin: 0 0 10px;
         font-size: 24px;
         font-weight: 600;
     }
@@ -48,6 +47,7 @@
         word-break: break-all;
         color: #8b8b8b;
         font-size: 16px;
+        margin: 0 0 10px;
     }
 
     .comment {
@@ -68,14 +68,21 @@
         }
     }
 
-    .imageContent {
+    .imageContentWrap {
         display: flex;
         justify-content: space-between;
 
-        img {
-            margin-left: 10px;
+        .imageContent {
+            margin: 10px 0 0 10px;
             width: 150px !important;
             max-height: 120px !important;
         }
+    }
+
+    .tags {
+        color: $baseColor;
+        border: 1px solid $baseColor;
+        border-radius: 2px;
+        padding: 0 6px;
     }
 }

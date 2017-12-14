@@ -14,8 +14,9 @@ import {
 import {
 	DEFAULT_AVATAR_IMG
 } from "../../common/baseImage";
+import chipItems, { ChipType } from "../../common/chips";
 import {
-    PublishArticlesRes
+    PublishArticlesRes,
 } from "../../../services";
 import "./index.scss";
 
@@ -34,42 +35,51 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
         }
         return "";
     }
+    renderTags(type: ChipType) {
+        const target = chipItems.find(item => item.value === type);
+        const text = target ? target.label : "散文";
+        return <span className="tags"> {text} </span> ;
+    }
     render() {
         const { article } = this.props;
         const contentImage = this.contentImage();
 
         return (
             <div className="ArticleTmpWrap">
-                <div className="avatar">
-                    <IconButton
-                        onClick={() => redirect(`/home/${article.userName}`)}
-                        tooltip="点击进入我的主页">
-                        <Avatar
-                            size={40}
-                            src={article.avatar ? getCompleteImgUrl(article.avatar) : DEFAULT_AVATAR_IMG}/>
-                    </IconButton>
+                <div  className="imageContentWrap">
                     <div>
-                        <div> {article.nickname} </div>
-                        <div> {article.date} </div>
-                    </div>
-                </div>
-                <div className="imageContent">
-                    <div>
-                        <a
-                            className="title"
-                            onClick={() => redirect(`/article/${article["_id"]}`)}>
-                            {article.title}
-                        </a>
-                        <div className="content">
-                            { replaceHtmlTag(article.content) }
+                        <div className="avatar">
+                            <IconButton
+                                onClick={() => redirect(`/home/${article.userName}`)}
+                                tooltip="点击进入我的主页">
+                                <Avatar
+                                    size={40}
+                                    src={article.avatar ? getCompleteImgUrl(article.avatar) : DEFAULT_AVATAR_IMG}/>
+                            </IconButton>
+                            <div>
+                                <div> {article.nickname} </div>
+                                <div> {article.date} </div>
+                            </div>
+                        </div>
+                        <div>
+                            <a
+                                className="title"
+                                onClick={() => redirect(`/article/${article["_id"]}`)}>
+                                {article.title}
+                            </a>
+                            <div className="content">
+                                { replaceHtmlTag(article.content) }
+                            </div>
                         </div>
                     </div>
                     <img
+                        className="imageContent"
                         style={{display: contentImage ? "block" : "none"}}
                         src={contentImage}
                         alt="图片未正确显示" />
                 </div>
                 <div className="comment">
+                    { this.renderTags(article.chipType) }
                     <IFace />
                     <span> {article.views} </span>
                     <IChat />

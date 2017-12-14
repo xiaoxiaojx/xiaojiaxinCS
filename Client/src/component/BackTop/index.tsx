@@ -6,7 +6,7 @@ import {
 import IArrowUp from "material-ui/svg-icons/navigation/arrow-drop-up";
 import {
     autoBindMethods,
-    throttle
+    debounce
 } from "../../common/utils";
 import "./index.scss";
 
@@ -17,7 +17,7 @@ interface BackTopState {
 class BackTop extends React.Component<{}, BackTopState> {
     constructor(props) {
         super(props);
-        autoBindMethods(["scrollHandle", "throttleFuc"], this);
+        autoBindMethods(["scrollHandle"], this);
     }
     state: BackTopState = {
         isHidden: true
@@ -27,13 +27,10 @@ class BackTop extends React.Component<{}, BackTopState> {
         this.scrollHandle();
     }
     componentWillUnmount() {
-        window.removeEventListener("scroll", this.throttleFuc());
-    }
-    throttleFuc() {
-        return throttle(this.scrollHandle);
+        window.removeEventListener("scroll", debounce(this.scrollHandle));
     }
     addEventListener() {
-        window.addEventListener("scroll", this.throttleFuc(), false);
+        window.addEventListener("scroll", debounce(this.scrollHandle), false);
     }
     setIsHidden(isHidden: boolean) {
         if (this && isHidden !== this.state.isHidden) {

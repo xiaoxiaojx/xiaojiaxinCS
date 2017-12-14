@@ -81,14 +81,25 @@ export function getCompleteImgUrl(str: string) {
 export function throttle(handel: Function, time: number = 1000) {
     let canTrigger: boolean = true;
 
-    return () => {
+    return (...arg) => {
         if (canTrigger) {
             canTrigger = false;
-            handel();
+            handel(...arg);
 
             setTimeout(() => {
                 canTrigger = true;
             }, time);
         }
+    };
+}
+
+export function debounce(handel: Function, time: number = 1000) {
+    let setTimeId: any;
+
+    return (...arg) => {
+        clearTimeout(setTimeId);
+        setTimeId = setTimeout(() => {
+            handel(...arg);
+        }, time);
     };
 }
