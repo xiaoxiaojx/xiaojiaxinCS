@@ -23,7 +23,8 @@ import Store from "../../store";
 import CommentTmp from "../CommentTmp";
 import {
     replaceHtmlTag,
-    redirect
+    redirect,
+    setDocumentTitle
 } from "../../common/utils";
 import {
     ChipType
@@ -55,7 +56,14 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
     };
 
     componentDidMount() {
-        this.getArticle(this.viewArticle);
+        const callBack = () => {
+            setDocumentTitle(`${this.state.article.nickname} - ${this.state.article.title}`);
+            this.viewArticle();
+        };
+        this.getArticle(callBack);
+    }
+    componentWillUnmount() {
+        setDocumentTitle();
     }
     async getArticle(cb = () => {}) {
         const { match } = this.props;

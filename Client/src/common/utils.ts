@@ -103,3 +103,7 @@ export function debounce(handel: Function, time: number = 1000) {
         }, time);
     };
 }
+
+export function setDocumentTitle(title?: string) {
+    document.getElementsByTagName("title")[0].innerText = title || "Young";
+}
