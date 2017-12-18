@@ -2,10 +2,13 @@ import * as express from "express";
 import * as webpack from "webpack";
 import * as webpackDevMiddleware from "webpack-dev-middleware";
 import * as webpackHotMiddleware from "webpack-hot-middleware";
+import * as path from "path";
 import config from "./webpack.config";
 
 const app = express();
 const compiler = webpack(config);
+
+app.use(express.static(path.join(__dirname, "../dist")));
 
 app.use(webpackDevMiddleware(compiler, {
     stats: {

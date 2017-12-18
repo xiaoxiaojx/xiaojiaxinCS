@@ -33,7 +33,8 @@ var config = {
     plugins: [
         new webpack.DllPlugin({
             path: joinDir("../dist/build/bundle.manifest.json"),
-            name: "[name]_[hash]"
+            name: "[name]_[hash]",
+            context: "."
         })
     ]
 };

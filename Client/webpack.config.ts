@@ -58,7 +58,7 @@ const config: webpack.Configuration = {
 			filename: "index.html"
 		}),
 		new webpack.DllReferencePlugin({
-		context: joinDir("../dist/build"),
+		context: ".",
 		manifest: require("../dist/build/bundle.manifest.json"),
 		}),
 		new ExtractTextPlugin("css/[name].css"),

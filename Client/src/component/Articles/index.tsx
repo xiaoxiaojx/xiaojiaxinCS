@@ -77,13 +77,13 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
         const uploadImageBtn = document.getElementsByClassName("ql-image")[0];
         if (uploadImageBtn)
             uploadImageBtn.addEventListener("click", () => {
-                const hidFileInput: HTMLInputElement = getElementByAttr("input", "type", "file")[0];
+                const hidFileInput: HTMLInputElement = getElementByAttr<HTMLInputElement>("input", "type", "file")[0];
                 hidFileInput.addEventListener("change", () => {
                     const file = hidFileInput.files ? hidFileInput.files[0] : "";
                     UploadImg(file)
                         .then(result => {
                             const base64ImgLength = getElementByAttr("img", "src", "data:image/").length;
-                            const targetImg: HTMLImageElement = getElementByAttr("img", "src", "data:image/")[base64ImgLength - 1];
+                            const targetImg: HTMLImageElement = getElementByAttr<HTMLImageElement>("img", "src", "data:image/")[base64ImgLength - 1];
                             targetImg.src = result["data"];
                         });
                 });

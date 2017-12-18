@@ -7,6 +7,86 @@ import {
     getApiPrefix
 } from "../../services/webapi";
 
+export function autoBindMethods<T, K extends keyof T>(methods: K[], _this: T): void {
+    methods.forEach(method => {
+        if (typeof _this[method] === "function") {
+            _this[method] = (_this[method] as any).bind(_this);
+        }
+    });
+}
+
+export function getElementByAttr<T extends HTMLElement>(tag, attr, value): T[] {
+    const aElements = document.getElementsByTagName(tag);
+    const aEle: T[] = [];
+    for (let i = 0; i < aElements.length; i++) {
+        if (aElements[i].getAttribute(attr).includes(value))
+            aEle.push( aElements[i] );
+    }
+    return aEle;
+}
+
+export function redirect(path: string): void {
+    const history = createHistory();
+    history.push(path);
+}
+
+export function initKeyboardEvent (e: any): void {
+    const keyCode = e.keyCode || e.which;
+    const el = e.target;
+
+    if (keyCode === 9) {
+        let start = el.selectionStart,
+            end = el.selectionEnd;
+
+        el.value = el.value.substring(0, start)
+                + "\t"
+                + el.value.substring(end);
+        e.preventDefault();
+    }
+}
+
+export function replaceHtmlTag(str: string): string {
+    return str.replace(/<[^>]*>/g, "");
+}
+
+export function getCompleteImgUrl(str: string): string {
+    if (str[0] !== "/") {
+        return str;
+    }
+    const apiPrefix = getApiPrefix();
+    return apiPrefix.substr(0, apiPrefix.length - 5) + str;
+}
+
+export function throttle(handel: Function, time: number = 1000): (...arg: any[]) => void {
+    let canTrigger: boolean = true;
+
+    return (...arg) => {
+        if (canTrigger) {
+            canTrigger = false;
+            handel(...arg);
+
+            setTimeout(() => {
+                canTrigger = true;
+            }, time);
+        }
+    };
+}
+
+export function debounce(handel: Function, time: number = 1000): (...arg: any[]) => void {
+    let setTimeId: any;
+
+    return (...arg) => {
+        clearTimeout(setTimeId);
+        setTimeId = setTimeout(() => {
+            handel(...arg);
+        }, time);
+    };
+}
+
+export function setDocumentTitle(title?: string): void {
+    document.getElementsByTagName("title")[0].innerText = title || "Young";
+}
+
 export function getLocalStorageData(): Partial<User> | boolean {
     let data: Partial<User> | boolean;
     try {
@@ -27,83 +107,4 @@ export function getLocalStorageArticlesData(): PublishArticlesRes[] {
         data =  [];
     }
     return data;
-}
-
-export function autoBindMethods(methods: string[], _this) {
-    methods.forEach(method => _this[method] = _this[method].bind(_this));
-}
-
-export function redirect(path: string) {
-    const history = createHistory();
-    history.push(path);
-}
-
-export function initKeyboardEvent (e: any) {
-    const keyCode = e.keyCode || e.which;
-    const el = e.target;
-
-    if (keyCode === 9) {
-        let start = el.selectionStart,
-            end = el.selectionEnd;
-
-        el.value = el.value.substring(0, start)
-                + "\t"
-                + el.value.substring(end);
-
-//        el.selectionStart = el.selectionEnd = start + 1;
-
-        e.preventDefault();
-    }
-}
-
-export function replaceHtmlTag(str: string): string {
-    return str.replace(/<[^>]*>/g, "");
-}
-
-export function getElementByAttr(tag, attr, value) {
-    const aElements = document.getElementsByTagName(tag);
-    const aEle: any[] = [];
-    for (let i = 0; i < aElements.length; i++) {
-        if (aElements[i].getAttribute(attr).includes(value))
-            aEle.push( aElements[i] );
-    }
-    return aEle;
-}
-
-export function getCompleteImgUrl(str: string) {
-    if (str[0] !== "/") {
-        return str;
-    }
-    const apiPrefix = getApiPrefix();
-    return apiPrefix.substr(0, apiPrefix.length - 5) + str;
-}
-
-export function throttle(handel: Function, time: number = 1000) {
-    let canTrigger: boolean = true;
-
-    return (...arg) => {
-        if (canTrigger) {
-            canTrigger = false;
-            handel(...arg);
-
-            setTimeout(() => {
-                canTrigger = true;
-            }, time);
-        }
-    };
-}
-
-export function debounce(handel: Function, time: number = 1000) {
-    let setTimeId: any;
-
-    return (...arg) => {
-        clearTimeout(setTimeId);
-        setTimeId = setTimeout(() => {
-            handel(...arg);
-        }, time);
-    };
-}
-
-export function setDocumentTitle(title?: string) {
-    document.getElementsByTagName("title")[0].innerText = title || "Young";
 }
