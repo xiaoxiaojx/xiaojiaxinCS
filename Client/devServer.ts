@@ -8,7 +8,7 @@ import config from "./webpack.config";
 const app = express();
 const compiler = webpack(config);
 
-app.use(express.static(path.join(__dirname, "../dist")));
+app.use(express.static(path.join(__dirname, "../asset")));
 
 app.use(webpackDevMiddleware(compiler, {
     stats: {

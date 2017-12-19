@@ -8,7 +8,7 @@ var path = require("path");
 var webpack_config_1 = require("./webpack.config");
 var app = express();
 var compiler = webpack(webpack_config_1["default"]);
-app.use(express.static(path.join(__dirname, "../dist")));
+app.use(express.static(path.join(__dirname, "../asset")));
 app.use(webpackDevMiddleware(compiler, {
     stats: {
         colors: true,

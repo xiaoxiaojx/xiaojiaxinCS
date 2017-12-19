@@ -10,6 +10,9 @@ if [[ -d $folder ]]; then
   rm -rf dist;
   mkdir dist;
   cp -r ../xiaojiaxinCS/Client/dist/* ./dist;
+  rm -rf asset;
+  mkdir asset;
+  cp -r ../xiaojiaxinCS/Client/asset/* ./asset;
   git add .;
   git commit -m 'auto push';
   git push;

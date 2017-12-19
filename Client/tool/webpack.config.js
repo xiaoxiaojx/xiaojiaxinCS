@@ -55,7 +55,7 @@ var config = {
         }),
         new webpack.DllReferencePlugin({
             context: ".",
-            manifest: require("../dist/build/bundle.manifest.json")
+            manifest: require("../asset/build/bundle.manifest.json")
         }),
         new ExtractTextPlugin("css/[name].css"),
         new webpack.NoEmitOnErrorsPlugin()

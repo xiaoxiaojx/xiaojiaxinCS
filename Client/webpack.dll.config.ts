@@ -28,13 +28,13 @@ const config: webpack.Configuration = {
         ]
     },
     output: {
-        path: joinDir("../dist/build"),
+        path: joinDir("../asset/build"),
         filename: "[name].js",
         library: "[name]_[hash]"
     },
     plugins: [
         new webpack.DllPlugin({
-            path: joinDir("../dist/build/bundle.manifest.json"),
+            path: joinDir("../asset/build/bundle.manifest.json"),
             name: "[name]_[hash]",
             context: "."
         })
