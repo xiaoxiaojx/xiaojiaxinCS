@@ -6,13 +6,20 @@ import {
 import {
     getApiPrefix
 } from "../../services/webapi";
+import {
+    TITLE
+} from "./constant";
 
-export function autoBindMethods<T, K extends keyof T>(methods: K[], _this: T): void {
-    methods.forEach(method => {
-        if (typeof _this[method] === "function") {
-            _this[method] = (_this[method] as any).bind(_this);
-        }
-    });
+/*
+    这个方法怎样改写才能不报错, 并且能约束传入属性的属性值必须是Function
+    export function autoBindMethods<K extends string>(methods: K[], _self: { [key in K]: Function } | { [key: string]: any }): void {
+        methods.forEach((method: K) => _self[method] = _self[method].bind(this));
+        // error TS2536: Type 'K' cannot be used to index type '{ [key in K]: Function; } | { [key: string]: any; }'
+    }
+*/
+
+export function autoBindMethods<T, K extends keyof T>(methods: K[], _self: T): void {
+    methods.forEach((method: K) => _self[method] = (_self[method] as any).bind(this));
 }
 
 export function getElementByAttr<T extends HTMLElement>(tag, attr, value): T[] {
@@ -84,7 +91,7 @@ export function debounce(handel: Function, time: number = 1000): (...arg: any[])
 }
 
 export function setDocumentTitle(title?: string): void {
-    document.getElementsByTagName("title")[0].innerText = title || "Young";
+    document.getElementsByTagName("title")[0].innerText = title || TITLE;
 }
 
 export function getLocalStorageData(): Partial<User> | boolean {

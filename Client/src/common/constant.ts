@@ -1,3 +1,5 @@
+export const TITLE: string = "Awkward Article";
+
 export const modules = {
     toolbar: [
         [{ "header": [1, 2, false] }],
