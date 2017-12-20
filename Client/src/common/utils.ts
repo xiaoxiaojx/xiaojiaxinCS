@@ -11,7 +11,7 @@ import {
 } from "./constant";
 
 /*
-    这个方法怎样改写才能不报错, 并且能约束传入属性的属性值必须是Function
+    如何改进这个方法不报错, 并且能检测传入属性的属性值是Function
     export function autoBindMethods<K extends string>(methods: K[], _self: { [key in K]: Function } | { [key: string]: any }): void {
         methods.forEach((method: K) => _self[method] = _self[method].bind(this));
         // error TS2536: Type 'K' cannot be used to index type '{ [key in K]: Function; } | { [key: string]: any; }'
@@ -19,7 +19,7 @@ import {
 */
 
 export function autoBindMethods<T, K extends keyof T>(methods: K[], _self: T): void {
-    methods.forEach((method: K) => _self[method] = (_self[method] as any).bind(_self));
+    methods.forEach((method: K) => _self[method] = (_self[method] as any).bind(this));
 }
 
 export function getElementByAttr<T extends HTMLElement>(tag, attr, value): T[] {
