@@ -19,7 +19,7 @@ import {
 */
 
 export function autoBindMethods<T, K extends keyof T>(methods: K[], _self: T): void {
-    methods.forEach((method: K) => _self[method] = (_self[method] as any).bind(this));
+    methods.forEach((method: K) => _self[method] = (_self[method] as any).bind(_self));
 }
 
 export function getElementByAttr<T extends HTMLElement>(tag, attr, value): T[] {
