@@ -17,7 +17,6 @@ const config: webpack.Configuration = {
             "react-dom",
             "mobx-react",
             "mobx",
-            "moment",
             "history",
             "material-ui",
             "react-markdown",

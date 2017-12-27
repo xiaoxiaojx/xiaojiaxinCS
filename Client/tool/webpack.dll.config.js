@@ -15,7 +15,6 @@ var config = {
             "react-dom",
             "mobx-react",
             "mobx",
-            "moment",
             "history",
             "material-ui",
             "react-markdown",

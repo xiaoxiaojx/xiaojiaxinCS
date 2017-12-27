@@ -17,7 +17,7 @@ interface BackTopState {
 class BackTop extends React.Component<{}, BackTopState> {
     constructor(props) {
         super(props);
-        autoBindMethods(["scrollHandle"], this);
+        autoBindMethods(["scrollHandle", "setIsHidden"], this);
     }
     state: BackTopState = {
         isHidden: true
@@ -30,7 +30,7 @@ class BackTop extends React.Component<{}, BackTopState> {
         window.removeEventListener("scroll", debounce(this.scrollHandle));
     }
     addEventListener() {
-        window.addEventListener("scroll", debounce(this.scrollHandle), false);
+        window.addEventListener("scroll", debounce(this.scrollHandle));
     }
     setIsHidden(isHidden: boolean) {
         if (this && isHidden !== this.state.isHidden) {
@@ -50,8 +50,10 @@ class BackTop extends React.Component<{}, BackTopState> {
         const { isHidden } = this.state;
 
         return (
+            isHidden ?
+            null
+            :
             <Card
-                style={{display: isHidden ? "none" : "block"}}
                 className="BackTopWrap">
                 <IconButton
                     tooltip="回到顶部"

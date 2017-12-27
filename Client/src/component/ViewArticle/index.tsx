@@ -1,7 +1,6 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import * as ReactMarkdown from "react-markdown";
-import * as moment from "moment";
 import {
     Avatar,
     TextField,
@@ -24,7 +23,8 @@ import CommentTmp from "../CommentTmp";
 import {
     replaceHtmlTag,
     redirect,
-    setDocumentTitle
+    setDocumentTitle,
+    getFormatDate
 } from "../../common/utils";
 import {
     ChipType
@@ -120,7 +120,7 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
         const { store } = this.props;
         const { commentContent, article } = this.state;
         const { comment, _id } = article;
-        const date = moment(new Date()).format("YYYY-MM-DD hh:mm");
+        const date = getFormatDate();
         const { localStorageQaqData, setShowLoginRegisterModal } = store;
         if (!localStorageQaqData) {
             setShowLoginRegisterModal(true);

@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as ReactQuill from "react-quill";
 import * as ReactMarkdown from "react-markdown";
-import * as moment from "moment";
 import { observer } from "mobx-react";
 import {
     RadioButton,
@@ -24,7 +23,8 @@ import * as Chips from "../../common/chips";
 import {
     initKeyboardEvent,
     getElementByAttr,
-    redirect
+    redirect,
+    getFormatDate
 } from "../../common/utils";
 import {
     User,
@@ -98,7 +98,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
             const { articleData, initArticleData, currentEditArticleId } = store;
             const { editor, title, quillVal, markVal, chipType } = articleData;
             const isAddArticle = currentEditArticleId === "";
-            const date = moment(new Date()).format("YYYY-MM-DD hh:mm");
+            const date = getFormatDate();
             const data = {
                 title,
                 editor,

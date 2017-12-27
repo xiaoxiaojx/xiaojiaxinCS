@@ -19,7 +19,7 @@ import {
 */
 
 export function autoBindMethods<T, K extends keyof T>(methods: K[], _self: T): void {
-    methods.forEach((method: K) => _self[method] = (_self[method] as any).bind(this));
+    methods.forEach((method: K) => _self[method] = (_self[method] as any).bind(_self));
 }
 
 export function getElementByAttr<T extends HTMLElement>(tag, attr, value): T[] {
@@ -92,6 +92,16 @@ export function debounce(handel: Function, time: number = 1000): (...arg: any[])
 
 export function setDocumentTitle(title?: string): void {
     document.getElementsByTagName("title")[0].innerText = title || TITLE;
+}
+
+export function getFormatDate(): string {
+    const nowDate = new Date();
+    const year = nowDate.getFullYear();
+    const month = nowDate.getMonth() + 1;
+    const date = nowDate.getDate();
+    const hours = nowDate.getHours();
+    const minutes = nowDate.getMinutes();
+    return `${year}年${month}月${date}日 ${hours}时${minutes}分`
 }
 
 export function getLocalStorageData(): Partial<User> | boolean {
