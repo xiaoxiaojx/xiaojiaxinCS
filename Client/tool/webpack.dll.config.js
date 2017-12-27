@@ -34,6 +34,12 @@ var config = {
             path: joinDir("../asset/build/bundle.manifest.json"),
             name: "[name]_[hash]",
             context: "."
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+                drop_console: true
+            }
         })
     ]
 };

@@ -13,7 +13,7 @@ import {
 /*
     如何改进这个方法不报错, 并且能检测传入属性的属性值是Function
     export function autoBindMethods<K extends string>(methods: K[], _self: { [key in K]: Function } | { [key: string]: any }): void {
-        methods.forEach((method: K) => _self[method] = _self[method].bind(this));
+        methods.forEach((method: K) => _self[method] = _self[method].bind(_self));
         // error TS2536: Type 'K' cannot be used to index type '{ [key in K]: Function; } | { [key: string]: any; }'
     }
 */
