@@ -2,12 +2,30 @@
 exports.__esModule = true;
 var webpack = require("webpack");
 var path = require("path");
-// async function getPackageJson() {
-//     const json = await require("../package.json");
-//     return json;
-// }
-// console.log(getPackageJson());
+var isProduction = process.env.NODE_ENV === "production";
 var joinDir = function (p) { return path.join(__dirname, p); };
+console.log("WebPack build dll in " + process.env.NODE_ENV + " ...");
+var proPlugins = [
+    new webpack.DefinePlugin({
+        "process.env": {
+            "NODE_ENV": JSON.stringify("production")
+        }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false,
+            drop_console: true
+        }
+    })
+];
+var devPlugins = [
+    new webpack.DefinePlugin({
+        "process.env": {
+            NODE_ENV: JSON.stringify("development")
+        }
+    })
+];
+var currentPlugins = isProduction ? proPlugins : devPlugins;
 var config = {
     entry: {
         bundle: [
@@ -29,18 +47,12 @@ var config = {
         filename: "[name].js",
         library: "[name]_[hash]"
     },
-    plugins: [
+    plugins: currentPlugins.concat([
         new webpack.DllPlugin({
             path: joinDir("../asset/build/bundle.manifest.json"),
             name: "[name]_[hash]",
             context: "."
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-                drop_console: true
-            }
         })
-    ]
+    ])
 };
 exports["default"] = config;

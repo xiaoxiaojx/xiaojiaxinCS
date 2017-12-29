@@ -4,6 +4,7 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require("path");
+var DllLinkPlugin = require("dll-link-webpack-plugin");
 var hotMiddlewareScript = "webpack-hot-middleware/client?reload=true&path=/__webpack_hmr";
 var isProduction = process.env.NODE_ENV === "production";
 var commonsEntry = [];
@@ -53,9 +54,9 @@ var config = {
             template: joinDir("../src/index.html"),
             filename: "index.html"
         }),
-        new webpack.DllReferencePlugin({
-            context: ".",
-            manifest: require("../asset/build/bundle.manifest.json")
+        new DllLinkPlugin({
+            config: require("./webpack.dll.config.js")["default"],
+            htmlMode: true
         }),
         new ExtractTextPlugin("css/[name].css"),
         new webpack.NoEmitOnErrorsPlugin()

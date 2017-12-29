@@ -3,6 +3,3 @@ dev:
 
 build:
 	npm run build
-
-dll:
-	npm run dll

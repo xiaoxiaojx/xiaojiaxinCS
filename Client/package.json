@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc devServer.ts --outDir tool && NODE_ENV=development node tool/devServer.js",
     "build": "tsc webpack.config.ts --outDir tool && NODE_ENV=production webpack --config tool/webpack.config.js",
-    "dll": "tsc webpack.dll.config.ts --outDir tool && webpack --config tool/webpack.dll.config.js",
     "release": "sh ./tool/release.sh"
   },
   "repository": {
@@ -35,6 +34,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "css-loader": "^0.28.5",
+    "dll-link-webpack-plugin": "^2.0.3",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.5",
