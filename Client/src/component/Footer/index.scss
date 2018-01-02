@@ -2,3 +2,19 @@
 
 .FooterWrap {
 }
+
+.loginLogo {
+    text-align: center;
+    animation: displayLoginLogo 1s; 
+    display: block;
+    margin: auto;
+
+    h3 {
+        margin: -10px 0 -20px;
+    }
+}
+
+@keyframes displayLoginLogo { 
+    0% { transform: translateY(-200px); } 
+    100% { transform: translateY(0px); } 
+}

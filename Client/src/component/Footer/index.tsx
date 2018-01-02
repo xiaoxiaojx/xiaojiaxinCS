@@ -13,6 +13,9 @@ import {
     autoBindMethods,
     redirect
 } from "../../common/utils";
+import {
+    TITLE
+} from "../../common/constant";
 import "./index.scss";
 
 interface FooterProps {
@@ -69,12 +72,22 @@ class Footer extends React.Component<FooterProps, FooterState> {
         return (
             <div className="FooterWrap">
                 <Modal
-                okText="O(∩_∩)O好的"
-                cancelText="╮(╯﹏╰)╭下次再说"
-                visible={visible}
-                onOk={this.onOkM1}
-                onCancel={this.onCancelM1}>
-                    <h3> (｡･∀･)ﾉﾞ嗨, 请先登录 </h3>
+                    title={
+                        <h3
+                            style={{textAlign: "center"}}>
+                                欢迎您,  (｡･∀･)ﾉﾞ 请先登录~
+                        </h3>
+                    }
+                    okText="O(∩_∩)O 好的"
+                    cancelText="╮(╯﹏╰)╭ 下次再说"
+                    visible={visible}
+                    onOk={this.onOkM1}
+                    onCancel={this.onCancelM1}>
+                        <div className="loginLogo">
+                            <img
+                                src="/staticImage/dog.png"/>
+                            <h3>{ TITLE }</h3>
+                        </div>
                 </Modal>
                 <Modal
 					visible={store.showLoginRegisterModal}

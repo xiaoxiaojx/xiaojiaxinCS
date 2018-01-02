@@ -58,7 +58,7 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                             </IconButton>
                             <div>
                                 <div> {article.nickname} </div>
-                                <div> {article.date} </div>
+                                <div className="date"> {article.date} </div>
                             </div>
                         </div>
                         <div>
