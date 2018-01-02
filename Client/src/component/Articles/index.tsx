@@ -226,6 +226,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                                     value={markVal}
                                     onChange={ (e: any) =>  setArticleData({markVal: e.target.value})} />
                                 <ReactMarkdown
+                                    className="breakAll"
                                     source={markVal} />
                             </div>
                         }

@@ -8,9 +8,6 @@ import Tooltip from "../Tooltip";
 import Store from "../../store";
 import Rules from "../../common/rules";
 import {
-    redirect
-} from "../../common/utils";
-import {
     LoginReq,
     Login as LoginService
 } from "../../../services";
@@ -127,7 +124,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                     this.showModalMessage(result.message);
                     store.setLocalStorageQaqData(user);
                     store.setShowLoginRegisterModal(false);
-                    redirect("/");
+                    location.reload();
                 }
                 this.setDisabled(false);
             })

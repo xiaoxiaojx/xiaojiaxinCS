@@ -125,4 +125,10 @@
     .commentBtnWrap {
         text-align: right;
     }
+
+    code {
+        display: block;
+        width: 100%;
+        overflow: scroll;
+    }
 }
