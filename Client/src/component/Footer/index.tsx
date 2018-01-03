@@ -71,40 +71,57 @@ class Footer extends React.Component<FooterProps, FooterState> {
 
         return (
             <div className="FooterWrap">
-                <Modal
-                    title={
-                        <h3
-                            style={{textAlign: "center"}}>
-                                欢迎您,  (｡･∀･)ﾉﾞ 请先登录~
-                        </h3>
-                    }
-                    okText="O(∩_∩)O 好的"
-                    cancelText="╮(╯﹏╰)╭ 下次再说"
-                    visible={visible}
-                    onOk={this.onOkM1}
-                    onCancel={this.onCancelM1}>
-                        <div className="loginLogo">
-                            <img
-                                src="/staticImage/dog.png"/>
-                            <h3>{ TITLE }</h3>
+                <section>
+                    <div className="baseline">
+                        <div className="bottomLogo">
+                            <img src="/staticImage/dog24.png"/>
+                            <div className="bigBottomLogo">
+                                <img
+                                    src="/staticImage/dog128.png"/>
+                                <span>
+                                    Wish you a happy year of dog
+                                </span>
+                            </div>
                         </div>
-                </Modal>
-                <Modal
-					visible={store.showLoginRegisterModal}
-					onCancel={this.onCancelM2}
-					>
-					<Tabs>
-						<Tab label="登录" >
-							<Login
-                                store={store} />
-						</Tab>
-						<Tab label="注册" >
-							<Register
-                                store={store} />
-						</Tab>
-					</Tabs>
-				</Modal>
-                <BackTop />
+                        <span>Remember this is my bottom line </span>
+                    </div>
+                    <BackTop />
+                </section>
+                <footer>
+                    <Modal
+                        title={
+                            <h3
+                                style={{textAlign: "center"}}>
+                                    欢迎您,  (｡･∀･)ﾉﾞ 请先登录~
+                            </h3>
+                        }
+                        okText="O(∩_∩)O 好的"
+                        cancelText="╮(╯﹏╰)╭ 下次再说"
+                        visible={visible}
+                        onOk={this.onOkM1}
+                        onCancel={this.onCancelM1}>
+                            <div className="loginLogo">
+                                <img
+                                    src="/staticImage/dog.png"/>
+                                <h3>{ TITLE }</h3>
+                            </div>
+                    </Modal>
+                    <Modal
+                        visible={store.showLoginRegisterModal}
+                        onCancel={this.onCancelM2}
+                        >
+                        <Tabs>
+                            <Tab label="登录" >
+                                <Login
+                                    store={store} />
+                            </Tab>
+                            <Tab label="注册" >
+                                <Register
+                                    store={store} />
+                            </Tab>
+                        </Tabs>
+                    </Modal>
+                </footer>
             </div>
         );
     }

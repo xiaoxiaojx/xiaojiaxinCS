@@ -7,7 +7,24 @@
         @extend .flexAlignCenter;
     
         .chip {
-            margin-right: 10px !important;
+            @extend .flexAlignCenter;
+            margin-right: 20px;
+            color: $baseColor;
+
+            &:hover {
+                color: darkgray;
+                text-decoration: $baseColor;
+            }
+        }
+
+        .chipLogo {
+            margin-right: 4px;
+        }
+
+        .chipLabel {
+            &:hover {
+                animation: displayChipLabel 1s;   
+            }
         }
     }
     
@@ -19,4 +36,11 @@
         display: flex;
         justify-content: flex-end;
     }
+}
+
+@keyframes displayChipLabel { 
+    0% { transform: translateX(0px); } 
+    20% { transform: translateX(7px); }
+    30% { transform: translateX(10px); } 
+    100% { transform: translateX(0px); } 
 }

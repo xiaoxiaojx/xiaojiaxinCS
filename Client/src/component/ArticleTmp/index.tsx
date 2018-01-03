@@ -1,4 +1,5 @@
 import * as React from "react";
+import LazyLoad from "react-lazy-load";
 import {
     IconButton,
     Avatar,
@@ -45,49 +46,51 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
         const contentImage = this.contentImage();
 
         return (
-            <div className="ArticleTmpWrap">
-                <div  className="imageContentWrap">
-                    <div>
-                        <div className="avatar">
-                            <IconButton
-                                onClick={() => redirect(`/home/${article.userName}`)}
-                                tooltip="点击进入我的主页">
-                                <Avatar
-                                    size={40}
-                                    src={article.avatar ? getCompleteImgUrl(article.avatar) : DEFAULT_AVATAR_IMG}/>
-                            </IconButton>
-                            <div>
-                                <div> {article.nickname} </div>
-                                <div className="date"> {article.date} </div>
-                            </div>
-                        </div>
+            <LazyLoad height={176}>
+                <div className="ArticleTmpWrap">
+                    <div  className="imageContentWrap">
                         <div>
-                            <a
-                                className="title"
-                                onClick={() => redirect(`/article/${article["_id"]}`)}>
-                                {article.title}
-                            </a>
-                            <div className="content">
-                                { replaceHtmlTag(article.content) }
+                            <div className="avatar">
+                                <IconButton
+                                    onClick={() => redirect(`/home/${article.userName}`)}
+                                    tooltip="点击进入我的主页">
+                                    <Avatar
+                                        size={40}
+                                        src={article.avatar ? getCompleteImgUrl(article.avatar) : DEFAULT_AVATAR_IMG}/>
+                                </IconButton>
+                                <div>
+                                    <div> {article.nickname} </div>
+                                    <div className="date"> {article.date} </div>
+                                </div>
+                            </div>
+                            <div>
+                                <a
+                                    className="title"
+                                    onClick={() => redirect(`/article/${article["_id"]}`)}>
+                                    {article.title}
+                                </a>
+                                <div className="content">
+                                    { replaceHtmlTag(article.content) }
+                                </div>
                             </div>
                         </div>
+                        <img
+                            className="imageContent"
+                            style={{display: contentImage ? "block" : "none"}}
+                            src={contentImage}
+                            alt="图片未正确显示" />
                     </div>
-                    <img
-                        className="imageContent"
-                        style={{display: contentImage ? "block" : "none"}}
-                        src={contentImage}
-                        alt="图片未正确显示" />
+                    <div className="comment">
+                        { this.renderTags(article.chipType) }
+                        <IFace />
+                        <span> {article.views} </span>
+                        <IChat />
+                        <span> {article.comment} </span>
+                        <IFavorite />
+                        <span> {article.like} </span>
+                    </div>
                 </div>
-                <div className="comment">
-                    { this.renderTags(article.chipType) }
-                    <IFace />
-                    <span> {article.views} </span>
-                    <IChat />
-                    <span> {article.comment} </span>
-                    <IFavorite />
-                    <span> {article.like} </span>
-                </div>
-            </div>
+            </LazyLoad>
         );
     }
 }

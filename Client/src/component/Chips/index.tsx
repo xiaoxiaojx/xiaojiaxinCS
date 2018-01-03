@@ -1,13 +1,8 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import {
-    Chip,
-    Avatar,
     Toggle
 } from "material-ui";
-import {
-   red400
-} from "material-ui/styles/colors";
 import Store from "../../store";
 import chipItems, { ChipType } from "../../common/chips";
 import "./index.scss";
@@ -18,11 +13,11 @@ interface ChipsProps {
 
 @observer
 class Chips extends  React.Component<ChipsProps, {}> {
-    getBgcProps(chipType: ChipType) {
+    getColorProps(chipType: ChipType) {
         const { store } = this.props;
         return chipType === store.filterArticles.chipType ?
             ({
-                backgroundColor: red400
+                color: "darkgray"
             })
             :
             ({});
@@ -43,19 +38,18 @@ class Chips extends  React.Component<ChipsProps, {}> {
                 <div className="chipsList">
                 {
                     chipItems.map((item, index) =>
-                        <Chip
+                        <a
                             className="chip"
+                            style={this.getColorProps(item.value)}
                             key={index}
                             onClick={ () => this.handleClick(item.value) }>
-                            <Avatar
-                                {...this.getBgcProps(item.value)}
-                                size={32}>
-                                {item.label[0]}
-                            </Avatar>
-                            <span className="allTag">
+                            <img
+                                src={item.src}
+                                className="chipLogo" />
+                            <span className="chipLabel">
                                 {item.label}
                             </span>
-                        </Chip>
+                        </a>
                     )
                 }
                 </div>

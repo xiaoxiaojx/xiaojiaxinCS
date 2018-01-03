@@ -40,7 +40,8 @@ const config: webpack.Configuration = {
             "react-quill",
             "react-router",
             "react-router-dom",
-            "react-swipe"
+            "react-swipe",
+            "react-lazy-load"
         ]
     },
     output: {
