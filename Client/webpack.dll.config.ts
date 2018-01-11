@@ -35,14 +35,14 @@ const config: webpack.Configuration = {
             "mobx-react",
             "mobx",
             "history",
-            "material-ui",
             "react-markdown",
             "react-quill",
             "react-router",
             "react-router-dom",
             "react-swipe",
             "react-lazy-load"
-        ]
+        ],
+        material: ["material-ui"]
     },
     output: {
         path: joinDir("../asset/build"),
@@ -51,7 +51,7 @@ const config: webpack.Configuration = {
     },
     plugins: currentPlugins.concat([
         new webpack.DllPlugin({
-            path: joinDir("../asset/build/bundle.manifest.json"),
+            path: joinDir("../asset/build/[name].manifest.json"),
             name: "[name]_[hash]",
             context: "."
         })

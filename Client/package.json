@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc devServer.ts --outDir tool && NODE_ENV=development node tool/devServer.js",
-    "build": "tsc webpack.config.ts --outDir tool && NODE_ENV=production webpack --config tool/webpack.config.js",
-    "release": "sh ./tool/release.sh"
+    "start": "npm run dll && tsc devServer.ts --outDir tool && NODE_ENV=development node tool/devServer.js",
+    "build": "npm run dll && tsc webpack.config.ts --outDir tool && NODE_ENV=production webpack --config tool/webpack.config.js",
+    "release": "sh ./tool/release.sh",
+    "dll": "tsc webpack.dll.config.ts --outDir tool"
   },
   "repository": {
     "type": "git",
