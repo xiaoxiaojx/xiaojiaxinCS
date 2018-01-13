@@ -2,7 +2,7 @@
 
 npm run build
 
-folder="../../CampusMessageWall"
+folder="../../xiaojiaxin.com"
 
 if [[ -d $folder ]]; then
   cd $folder;

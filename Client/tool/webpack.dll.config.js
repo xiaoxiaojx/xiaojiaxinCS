@@ -28,7 +28,7 @@ var devPlugins = [
 var currentPlugins = isProduction ? proPlugins : devPlugins;
 var config = {
     entry: {
-        bundle: [
+        commonDll: [
             "react",
             "react-dom",
             "mobx-react",
@@ -36,12 +36,11 @@ var config = {
             "history",
             "react-markdown",
             "react-quill",
-            "react-router",
-            "react-router-dom",
             "react-swipe",
-            "react-lazy-load"
+            "react-lazy-load",
+            "swipe-js-iso"
         ],
-        material: ["material-ui"]
+        materialDll: ["material-ui"]
     },
     output: {
         path: joinDir("../asset/build"),

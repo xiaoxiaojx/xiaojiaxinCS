@@ -29,7 +29,7 @@ const currentPlugins = isProduction ? proPlugins : devPlugins;
 
 const config: webpack.Configuration = {
     entry: {
-        bundle: [
+        commonDll: [
             "react",
             "react-dom",
             "mobx-react",
@@ -37,12 +37,11 @@ const config: webpack.Configuration = {
             "history",
             "react-markdown",
             "react-quill",
-            "react-router",
-            "react-router-dom",
             "react-swipe",
-            "react-lazy-load"
+            "react-lazy-load",
+            "swipe-js-iso"
         ],
-        material: ["material-ui"]
+        materialDll: ["material-ui"]
     },
     output: {
         path: joinDir("../asset/build"),
