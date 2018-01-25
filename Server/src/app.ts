@@ -6,6 +6,7 @@ import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
 import * as cors from "cors";
 import * as multer from "multer";
+import * as compression from "compression";
 
 import * as homeController from "./controllers/home";
 import * as test from "./controllers/test";
@@ -28,7 +29,7 @@ if (isDevelopment) {
   console.log("Cross-domain access is allowed only in development mode, and hosts must be http://localhost:3333 !");
 }
 app.use(cors({ "origin": isDevelopment ? "http://localhost:3333" : "http://xiaojiaxin.com" }));
-
+app.use(compression());
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

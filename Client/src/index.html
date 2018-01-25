@@ -1,13 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title> Awkward Article </title>
-    <link rel="shortcut icon" href="/staticImage/dog.ico" type="image/x-icon">
-    <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
+
+<head>
+	<meta charset="UTF-8">
+	<title> Awkward Article </title>
+	<link rel="shortcut icon" href="/staticImage/dog.ico" type="image/x-icon">
+	<link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+	/>
+	<style>
+		#loading {
+			position: absolute;
+			z-index: 100;
+			width: 100%;
+			min-height: 800px;
+			background-color: rgba(212, 212, 212, 0.6)
+		}
+
+		#loading> :first-child {
+			width: 110px;
+			margin: 100px auto;
+			animation: loadingRotate 2.5s ease-in-out infinite;
+		}
+		@keyframes loadingRotate {
+			0% {
+				transform: translateX(0px);
+			}
+			15% {
+				transform: translateX(150px);
+			}
+			50% {
+				transform: translateX(0px);
+			}
+			65% {
+				transform: translateX(-150px);
+			}
+			100% {
+				transform: translateX(0px);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div id="loading">
+		<div>
+			<img
+				src="/staticImage/Dog_31.869387755102px_1198238_easyicon.net.png">
+			<img
+				src="/staticImage/Dog_32px_1183911_easyicon.net.png">
+			<img src="/staticImage/dog_21.045454545455px_1208433_easyicon.net.png">
+		</div>
+	</div>
+	<div id="app"></div>
+</body>
+
 </html>
