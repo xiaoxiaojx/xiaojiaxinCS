@@ -74,7 +74,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
                 <section>
                     <div className="baseline">
                         <div className="bottomLogo">
-                            <img src="/staticImage/dog24.png"/>
+                            <img src="/staticImage/Dog_32px_1183911_easyicon.net.png"/>
                             <div className="bigBottomLogo">
                                 <img
                                     src="/staticImage/dog128.png"/>
@@ -83,7 +83,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
                                 </span>
                             </div>
                         </div>
-                        <span>Remember this is my bottom line </span>
+                        <span>  I have a bottom line, too </span>
                     </div>
                     <BackTop />
                 </section>

@@ -1,13 +1,12 @@
 import * as React from "react";
 import { observer } from "mobx-react";
 import { Card } from "material-ui/Card";
-import ISearch from "material-ui/svg-icons/action/search";
 import * as ReactSwipe from "react-swipe";
 import ArticleTmp from "../ArticleTmp";
 import LikeListTmp from "../LikeListTmp";
+import SubHeader from "../SubHeader";
 import {
     CircularProgress,
-    AutoComplete,
 } from "material-ui";
 import Tooltip from "../Tooltip";
 import {
@@ -19,7 +18,6 @@ import {
 } from "../../common/chips";
 import Store from "../../store";
 import Banner from "./banner";
-import Chips from "../Chips";
 import "./index.scss";
 
 interface IndexProps {
@@ -62,6 +60,9 @@ class Index extends React.Component<IndexProps, IndexState> {
 
         return (
             <Card className="IndexWrap">
+                <header>
+                    <SubHeader store={store}/>
+                </header>
                 <section>
                     <div className="indexArticles">
                         <div className="articlesListWrap">
@@ -74,7 +75,6 @@ class Index extends React.Component<IndexProps, IndexState> {
                                         thickness={5} />
                                 </div>
                             }
-                            <Chips store={store}/>
                             <div className="articlesList">
                                 {
                                     articles.map((article, index) =>
@@ -84,16 +84,6 @@ class Index extends React.Component<IndexProps, IndexState> {
                             </div>
                         </div>
                         <div>
-                            <div className="search">
-                                <AutoComplete
-                                    value={store.filterArticles.title}
-                                    onUpdateInput={val => store.setFilterArticles({title: val})}
-                                    onNewRequest={val => store.setFilterArticles({title: val}, false)}
-                                    dataSource={store.articles.map(art => art.title)}
-                                    hintText="请输入文章标题"
-                                    floatingLabelText="搜索文章" />
-                                <ISearch />
-                            </div>
                             <Card className="other">
                                 <ReactSwipe
                                     className="carousel"

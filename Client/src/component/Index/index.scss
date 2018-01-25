@@ -1,6 +1,7 @@
 @import "../../common/baseStyle.scss";
 
 .IndexWrap {
+    overflow: visible;
     min-height: 800px;
 
     section {
@@ -40,19 +41,7 @@
         padding: 10px 0 0 50px;
     }
 
-    .search {
-        position: relative;
-
-        & > :nth-child(2) {
-            color: $baseColor !important;
-            position: absolute;
-            right: 10px;
-            bottom:  10px;
-        }
-    }
-
     .other {
-        margin-top: 10px;
 
         img {
             display: block;
