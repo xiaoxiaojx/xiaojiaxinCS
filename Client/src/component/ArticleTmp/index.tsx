@@ -46,7 +46,7 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
         const contentImage = this.contentImage();
 
         return (
-            <LazyLoad height={176}>
+            <LazyLoad height={186}>
                 <div className="ArticleTmpWrap">
                     <div  className="imageContentWrap">
                         <div>

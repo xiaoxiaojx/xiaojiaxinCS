@@ -188,14 +188,16 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                 </header>
                 <section>
                     <div className="title">
+                        <label className="articlesLabel">
+                            标题:
+                        </label>
                         <TextField
-                            floatingLabelText="标题"
                             value={title}
                             onChange={ (e: any) => setArticleData({title: e.target.value}) } />
                     </div>
                     <div className="chipSelect">
-                        <label>
-                            文章类型
+                        <label className="articlesLabel">
+                            文章类型:
                         </label>
                         <SelectField
                             value={chipType}
@@ -211,6 +213,11 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                         </SelectField>
                     </div>
                     <div>
+                        <div>
+                            <label className="articlesLabel">
+                                内容:
+                            </label>
+                        </div>
                         {
                             editor === "富文本" ?
                             <NewReactQuill

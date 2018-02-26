@@ -8,3 +8,22 @@ body {
 svg, a {
     cursor: pointer;
 }
+
+.ql-toolbar.ql-snow {
+    margin-top: 4px;
+    border: {
+        left: none;
+        right: none;
+        top: 1px solid #ccc;
+        bottom: 1px solid #ccc;
+    }
+}
+
+.ql-container.ql-snow {
+    border: {
+        left: none;
+        right: none;
+        top: none;
+        bottom: 1px solid #ccc;
+    }
+}
