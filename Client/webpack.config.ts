@@ -3,7 +3,7 @@ import * as HtmlWebpackPlugin from "html-webpack-plugin";
 import * as ExtractTextPlugin from "extract-text-webpack-plugin";
 import * as path from "path";
 
-const DllLinkPlugin = require("dll-link-webpack-plugin");
+const DllPlugin = require("/Users/bjb-lq-012/ezbuy/xjx/dll-webpack-plugin/lib/index.js");
 
 const hotMiddlewareScript = "webpack-hot-middleware/client?reload=true&path=/__webpack_hmr";
 
@@ -17,6 +17,9 @@ if ( !isProduction ) {
 const joinDir = p => path.join(__dirname, p);
 
 console.log(`WebPack build in ${process.env.NODE_ENV} ...`);
+
+/*
+	webpack 4.1.0
 
 const proPlugins: webpack.ResolvePlugin[] = [
 	new webpack.DefinePlugin({
@@ -39,33 +42,34 @@ const devPlugins: webpack.ResolvePlugin[] = [
 	}),
 	new webpack.HotModuleReplacementPlugin()];
 const currentPlugins = isProduction ? proPlugins : devPlugins;
+*/
 
-const config: webpack.Configuration = {
+const config: webpack.Configuration & { mode: string } = {
 	entry: [...commonsEntry, joinDir("../src/index.tsx")],
   	output: {
 		path: joinDir("../dist"),
 		publicPath: "./",
 		filename: "js/[name].[hash].js",
 		chunkFilename: "js/[name].[hash].chunk.js"
-  	},
+	},
+	mode: process.env.NODE_ENV || "production",
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".scss"],
 		alias: {
 			common: joinDir("../src/common")
 		}
   	},
-  	plugins: currentPlugins.concat([
+  	plugins: [
 		new HtmlWebpackPlugin({
 			template: joinDir("../src/index.html"),
 			filename: "index.html"
 		}),
-		new DllLinkPlugin({
-			config: require("./webpack.dll.config.js").default,
-			htmlMode: true,
+		new DllPlugin({
+			dllConfig: require("./webpack.dll.config.js").default,
 		}),
 		new ExtractTextPlugin("css/[name].css"),
 		new webpack.NoEmitOnErrorsPlugin()
-	]),
+	],
   	module: {
 		rules: [
 			{

@@ -4,7 +4,7 @@ var webpack = require("webpack");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var path = require("path");
-var DllLinkPlugin = require("dll-link-webpack-plugin");
+var DllPlugin = require("/Users/bjb-lq-012/ezbuy/xjx/dll-webpack-plugin/lib/index.js");
 var hotMiddlewareScript = "webpack-hot-middleware/client?reload=true&path=/__webpack_hmr";
 var isProduction = process.env.NODE_ENV === "production";
 var commonsEntry = [];
@@ -13,7 +13,10 @@ if (!isProduction) {
 }
 var joinDir = function (p) { return path.join(__dirname, p); };
 console.log("WebPack build in " + process.env.NODE_ENV + " ...");
-var proPlugins = [
+/*
+    webpack 4.1.0
+
+const proPlugins: webpack.ResolvePlugin[] = [
     new webpack.DefinePlugin({
         "process.env": {
             "NODE_ENV": JSON.stringify("production")
@@ -26,15 +29,15 @@ var proPlugins = [
         }
     })
 ];
-var devPlugins = [
+const devPlugins: webpack.ResolvePlugin[] = [
     new webpack.DefinePlugin({
         "process.env": {
             NODE_ENV: JSON.stringify("development")
         }
     }),
-    new webpack.HotModuleReplacementPlugin()
-];
-var currentPlugins = isProduction ? proPlugins : devPlugins;
+    new webpack.HotModuleReplacementPlugin()];
+const currentPlugins = isProduction ? proPlugins : devPlugins;
+*/
 var config = {
     entry: commonsEntry.concat([joinDir("../src/index.tsx")]),
     output: {
@@ -43,24 +46,24 @@ var config = {
         filename: "js/[name].[hash].js",
         chunkFilename: "js/[name].[hash].chunk.js"
     },
+    mode: process.env.NODE_ENV || "production",
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".scss"],
         alias: {
             common: joinDir("../src/common")
         }
     },
-    plugins: currentPlugins.concat([
+    plugins: [
         new HtmlWebpackPlugin({
             template: joinDir("../src/index.html"),
             filename: "index.html"
         }),
-        new DllLinkPlugin({
-            config: require("./webpack.dll.config.js")["default"],
-            htmlMode: true
+        new DllPlugin({
+            dllConfig: require("./webpack.dll.config.js")["default"]
         }),
         new ExtractTextPlugin("css/[name].css"),
         new webpack.NoEmitOnErrorsPlugin()
-    ]),
+    ],
     module: {
         rules: [
             {

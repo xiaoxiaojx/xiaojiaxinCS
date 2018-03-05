@@ -1,10 +1,12 @@
 import * as webpack from "webpack";
 import * as path from "path";
 
-const isProduction: boolean = process.env.NODE_ENV === "production";
 const joinDir = p => path.join(__dirname, p);
 
 console.log(`WebPack build dll in ${process.env.NODE_ENV} ...`);
+
+/*
+    webpack 4.1.0
 
 const proPlugins: webpack.ResolvePlugin[] = [
 	new webpack.DefinePlugin({
@@ -27,7 +29,8 @@ const devPlugins: webpack.ResolvePlugin[] = [
 	})];
 const currentPlugins = isProduction ? proPlugins : devPlugins;
 
-const config: webpack.Configuration = {
+*/
+const config: webpack.Configuration & { mode: string } = {
     entry: {
         commonDll: [
             "react",
@@ -44,17 +47,18 @@ const config: webpack.Configuration = {
         materialDll: ["material-ui"]
     },
     output: {
-        path: joinDir("../asset/build"),
+        path: joinDir("../dist/js"),
         filename: "[name].js",
         library: "[name]_[hash]"
     },
-    plugins: currentPlugins.concat([
+    mode: process.env.NODE_ENV || "production",
+    plugins: [
         new webpack.DllPlugin({
             path: joinDir("../asset/build/[name].manifest.json"),
             name: "[name]_[hash]",
             context: "."
         })
-    ])
+    ]
 };
 
 export default config;

@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+rm -rf dist
+
+mkdir dist
+
 npm run build
 
 folder="../../xiaojiaxin.com"

@@ -2,10 +2,12 @@
 exports.__esModule = true;
 var webpack = require("webpack");
 var path = require("path");
-var isProduction = process.env.NODE_ENV === "production";
 var joinDir = function (p) { return path.join(__dirname, p); };
 console.log("WebPack build dll in " + process.env.NODE_ENV + " ...");
-var proPlugins = [
+/*
+    webpack 4.1.0
+
+const proPlugins: webpack.ResolvePlugin[] = [
     new webpack.DefinePlugin({
         "process.env": {
             "NODE_ENV": JSON.stringify("production")
@@ -18,14 +20,15 @@ var proPlugins = [
         }
     })
 ];
-var devPlugins = [
+const devPlugins: webpack.ResolvePlugin[] = [
     new webpack.DefinePlugin({
         "process.env": {
             NODE_ENV: JSON.stringify("development")
         }
-    })
-];
-var currentPlugins = isProduction ? proPlugins : devPlugins;
+    })];
+const currentPlugins = isProduction ? proPlugins : devPlugins;
+
+*/
 var config = {
     entry: {
         commonDll: [
@@ -43,16 +46,17 @@ var config = {
         materialDll: ["material-ui"]
     },
     output: {
-        path: joinDir("../asset/build"),
+        path: joinDir("../dist/js"),
         filename: "[name].js",
         library: "[name]_[hash]"
     },
-    plugins: currentPlugins.concat([
+    mode: process.env.NODE_ENV || "production",
+    plugins: [
         new webpack.DllPlugin({
             path: joinDir("../asset/build/[name].manifest.json"),
             name: "[name]_[hash]",
             context: "."
         })
-    ])
+    ]
 };
 exports["default"] = config;
