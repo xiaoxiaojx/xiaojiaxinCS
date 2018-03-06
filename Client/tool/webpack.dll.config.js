@@ -43,13 +43,13 @@ var config = {
         materialDll: ["material-ui"]
     },
     output: {
-        path: joinDir("../asset/build"),
+        path: joinDir("../dist/js"),
         filename: "[name].js",
         library: "[name]_[hash]"
     },
     plugins: currentPlugins.concat([
         new webpack.DllPlugin({
-            path: joinDir("../asset/build/[name].manifest.json"),
+            path: joinDir("../dllWebpckPlugin/" + process.env.NODE_ENV + "/[name].manifest.json"),
             name: "[name]_[hash]",
             context: "."
         })

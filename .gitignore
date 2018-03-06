@@ -5,5 +5,5 @@ website/
 .vscode
 !template/*.html
 .cache-loader/
-.dll-link-plugin/
+dllWebpackPlugin/
 yarn-error.log

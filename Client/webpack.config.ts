@@ -3,7 +3,7 @@ import * as HtmlWebpackPlugin from "html-webpack-plugin";
 import * as ExtractTextPlugin from "extract-text-webpack-plugin";
 import * as path from "path";
 
-const DllLinkPlugin = require("dll-link-webpack-plugin");
+const DllPlugin = require("dll-webpack-plugin");
 
 const hotMiddlewareScript = "webpack-hot-middleware/client?reload=true&path=/__webpack_hmr";
 
@@ -59,9 +59,8 @@ const config: webpack.Configuration = {
 			template: joinDir("../src/index.html"),
 			filename: "index.html"
 		}),
-		new DllLinkPlugin({
-			config: require("./webpack.dll.config.js").default,
-			htmlMode: true,
+		new DllPlugin({
+			dllConfig: require("./webpack.dll.config.js").default,
 		}),
 		new ExtractTextPlugin("css/[name].css"),
 		new webpack.NoEmitOnErrorsPlugin()

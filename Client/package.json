@@ -35,7 +35,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "css-loader": "^0.28.5",
-    "dll-link-webpack-plugin": "^2.0.3",
+    "dll-webpack-plugin": "^1.0.2",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.5",
