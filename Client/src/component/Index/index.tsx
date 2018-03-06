@@ -123,7 +123,7 @@ class Index extends React.Component<IndexProps, IndexState> {
                 <footer>
                     <Tooltip
                         visible={visible}
-                        message="年轻过..."/>
+                        message="Hello Word !"/>
                 </footer>
             </Card>
         );
