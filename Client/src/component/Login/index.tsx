@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import {
     TextField,
     RaisedButton,
@@ -14,7 +14,7 @@ import {
 import "./index.scss";
 
 interface LoginProps {
-    store: Store;
+    store?: Store;
 }
 
 interface LoginState {
@@ -27,6 +27,7 @@ interface LoginState {
     disabled: boolean;
 }
 
+@inject("store")
 @observer
 class Login extends React.Component<LoginProps, LoginState> {
     state: LoginState = {
@@ -122,8 +123,8 @@ class Login extends React.Component<LoginProps, LoginState> {
                     this.showModalMessage(result.message);
                 } else {
                     this.showModalMessage(result.message);
-                    store.setLocalStorageQaqData(user);
-                    store.setShowLoginRegisterModal(false);
+                    store!.setLocalStorageQaqData(user);
+                    store!.setShowLoginRegisterModal(false);
                     location.reload();
                 }
                 this.setDisabled(false);

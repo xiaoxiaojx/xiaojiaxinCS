@@ -1,52 +1,75 @@
 @import "../../common/baseStyle.scss";
 
-@mixin HeaderChild($position) {
-    float: $position;
-    margin-#{$position}: 80px;
-    box-sizing: inherit;
-    height: 100%;
-}
-
 .HeaderWrap {
-    position: sticky;
-    top: -15px;
-    z-index: 200;
-    background-color: #fff;
-    overflow: hidden;
-    box-sizing: border-box;
-    height: 80px;
+    position: fixed;
+    top: 0px;
+    z-index: 100;
     width: 100%;
-    border-bottom: 1px solid $borderColor;
+    height: 109px;
+    font-size: 16px;
+    background: rgba(255,255,255,.97)!important;
+
+    .main {
+        width: 1000px;
+        height: 100%;
+        margin: auto;
+    }
 
     .logo {
-        @include HeaderChild(left);
         @extend .flexAlignCenter;
-        margin-left: 30px;
-        font-size: 16px;
-        font-family: 'Tangerine', serif;  
-        
-        & > :nth-child(1) {
-            background-image: url(../../common/image/qaq.png)
+        justify-content: space-between;
+        height: 65px;
+        width: 100%;
+
+        .logoMain {
+            @extend .flexAlignCenter;
+        }
+
+        .welcome {
+            @extend .flexAlignCenter;
+            font-size: 14px;
+            color: #717272;
+        }
+
+        .writeArticle {
+            @extend .flexAlignCenter;
+            margin-right: 20px;
+            color: $baseColor;
+            text-decoration: none;
+
+            img {
+                margin: -10px 0 0 4px;
+            }
         }
     }
 
-    .nav {
-        @extend .flexAlignCenter;
-        margin: 0 auto;
-        height: 100%;
-        width: 1000px;
-        box-sizing: inherit;
-        
-        & > a + a {
-            margin-left: 20px !important;
-        }
+    .dividing {
+        width: 1px;
+        height: 28px;
+        background-color: rgba(0,0,0,.15);
+        margin: 0 30px 0 20px;
     }
 
-    .welcome {
-        @include HeaderChild(right);
-        margin-right: 30px;
-        width: 95px;
-        padding: 20px 0;
+    nav {
+        box-sizing: border-box;
+        padding-top: 6px;
+        height: 44px;
+        font-weight: 500;
+        color: rgba(0,0,0,.54);
+
+        a {
+            text-decoration: none;
+        }
+
+        span {
+            margin-right: 30px;
+            cursor: pointer;
+        }
+
+        span:hover {
+            color: rgba(0,0,0,.78);
+            text-decoration: underline;
+        }
     }
 
     .loginForm {
@@ -84,5 +107,34 @@
     & > a {
         color: $baseColor !important;
         text-decoration: none;
+    }
+}
+
+.fixedHeader {
+    animation: sliderDownHeader .5s;
+    animation-fill-mode: forwards;
+}
+.absoluteHeader {
+    animation: sliderUpHeader .5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes sliderDownHeader
+{
+    0% {
+        top: -109px  
+    }
+    100% {
+        top: 0px  
+    }
+}
+
+@keyframes sliderUpHeader
+{
+    0% {
+        top: 0px
+    }
+    100% {
+        top: -109px
     }
 }

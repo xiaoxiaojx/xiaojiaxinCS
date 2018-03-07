@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer } from "mobx-react";
+import { Provider } from "mobx-react";
 import {
     HashRouter as Router,
     Route,
@@ -10,45 +10,46 @@ import Store from "../../store";
 import Header from "../Header";
 import Main from "../Main";
 import Footer from "../Footer";
-import Home from "../Home";
-import Settings from "../Settings";
-import About from "../About";
-import Articles from "../Articles";
-import Index from "../Index";
 import PrivateRoute from "../PrivateRoute";
-import ViewArticle from "../ViewArticle";
+import routes from "./router";
 import "./index.scss";
 
-interface AppProps {
-    store: Store;
-}
+const RouteWithSubRoutes = route => {
+    const SubRoutes = route.public ? Route : PrivateRoute;
+    return (
+	<SubRoutes path={route.path} exact={route.exact} component={match => (
+		<route.component match={match} />
+    )}/> );
+};
 
-@observer
-class App extends React.Component<AppProps, {}> {
+const RouteWithSwitch =
+    <Switch>
+        {
+            routes.map((route, i) => (
+                <RouteWithSubRoutes key={i} {...route}/>
+            ))
+        }
+    </Switch>;
+
+
+class App extends React.Component<{}, {}> {
     render() {
-        const { store } = this.props;
-
         return (
             <Router>
                 <MuiThemeProvider>
-                    <div>
-                        <Header store={store} />
-                        <Main>
-                            <Switch>
-                                <Route path="/" component={() => <Index store={store}/>} exact/>
-                                <Route path="/articles" component={() => <Articles store={store}/>} />
-                                <Route path="/about" component={About}/>
-                                <Route path="/home/:userName" component={match => <Home match={match} store={store}/>}/>
-                                <PrivateRoute path="/settings" component={() => <Settings store={store} /> }/>
-                                <Route path="/article/:id" component={match => <ViewArticle match={match} store={store}/>} />
-                            </Switch>
-                        </Main>
-                        <Footer store={store} />
-                    </div>
+                    <Provider store={new Store()}>
+                        <div>
+                            <Header />
+                            <Main>
+                                { RouteWithSwitch }
+                            </Main>
+                            <Footer />
+                        </div>
+                    </Provider>
                 </MuiThemeProvider>
             </Router>
         );
     }
 }
 
-export default () => <App store={new Store()}/>;
+export default App;

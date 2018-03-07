@@ -1,13 +1,10 @@
 import * as React from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import {
     FlatButton,
     TextField,
     RaisedButton
 } from "material-ui";
-import {
-    Card
-} from "material-ui/Card";
 import {
     RadioButton,
     RadioButtonGroup
@@ -44,6 +41,7 @@ interface SettingsState {
     message: string;
 }
 
+@inject("store")
 @observer
 class Settings extends React.Component<SettingsProps, SettingsState> {
     state: SettingsState = {
@@ -146,7 +144,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
             ) : null;
 
         return (
-            <Card className="SettingsWrap">
+            <div className="SettingsWrap">
                 <h2>
                     个人资料
                 </h2>
@@ -232,7 +230,7 @@ class Settings extends React.Component<SettingsProps, SettingsState> {
                 <Tooltip
                     visible={ showModal === ShowModal.Tooltip}
                     message={message} />
-            </Card>
+            </div>
         );
     }
 }

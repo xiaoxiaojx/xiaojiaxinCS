@@ -1,4 +1,4 @@
-export const TITLE: string = "Awkward Article";
+export const TITLE: string = "Awkward Article - 更轻量, 更快速阅读文章的体验";
 
 export const modules = {
     toolbar: [

@@ -1,6 +1,5 @@
 import * as React from "react";
-import { observer } from "mobx-react";
-import { Card } from "material-ui/Card";
+import { observer, inject } from "mobx-react";
 import Store from "../../store";
 import ArticleTmp from "../ArticleTmp";
 import {
@@ -27,6 +26,7 @@ interface HomeState {
     articles: PublishArticlesRes[];
 }
 
+@inject("store")
 @observer
 class Home extends React.Component<HomeProps, HomeState> {
     state: HomeState = {
@@ -73,7 +73,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         const src = avatar ? avatar : DEFAULT_AVATAR_IMG;
 
         return (
-            <Card className="HomeWrap">
+            <div className="HomeWrap">
                 <header>
                     <img src={src}/>
                     <div className="nickname"> {nickname} </div>
@@ -112,7 +112,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                     }
                     </div>
                 </main>
-            </Card>
+            </div>
         );
     }
 }

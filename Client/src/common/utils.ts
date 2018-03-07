@@ -79,7 +79,7 @@ export function throttle(handel: Function, time: number = 1000): (...arg: any[])
     };
 }
 
-export function debounce(handel: Function, time: number = 1000): (...arg: any[]) => void {
+export function debounce(handel: Function, time: number = 300): (...arg: any[]) => void {
     let setTimeId: any;
 
     return (...arg) => {
@@ -101,7 +101,7 @@ export function getFormatDate(): string {
     const date = nowDate.getDate();
     const hours = nowDate.getHours();
     const minutes = nowDate.getMinutes();
-    return `${year}年${month}月${date}日 ${hours}时${minutes}分`
+    return `${year}年${month}月${date}日 ${hours}时${minutes}分`;
 }
 
 export function getLocalStorageData(): Partial<User> | boolean {

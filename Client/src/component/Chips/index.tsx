@@ -44,7 +44,7 @@ class Chips extends  React.Component<ChipsProps, {}> {
                             key={index}
                             onClick={ () => this.handleClick(item.value) }>
                             <img
-                                src={item.src}
+                                src={"item.src"}
                                 className="chipLogo" />
                             <span className="chipLabel">
                                 {item.label}

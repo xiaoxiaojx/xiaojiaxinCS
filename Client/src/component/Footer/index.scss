@@ -1,7 +1,7 @@
 @import "../../common/baseStyle";
 
 .FooterWrap {
-    width: 100%;
+    width: 1000px;
     margin: 30px auto;
     color: $baseColor;
 
@@ -11,7 +11,7 @@
         justify-content: center;
         text-align: center;
         padding-top: 15px;
-        border-top: 2px solid $baseColor;
+        border-top: 2px solid $borderColor;
 
         &:hover {
             .bigBottomLogo {

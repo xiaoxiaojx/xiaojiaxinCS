@@ -1,20 +1,18 @@
 import * as React from "react";
 import {
-	FlatButton,
 	Popover,
 	Menu,
 	MenuItem,
-	RaisedButton,
 } from "material-ui";
 import { Link } from "react-router-dom";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import ActionHome from "material-ui/svg-icons/action/home";
 import Settings from "material-ui/svg-icons/action/settings";
 import SignOut from "material-ui/svg-icons/action/exit-to-app";
-import Store from "../../store";
+import chipItems from "../../common/chips";
+import Store, { ScrollDirection } from "../../store";
 import {
 	autoBindMethods,
-	redirect,
 	getCompleteImgUrl
 } from "../../common/utils";
 import {
@@ -27,21 +25,16 @@ enum ShowModal {
 	Settings = "Settings"
 }
 
-enum FocusNavBtn {
-	Home = "Home",
-	Article = "Article",
-}
-
 interface HeaderProps {
-	store: Store;
+	store?: Store;
 }
 
 interface HeaderState {
 	showModal: ShowModal;
-	focusNavBtn: FocusNavBtn;
 	anchorEl: JSX.Element | null;
 }
 
+@inject("store")
 @observer
 class Header extends React.Component<HeaderProps, HeaderState> {
 	constructor(props) {
@@ -52,34 +45,12 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 	}
 	state: HeaderState = {
 		showModal: ShowModal.No,
-		focusNavBtn: FocusNavBtn.Home,
 		anchorEl: null
 	};
 
-	componentDidMount() {
-		this.setCorrectFocusNavBtn();
-	}
-	setCorrectFocusNavBtn() {
-		let focusNavBtn: FocusNavBtn;
-		const { hash } = location;
-		switch ( hash ) {
-			case "#/articles":
-				focusNavBtn = FocusNavBtn.Article;
-				break;
-			default:
-				focusNavBtn = FocusNavBtn.Home;
-				break;
-		}
-		this.setFocusNavBtn(focusNavBtn);
-	}
 	setShowModal(showModal: ShowModal) {
 		this.setState({
 			showModal,
-		});
-	}
-	setFocusNavBtn(focusNavBtn: FocusNavBtn) {
-		this.setState({
-			focusNavBtn,
 		});
 	}
 	closeShowModal() {
@@ -100,81 +71,90 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 		} catch (err) {}
 		location.reload();
 	}
-	render() {
-		const { showModal, focusNavBtn, anchorEl } = this.state;
-		const { store } = this.props;
+    render() {
+        const { showModal, anchorEl } = this.state;
+		const store = this.props.store!;
 		const data = store.localStorageQaqData;
 		const toHome = data ? `/home/${data["userName"]}` : `/`;
+		const className =
+			store.scrollY > 150 ?
+				store.direction === ScrollDirection.DOWN ? "HeaderWrap absoluteHeader" : "HeaderWrap fixedHeader"
+			:
+			"HeaderWrap";
 
         return (
-            <div className="HeaderWrap">
-                <div className="logo">
-					<FlatButton
-						label=" "
-						primary={true}
-						onClick={ () => {
-							this.setFocusNavBtn(FocusNavBtn.Home);
-							redirect("/");
-						} }>
-					</FlatButton>
+            <div className={className}>
+                <div className="main">
+                    <div className="logo">
+                        <div className="logoMain">
+                            <img src="/staticImage/32logo.png" alt="logo"/>
+                            <div className="dividing"/>
+                            <span>Awkward Article</span>
+                        </div>
+                        <div className="welcome">
+							<Link to="/write" className="writeArticle">
+								<span>写文章</span>
+								<img src="/staticImage/write.png" />
+							</Link>
+							{
+								data ?
+								<img
+									className="avatar"
+									src={data["avatar"] ? getCompleteImgUrl(data["avatar"]) : DEFAULT_AVATAR_IMG }
+									onClick={this.onClickSettings} />
+								:
+								<a
+									onClick={ () => store.setShowLoginRegisterModal(true) }>
+									登录
+								</a>
+							}
+							<Popover
+								open={showModal === ShowModal.Settings}
+								anchorEl={anchorEl as any}
+								anchorOrigin={{horizontal: "left", vertical: "bottom"}}
+								targetOrigin={{horizontal: "left", vertical: "top"}}
+								onRequestClose={this.closeShowModal}
+								>
+								<Menu>
+									<MenuItem>
+										<div className="personalMenu">
+											<ActionHome />
+											<Link to={toHome}> 主页 </Link>
+										</div>
+									</MenuItem>
+									<MenuItem>
+										<div className="personalMenu">
+											<Settings />
+											<Link to="/settings"> 设置 </Link>
+										</div>
+									</MenuItem>
+									<MenuItem
+										onClick={this.signOut}>
+										<div className="personalMenu">
+											<SignOut />
+											<span> 退出 </span>
+										</div>
+									</MenuItem>
+								</Menu>
+							</Popover>
+						</div>
+                    </div>
+                    <nav>
+                        {
+                            chipItems.map((item, index) =>
+							<Link to="/">
+								<span
+									key={index}
+									style={{color:
+										item.value === store.filterArticles.chipType ? "rgba(0,0,0,.78)" : "rgba(0,0,0,.54)"
+									}}
+									onClick={() => store.setFilterArticles({chipType: item.value})}>
+									{ item.label }
+								</span>
+							</Link>)
+                        }
+                    </nav>
                 </div>
-                <div className="welcome">
-					{
-						data ?
-						<img
-							className="avatar"
-							src={data["avatar"] ? getCompleteImgUrl(data["avatar"]) : DEFAULT_AVATAR_IMG }
-							onClick={this.onClickSettings} />
-						:
-						<FlatButton
-							label="登录/注册"
-							primary
-							onClick={ () => store.setShowLoginRegisterModal(true) }/>
-					}
-					<Popover
-						open={showModal === ShowModal.Settings}
-						anchorEl={anchorEl as any}
-						anchorOrigin={{horizontal: "left", vertical: "bottom"}}
-						targetOrigin={{horizontal: "left", vertical: "top"}}
-						onRequestClose={this.closeShowModal}
-						>
-						<Menu>
-							<MenuItem>
-								<div className="personalMenu">
-									<ActionHome />
-									<Link to={toHome}> 主页 </Link>
-								</div>
-							</MenuItem>
-							<MenuItem>
-								<div className="personalMenu">
-									<Settings />
-									<Link to="/settings"> 设置 </Link>
-								</div>
-							</MenuItem>
-							<MenuItem
-								onClick={this.signOut}>
-								<div className="personalMenu">
-									<SignOut />
-									<span> 退出 </span>
-								</div>
-							</MenuItem>
-						</Menu>
-					</Popover>
-                </div>
-                <nav className="nav">
-					<Link to="/">
-						<RaisedButton
-							label="首页"
-							primary={focusNavBtn === FocusNavBtn.Home}
-							onClick={() => this.setFocusNavBtn(FocusNavBtn.Home)}/>
-					</Link>
-					<Link to="/articles">
-						<RaisedButton
-							label="写文章"
-							primary={focusNavBtn === FocusNavBtn.Article}
-							onClick={() => this.setFocusNavBtn(FocusNavBtn.Article)}/>
-					</Link>
-                </nav>
             </div>
         );
     }

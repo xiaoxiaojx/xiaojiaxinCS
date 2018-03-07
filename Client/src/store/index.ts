@@ -29,6 +29,11 @@ interface FilterArticles {
     lookAll: boolean;
 }
 
+export enum ScrollDirection {
+    UP = "UP",
+    DOWN = "DOWN"
+}
+
 useStrict(true);
 
 
@@ -136,6 +141,16 @@ class Store {
     }
     @action.bound initArticleData() {
         this.articleData = defaultArticleData;
+    }
+
+    @observable public direction: ScrollDirection = ScrollDirection.DOWN;
+    @action.bound public setDirection(d: ScrollDirection) {
+        this.direction = d;
+    }
+
+    @observable public scrollY: number = 0;
+    @action.bound public setScrollY(d: number) {
+        this.scrollY = d;
     }
 
     @observable public localStorageQaqData: Partial<User> | boolean = false;

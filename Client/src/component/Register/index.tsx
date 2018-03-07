@@ -17,7 +17,7 @@ import {
 import "./index.scss";
 
 interface RegisterProps {
-    store: Store;
+    store?: Store;
 }
 
 interface RegisterState {
@@ -105,8 +105,8 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                     this.showModalMessage(result.message);
                 } else {
                     this.showModalMessage(result.message);
-                    store.setLocalStorageQaqData(user);
-                    store.setShowLoginRegisterModal(false);
+                    store!.setLocalStorageQaqData(user);
+                    store!.setShowLoginRegisterModal(false);
                     redirect("/settings");
                 }
                 this.setDisabled(false);

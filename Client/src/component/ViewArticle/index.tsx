@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import * as ReactMarkdown from "react-markdown";
 import {
     Avatar,
@@ -46,6 +46,7 @@ interface ViewArticleState {
     visible: boolean;
 }
 
+@inject("store")
 @observer
 class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
     state: ViewArticleState = {

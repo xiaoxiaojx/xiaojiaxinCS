@@ -5,7 +5,7 @@ import App from "./component/App";
 declare var module;
 
 function render(NewApp) {
-    const container: HTMLDivElement = document.getElementById("app") as HTMLDivElement;
+    const container: HTMLElement = document.getElementById("app") || document.body;
     ReactDom.render(
         <NewApp />,
         container

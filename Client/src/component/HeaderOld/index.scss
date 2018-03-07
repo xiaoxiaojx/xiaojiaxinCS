@@ -1,0 +1,88 @@
+@import "../../common/baseStyle.scss";
+
+@mixin HeaderChild($position) {
+    float: $position;
+    margin-#{$position}: 80px;
+    box-sizing: inherit;
+    height: 100%;
+}
+
+.HeaderWrap {
+    position: sticky;
+    top: -15px;
+    z-index: 200;
+    background-color: #fff;
+    overflow: hidden;
+    box-sizing: border-box;
+    height: 80px;
+    width: 100%;
+    border-bottom: 1px solid $borderColor;
+
+    .logo {
+        @include HeaderChild(left);
+        @extend .flexAlignCenter;
+        margin-left: 30px;
+        font-size: 16px;
+        font-family: 'Tangerine', serif;  
+        
+        & > :nth-child(1) {
+            background-image: url(../../common/image/qaq.png)
+        }
+    }
+
+    .nav {
+        @extend .flexAlignCenter;
+        margin: 0 auto;
+        height: 100%;
+        width: 1000px;
+        box-sizing: inherit;
+        
+        & > a + a {
+            margin-left: 20px !important;
+        }
+    }
+
+    .welcome {
+        @include HeaderChild(right);
+        margin-right: 30px;
+        width: 95px;
+        padding: 20px 0;
+    }
+
+    .loginForm {
+
+        .btnWrap {
+            margin-top: 50px;
+
+            & > :nth-child(2) {
+                margin-left: 20px;
+            }
+        }
+    }
+
+    .avatar {
+        cursor: pointer;
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 12px, rgba(0, 0, 0, 0.12) 0px 4px 8px;
+            transition: .2s ease-in-out;
+        }
+    }
+}
+
+.personalMenu {
+    @extend .flexAlignCenter;
+    color: $baseColor;
+
+    & > svg {
+        margin-right: 8px;
+    }
+
+    & > a {
+        color: $baseColor !important;
+        text-decoration: none;
+    }
+}

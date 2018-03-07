@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import {
     Tabs,
     Tab
@@ -13,19 +13,17 @@ import {
     autoBindMethods,
     redirect
 } from "../../common/utils";
-import {
-    TITLE
-} from "../../common/constant";
 import "./index.scss";
 
 interface FooterProps {
-    store: Store;
+    store?: Store;
 }
 
 interface FooterState {
     visible: boolean;
 }
 
+@inject("store")
 @observer
 class Footer extends React.Component<FooterProps, FooterState> {
     constructor(props) {
@@ -41,7 +39,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
     }
     showModal1() {
         const { store } = this.props;
-        const qaqData = store.localStorageQaqData;
+        const qaqData = store!.localStorageQaqData;
         this.setState({
             visible: !qaqData
         });
@@ -50,7 +48,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
         const { store } = this.props;
         const cb = () => {
             redirect("/");
-            store.setShowLoginRegisterModal(true);
+            store!.setShowLoginRegisterModal(true);
         };
         this.setState({
             visible: false
@@ -63,7 +61,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
     }
     onCancelM2() {
 		const { store } = this.props;
-		store.setShowLoginRegisterModal(false);
+		store!.setShowLoginRegisterModal(false);
 	}
     render() {
         const { store } = this.props;
@@ -92,32 +90,29 @@ class Footer extends React.Component<FooterProps, FooterState> {
                         title={
                             <h3
                                 style={{textAlign: "center"}}>
-                                    欢迎您,  (｡･∀･)ﾉﾞ 请先登录~
+                                    欢迎您, 请先登录~
                             </h3>
                         }
-                        okText="O(∩_∩)O 好的"
-                        cancelText="╮(╯﹏╰)╭ 下次再说"
+                        okText="立马登录"
+                        cancelText="暂时不登录"
                         visible={visible}
                         onOk={this.onOkM1}
                         onCancel={this.onCancelM1}>
                             <div className="loginLogo">
                                 <img
                                     src="/staticImage/dog.png"/>
-                                <h3>{ TITLE }</h3>
                             </div>
                     </Modal>
                     <Modal
-                        visible={store.showLoginRegisterModal}
+                        visible={store!.showLoginRegisterModal}
                         onCancel={this.onCancelM2}
                         >
                         <Tabs>
                             <Tab label="登录" >
-                                <Login
-                                    store={store} />
+                                <Login />
                             </Tab>
                             <Tab label="注册" >
-                                <Register
-                                    store={store} />
+                                <Register />
                             </Tab>
                         </Tabs>
                     </Modal>

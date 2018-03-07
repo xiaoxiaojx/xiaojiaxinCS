@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactQuill from "react-quill";
 import * as ReactMarkdown from "react-markdown";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import {
     RadioButton,
     RadioButtonGroup
@@ -11,7 +11,6 @@ import {
     TextField,
     RaisedButton,
     SelectField,
-    Card,
     MenuItem
 } from "material-ui";
 import Store from "../../store";
@@ -49,6 +48,7 @@ interface ArticlesState {
     };
 }
 
+@inject("store")
 @observer
 class Articles extends React.Component<ArticlesProps, ArticlesState> {
     state: ArticlesState = {
@@ -169,7 +169,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
         const ChipsItems = Chips.default.slice(1);
 
         return (
-            <Card className="ArticlesWrap">
+            <div className="ArticlesWrap">
                 <header>
                     <RadioButtonGroup
                         name="editor"
@@ -257,7 +257,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                         message={tooltip.message}
                          />
                 </footer>
-            </Card>
+            </div>
         );
     }
 }

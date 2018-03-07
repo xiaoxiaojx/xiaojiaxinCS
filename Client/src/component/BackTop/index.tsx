@@ -3,18 +3,26 @@ import {
     IconButton,
     Card
 } from "material-ui";
+import { observer, inject } from "mobx-react";
 import IArrowUp from "material-ui/svg-icons/navigation/arrow-drop-up";
 import {
     autoBindMethods,
     debounce
 } from "../../common/utils";
+import Store, { ScrollDirection } from "../../store";
 import "./index.scss";
+
+interface BackTopProps {
+	store?: Store;
+}
 
 interface BackTopState {
     isHidden: boolean;
 }
 
-class BackTop extends React.Component<{}, BackTopState> {
+@inject("store")
+@observer
+class BackTop extends React.Component<BackTopProps, BackTopState> {
     constructor(props) {
         super(props);
         autoBindMethods(["scrollHandle", "setIsHidden"], this);
@@ -22,6 +30,7 @@ class BackTop extends React.Component<{}, BackTopState> {
     state: BackTopState = {
         isHidden: true
     };
+
     componentDidMount() {
         this.addEventListener();
         this.scrollHandle();
@@ -38,8 +47,10 @@ class BackTop extends React.Component<{}, BackTopState> {
         }
     }
     scrollHandle() {
-        const scrollY = window.scrollY;
-        if (scrollY > 100) {
+        const store = this.props.store!;
+        store.setDirection(store.scrollY >  window.scrollY ? ScrollDirection.UP : ScrollDirection.DOWN);
+        store.setScrollY(window.scrollY);
+        if (store.scrollY > 100) {
             this.setIsHidden(false);
         }
         else {
