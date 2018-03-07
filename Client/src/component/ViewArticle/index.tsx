@@ -180,7 +180,7 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
             quillVal: article.editor === "富文本" ? article.content : "",
             markVal: article.editor === "Markdown" ? article.content : ""
         });
-        redirect("/articles");
+        redirect("/write");
     }
     render() {
         const { store } = this.props;
