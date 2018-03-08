@@ -12,14 +12,13 @@ import Modal from "../Modal";
 import {
     GetArticle,
     PublishArticleRes,
-    PublishArticlesRes,
-    GetArticles,
     SetArticle,
     DelArticle,
     User
 } from "../../../services";
 import Store from "../../store";
 import CommentTmp from "../CommentTmp";
+import WithTotal from "../WithTotal";
 import {
     replaceHtmlTag,
     redirect,
@@ -41,7 +40,6 @@ interface ViewArticleProps {
 
 interface ViewArticleState {
     article: PublishArticleRes;
-    articles: PublishArticlesRes[];
     commentContent: string;
     visible: boolean;
 }
@@ -51,7 +49,6 @@ interface ViewArticleState {
 class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
     state: ViewArticleState = {
         article: {} as PublishArticleRes,
-        articles: [],
         commentContent: "",
         visible: false
     };
@@ -66,19 +63,16 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
     componentWillUnmount() {
         setDocumentTitle();
     }
-    async getArticle(cb = () => {}) {
+    getArticle(cb = () => {}) {
         const { match } = this.props;
         const { id } = match.match.params;
-        const article = await GetArticle({id})
+        GetArticle({id})
             .then(result => {
                 if ( result.data ) {
                     this.setState({ article: result.data }, cb);
                 }
                 return result.data;
             });
-        if (article) {
-            this.getArticles(article.userName);
-        }
     }
     hasLike() {
         const { store } = this.props;
@@ -151,12 +145,6 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
             reqData: { views: article.views ? ++article.views : 1 }
         });
     }
-    getArticles(userName: string) {
-        GetArticles({userName})
-            .then(result => result.data && this.setState({
-                articles: result.data
-            }));
-    }
     delArticles() {
         const { store } = this.props;
         const { article } = this.state;
@@ -184,11 +172,37 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
     }
     render() {
         const { store } = this.props;
-        const { article, articles, commentContent, visible } = this.state;
+        const { article, commentContent, visible } = this.state;
         const src = article["avatar"] ? article["avatar"] : DEFAULT_AVATAR_IMG;
+        const scrolltHeight = document.body.clientHeight - window.innerHeight;
 
         return (
             <div className="ViewArticleWrap">
+                {
+                    store.scrollY > 100 && store.scrollY < scrolltHeight - 350 ?
+                    <div className="floatLike">
+                        <WithTotal
+                            total={article.like ? article.like.length : 0}>
+                            <IFavorite
+                                className={this.hasLike() ? "like likeSvg" : "normal likeSvg"}
+                                onClick={this.likeArticle.bind(this)}/>
+                        </WithTotal>
+                        <WithTotal
+                            total={article.comment ? article.comment.length : 0}>
+                            <img
+                                onClick={() => window.scrollTo(0, scrolltHeight)}
+                                className="likeSvg"
+                                src="/staticImage/comment.svg"/>
+                        </WithTotal>
+                        <WithTotal
+                            total={article.views}>
+                            <img
+                                className="likeSvg"
+                                src="/staticImage/read.svg"/>
+                        </WithTotal>
+                    </div>
+                    : null
+                }
                 <main>
                     <div className="avatar">
                         <img src={src} onClick={() => redirect(`/home/${article.userName}`)}/>
@@ -280,27 +294,6 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                         </div>
                     </div>
                 </main>
-                <nav>
-                    <div className="allArticles">
-                        <div>
-                            Ta的所有文章
-                        </div>
-                        {
-                            articles.map((art, index) =>
-                            <div key={index} className="articlesList">
-                                <a
-                                    onClick={() => {
-                                        redirect(`/article/${art["_id"]}`);
-                                        location.reload();
-                                    }}>
-                                    {art.title}
-                                </a>
-                                <span className="date"> {art.date} </span>
-                            </div>
-                        )
-                        }
-                    </div>
-                </nav>
                 <Modal
                     title="确认要删除这篇文章吗?"
                     visible={visible}

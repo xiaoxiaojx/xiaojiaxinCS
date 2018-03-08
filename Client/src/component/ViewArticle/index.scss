@@ -1,13 +1,22 @@
 @import "../../common/baseStyle";
 
 .ViewArticleWrap {
-    display: flex;
+    position: relative;
     min-height: 700px;
+
+    .floatLike {
+        position: fixed;
+        top: 170px;
+        display: flex;
+        animation: sliderDownLike .4s ease-in-out;
+        flex-direction: column;
+        animation-fill-mode: forwards;
+    }
 
     main {
         background-color: $articleBgc;
-        padding: 20px;
-        margin-right: 20px;
+        padding: 35px 20px 20px;
+        margin: 0 auto;
         width: 700px;
     }
 
@@ -18,6 +27,18 @@
 
     nav {
         width: 280px;
+    }
+
+    .likeSvg {
+        width: 32px !important;
+        height: 32px !important;
+        transition: all .2s ease-in-out;
+        margin-top: 20px;
+
+        &:hover {
+            color: $highlightColor !important;
+            transform: scale(1.2);
+        }
     }
 
     .avatar {
@@ -52,30 +73,6 @@
         margin: 30px 0 10px;
     }
 
-    .allArticles {
-        background-color: $articleBgc;
-
-        & > :nth-child(1) {
-            padding: 10px;
-            border-bottom:  1px solid $borderColor;
-        }
-    }
-
-    .articlesList {
-        padding: 5px 10px;
-        border-bottom:  1px dashed $borderColor;
-
-        a {
-            display: block;
-            cursor: pointer;
-            height: 18px;
-            font-size: 16px !important;
-            overflow: hidden;
-            word-break: break-all;
-            color: #909090;
-        }
-    }
-
     .content {
         min-height: 400px;
     }
@@ -101,19 +98,14 @@
                 margin-right: 10px;
             }
         }
+    }
 
-        svg {
-            width: 30px !important;
-            height: 30px !important;
-        }
+    .like {
+        color: $highlightColor !important;
+    }
 
-        .like {
-            color: $baseColor !important;
-        }
-
-        .normal {
-            color: #ccc !important;
-        }
+    .normal {
+        color: #ccc !important;
     }
 
     .action {
@@ -129,5 +121,15 @@
         display: block;
         width: 100%;
         overflow: scroll;
+    }
+}
+
+@keyframes sliderDownLike
+{
+    0% {
+        top: 170px;
+    }
+    100% {
+        top: 200px;
     }
 }
