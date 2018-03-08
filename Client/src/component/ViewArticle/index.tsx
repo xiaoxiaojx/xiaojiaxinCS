@@ -184,12 +184,14 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                         <WithTotal
                             total={article.like ? article.like.length : 0}>
                             <IFavorite
+                                style={{width: "34px", height: "34px"}}
                                 className={this.hasLike() ? "like likeSvg" : "normal likeSvg"}
                                 onClick={this.likeArticle.bind(this)}/>
                         </WithTotal>
                         <WithTotal
                             total={article.comment ? article.comment.length : 0}>
                             <img
+                                style={{width: "30px", height: "30px"}}
                                 onClick={() => window.scrollTo(0, scrolltHeight)}
                                 className="likeSvg"
                                 src="/staticImage/comment.svg"/>
@@ -197,6 +199,7 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                         <WithTotal
                             total={article.views}>
                             <img
+                                style={{width: "26px", height: "26px"}}
                                 className="likeSvg"
                                 src="/staticImage/read.svg"/>
                         </WithTotal>

@@ -79,7 +79,7 @@ export function throttle(handel: Function, time: number = 1000): (...arg: any[])
     };
 }
 
-export function debounce(handel: Function, time: number = 300): (...arg: any[]) => void {
+export function debounce(handel: Function, time: number = 100): (...arg: any[]) => void {
     let setTimeId: any;
 
     return (...arg) => {

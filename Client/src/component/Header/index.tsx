@@ -80,7 +80,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 			store.scrollY > 150 ?
 				store.direction === ScrollDirection.DOWN ? "HeaderWrap absoluteHeader" : "HeaderWrap fixedHeader"
 			:
-			"HeaderWrap";
+			"HeaderWrap fixedHeader";
 
         return (
             <div className={className}>
