@@ -1,9 +1,17 @@
-import Home from "../Home";
-import Settings from "../Settings";
-import About from "../About";
-import WriteArticle from "../WriteArticle";
-import Index from "../Index";
-import ViewArticle from "../ViewArticle";
+import * as React from "react";
+import Home from "../component/Home";
+import Settings from "../component/Settings";
+import About from "../component/About";
+import WriteArticle from "../component/WriteArticle";
+import Index from "../component/Index";
+import ViewArticle from "../component/ViewArticle";
+
+export interface RouterItem {
+    path: string;
+    component: typeof React.Component;
+    public: boolean;
+    exact: boolean;
+}
 
 export default [{
     path: "/",

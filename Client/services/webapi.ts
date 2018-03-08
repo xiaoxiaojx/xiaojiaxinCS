@@ -1,4 +1,7 @@
-type Method = "GET" | "POST";
+enum Method {
+    GET = "GET",
+    POST = "POST"
+}
 
 export function getApiPrefix(): string {
     switch (location.hostname) {
@@ -9,7 +12,7 @@ export function getApiPrefix(): string {
     }
 }
 
-function getRequestInit(params: any, method: Method): any {
+function getRequestInit(params: any, method: Method): RequestInit {
     return ({
         method,
         headers: {
@@ -19,7 +22,7 @@ function getRequestInit(params: any, method: Method): any {
     });
 }
 
-export function webapi<T>(service: string, params = {}, method: Method = "POST"): Promise<T> {
+export function webapi<T>(service: string, params = {}, method: Method = Method.POST): Promise<T> {
     const requestInput: RequestInfo = `${getApiPrefix()}${service}`;
     const requestInit: RequestInit = getRequestInit(params, method);
     return fetch(requestInput, requestInit)

@@ -4,7 +4,8 @@ import {
     SHUAI_MAO_1,
     SHUAI_MAO_2,
     BI_YE
-} from "../../common/baseImage";
+} from "./baseImage";
+
 
 export default [{
     img: "http://upload-images.jianshu.io/upload_images/2738521-72b26ecb7788fa6c.jpg"

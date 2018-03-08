@@ -48,7 +48,10 @@ export interface SetUserInfoReq {
 
 export type GetUserInfoRes = Result<User>;
 
-export type Editor = "富文本" | "Markdown";
+export enum Editor {
+    RICHTEXT = "富文本",
+    MARKDOWN = "Markdown"
+}
 
 export interface PublishArticleReq {
     title: string;

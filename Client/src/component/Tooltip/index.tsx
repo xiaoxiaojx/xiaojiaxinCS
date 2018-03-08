@@ -15,7 +15,6 @@ const snackbarStyle = {
 interface TooltipProps {
     visible: boolean;
     message: string;
-    autoHideDuration?: number;
 }
 
 export default function Tooltip(props: TooltipProps) {

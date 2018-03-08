@@ -10,10 +10,9 @@ import {
     GetArticles,
     GetArticlesRes,
     User,
-    PublishArticlesRes
+    PublishArticlesRes,
+    Editor
 } from "../../services";
-
-type Editor = "富文本" | "Markdown";
 
 interface ArticleData {
     editor: Editor;
@@ -38,7 +37,7 @@ useStrict(true);
 
 
 const defaultArticleData: ArticleData = {
-    editor: "富文本",
+    editor: Editor.RICHTEXT,
     title: "",
     quillVal: "",
     markVal: "",

@@ -5,5 +5,6 @@ website/
 .vscode
 !template/*.html
 .cache-loader/
-dllWebpackPlugin/
+./Client/dllWebpackPlugin/
 yarn-error.log
+.DS_Store

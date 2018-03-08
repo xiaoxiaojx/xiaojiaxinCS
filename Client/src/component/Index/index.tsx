@@ -16,7 +16,7 @@ import {
     ChipType
 } from "../../common/chips";
 import Store from "../../store";
-import Banner from "./banner";
+import Banner from "../../common/banner";
 import "./index.scss";
 
 interface IndexProps {
@@ -72,7 +72,7 @@ class Index extends React.Component<IndexProps, IndexState> {
                                         thickness={5} />
                                 </div>
                             }
-                            <div className="articlesList">
+                            <div>
                                 {
                                     articles.map((article, index) =>
                                     <ArticleTmp key={index} article={article}/>
