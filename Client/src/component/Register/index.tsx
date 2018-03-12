@@ -1,5 +1,5 @@
 import * as React from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import {
     TextField,
     RaisedButton
@@ -30,6 +30,7 @@ interface RegisterState {
     disabled: boolean;
 }
 
+@inject("store")
 @observer
 class Register extends React.Component<RegisterProps, RegisterState> {
     state: RegisterState = {
