@@ -1,5 +1,6 @@
 import * as React from "react";
 import { observer, inject } from "mobx-react";
+import IFavorite from "material-ui/svg-icons/action/favorite";
 import Store from "../../store";
 import ArticleTmp from "../ArticleTmp";
 import {
@@ -71,6 +72,8 @@ class Home extends React.Component<HomeProps, HomeState> {
             email = "邮箱(赶紧去设置吧)"
         } = userInfo;
         const src = avatar ? avatar : DEFAULT_AVATAR_IMG;
+        const likeTotal = articles.reduce((preVal, cVal) => preVal + (cVal.like || 0), 0);
+        const viewTotal = articles.reduce((preVal, cVal) => preVal + (cVal.views || 0), 0);
 
         return (
             <div className="HomeWrap">
@@ -83,6 +86,12 @@ class Home extends React.Component<HomeProps, HomeState> {
                         </a>
                     </div>
                     <div className="selfIntroduction"> {selfIntroduction} </div>
+                    <div className="like">
+                        <img src="/staticImage/readlilght.svg" />
+                        <span> 文章被阅读 {viewTotal} 次 </span>
+                        <IFavorite />
+                        <span> 获得喜欢 {likeTotal} 次 </span>
+                    </div>
                     {
                         this.isSelf() ?
                         <button

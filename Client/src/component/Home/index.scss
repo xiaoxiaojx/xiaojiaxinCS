@@ -1,4 +1,4 @@
-@import "../../common/baseStyle.scss";
+@import "../../common/baseStyle";
 
 .HomeWrap {
     padding-bottom: 30px;
@@ -29,10 +29,25 @@
         }
 
         .nickname {
-            margin-top: 25px;
-            font-size: 2.5rem;
+            margin-top: 15px;
+            font-size: 26px;
             font-weight: 400;
             color: #333;
+        }
+
+        .like {
+            @extend .flexAlignCenter;
+            justify-content: center;
+            font-size: 16px;
+            color: #8b8b8b;
+
+            img, svg {
+                width: 26px;
+                height: 26px;
+                color: $highlightColor !important;
+                margin: 0 4px;
+                border-radius: 0px;
+            }
         }
 
         .selfIntroduction {
