@@ -69,6 +69,7 @@
     }
 
     .articlesLabel {
+        @extend .flexAlignCenter;
         font-size: 20px;
         margin-right: 20px;
         color: rgba(0, 0, 0, 0.3);
@@ -77,5 +78,14 @@
     .breakAll {
         overflow: scroll;
         word-break: break-all;
+    }
+
+    .foldersWrap {
+        @extend .flexAlignCenter;
+        margin: 10px 0;
+    }
+
+    .folders {
+        @extend .flexAlignCenter;
     }
 }

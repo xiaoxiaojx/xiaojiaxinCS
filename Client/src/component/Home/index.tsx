@@ -3,8 +3,10 @@ import { observer, inject } from "mobx-react";
 import IFavorite from "material-ui/svg-icons/action/favorite";
 import Store from "../../store";
 import ArticleTmp from "../ArticleTmp";
+import FolderTmp from "../FolderTmp";
 import {
-    redirect
+    redirect,
+    getSearchParamValue
 } from "../../common/utils";
 import {
 	DEFAULT_AVATAR_IMG
@@ -25,14 +27,20 @@ interface HomeProps {
 interface HomeState {
     userInfo: Partial<User>;
     articles: PublishArticlesRes[];
+    folder: string;
 }
+
+const defaultFolder = location.hash.includes("?") ?
+    getSearchParamValue("folder", "?" + location.hash.split("?")[1])
+    : "";
 
 @inject("store")
 @observer
 class Home extends React.Component<HomeProps, HomeState> {
     state: HomeState = {
         userInfo: {},
-        articles: []
+        articles: [],
+        folder: defaultFolder
     };
 
     componentDidMount() {
@@ -64,7 +72,7 @@ class Home extends React.Component<HomeProps, HomeState> {
         return localStorageQaqData && userName === localStorageQaqData["userName"];
     }
     render() {
-        const { userInfo, articles } = this.state;
+        const { userInfo, articles, folder } = this.state;
         const {
             avatar,
             nickname,
@@ -74,6 +82,14 @@ class Home extends React.Component<HomeProps, HomeState> {
         const src = avatar ? avatar : DEFAULT_AVATAR_IMG;
         const likeTotal = articles.reduce((preVal, cVal) => preVal + (cVal.like || 0), 0);
         const viewTotal = articles.reduce((preVal, cVal) => preVal + (cVal.views || 0), 0);
+        const currentArticles = articles.filter(item => item.folder === folder);
+        const folders = Array.from(new Set(
+            articles
+                .reduce((preVal, cVal) => preVal.concat(cVal.folder), [] as string[])
+        )).reverse().map(item => ({
+            name: item,
+            total: articles.filter(art => art.folder === item).length
+        }));
 
         return (
             <div className="HomeWrap">
@@ -103,15 +119,26 @@ class Home extends React.Component<HomeProps, HomeState> {
                     }
                 </header>
                 <main>
-                    <div className="header">
+                    <div className="articleFolder">
+                        <img src="/staticImage/label.svg" />
+                        {
+                            <FolderTmp
+                                folders={folders}
+                                folder={folder}
+                                onChange={val => this.setState({
+                                    folder: val
+                                })} />
+                        }
+                    </div>
+                    <div className="articleHeader">
                         <span>
-                            {articles.length}篇文章
+                            {currentArticles.length}篇文章
                         </span>
                     </div>
                     <div className="articles">
                     {
-                        articles.length > 0 ?
-                        articles.map((article, index) =>
+                        currentArticles.length > 0 ?
+                        currentArticles.map((article, index) =>
                             <ArticleTmp key={index} article={article}/>
                         )
                         :

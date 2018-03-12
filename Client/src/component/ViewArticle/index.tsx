@@ -166,7 +166,8 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
             title: article.title,
             chipType: article.chipType || ChipType.Prose,
             quillVal: article.editor === "富文本" ? article.content : "",
-            markVal: article.editor === "Markdown" ? article.content : ""
+            markVal: article.editor === "Markdown" ? article.content : "",
+            folder: article.folder
         });
         redirect("/write");
     }
@@ -247,6 +248,20 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                         <p dangerouslySetInnerHTML={{__html: article.content}}>
                         </p>
                     }
+                    </div>
+                    <div className="categoryWrap">
+                        <img src="/staticImage/category.svg" />
+                        <a onClick={() => {
+                            store.setFilterArticles({ chipType: article.chipType || ChipType.All });
+                            redirect("/");
+                        }}>
+                            {article.chipType || ChipType.Prose}
+                        </a>
+                        <img src="/staticImage/label.svg" />
+                        <a onClick={ () => {
+                            redirect(`/home/${article.userName}?folder=${article.folder}`);
+                        }
+                        }> {article.folder || "全部"} </a>
                     </div>
                     <div className="likeWrap">
                         <div>

@@ -8,8 +8,8 @@ declare var Promise;
 const $findNot = {"__v": 0};
 
 export const publishArticle = (req: Request, res: Response) => {
-    const { userName, nickname, avatar, title, content, date, editor, chipType } = req.body;
-    Article.insertMany({userName, nickname, avatar, title, content, date, editor, chipType}, (err, doc) => {
+    const { userName, nickname, avatar, title, content, date, editor, chipType, folder } = req.body;
+    Article.insertMany({userName, nickname, avatar, title, content, date, editor, chipType, folder}, (err, doc) => {
         if ( err ) throw err;
         if (doc) {
             res.send({
@@ -48,6 +48,7 @@ export const getArticles = async (req: Request, res: Response) => {
         nickname: item["nickname"],
         avatar: item["avatar"],
         views: articleDocs[index]["views"],
+        folder: articleDocs[index]["folder"] || "",
     }));
     res.send({
         message: "查询成功",
@@ -89,6 +90,7 @@ export const getArticle = async (req: Request, res: Response) => {
         comment,
         editor: articleDoc["editor"],
         chipType: articleDoc["chipType"],
+        folder: articleDoc["folder"] || "",
         nickname: userInfo["nickname"],
         avatar: userInfo["avatar"],
         views: articleDoc["views"],

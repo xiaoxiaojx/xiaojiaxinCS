@@ -10,7 +10,7 @@ import ActionHome from "material-ui/svg-icons/action/home";
 import Settings from "material-ui/svg-icons/action/settings";
 import SignOut from "material-ui/svg-icons/action/exit-to-app";
 import chipItems from "../../common/chips";
-import Store, { ScrollDirection } from "../../store";
+import Store, { ScrollDirection, defaultArticleData } from "../../store";
 import {
 	autoBindMethods,
 	getCompleteImgUrl
@@ -92,7 +92,9 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                             <span>Awkward Article</span>
                         </div>
                         <div className="welcome">
-							<Link to="/write" className="writeArticle">
+							<Link to="/write"
+								className="writeArticle"
+								onClick={() => store.setArticleData(defaultArticleData)}>
 								<span>写文章</span>
 								<img src="/staticImage/write.png" />
 							</Link>

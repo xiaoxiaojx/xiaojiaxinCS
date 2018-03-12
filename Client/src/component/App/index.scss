@@ -10,6 +10,10 @@ svg, a {
     cursor: pointer;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 .ql-toolbar.ql-snow {
     margin-top: 4px;
     border: {

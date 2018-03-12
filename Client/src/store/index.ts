@@ -20,6 +20,7 @@ interface ArticleData {
     quillVal: string;
     markVal: string;
     chipType: ChipType;
+    folder: string;
 }
 
 interface FilterArticles {
@@ -36,12 +37,13 @@ export enum ScrollDirection {
 useStrict(true);
 
 
-const defaultArticleData: ArticleData = {
+export const defaultArticleData: ArticleData = {
     editor: Editor.RICHTEXT,
     title: "",
     quillVal: "",
     markVal: "",
-    chipType: ChipType.Prose
+    chipType: ChipType.Prose,
+    folder: ""
 };
 
 class Store {

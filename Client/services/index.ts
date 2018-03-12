@@ -60,6 +60,7 @@ export interface PublishArticleReq {
     date: string;
     userName: string;
     chipType: ChipType;
+    folder: string;
 }
 
 export interface PublishArticleRes {
@@ -75,6 +76,7 @@ export interface PublishArticleRes {
     nickname: string;
     avatar: string;
     chipType: ChipType;
+    folder: string;
 }
 
 export interface PublishArticlesRes {
@@ -90,6 +92,7 @@ export interface PublishArticlesRes {
     nickname: string;
     avatar: string;
     chipType: ChipType;
+    folder: string;
 }
 
 export interface GetArticlesReq {
@@ -113,6 +116,7 @@ export interface UpdateArticleReq {
     comment: SimpleComment[];
     views: number;
     chipType: ChipType;
+    folder: string;
 }
 
 export interface SimpleUserInfo {

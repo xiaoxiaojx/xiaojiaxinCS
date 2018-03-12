@@ -125,3 +125,43 @@ export function getLocalStorageArticlesData(): PublishArticlesRes[] {
     }
     return data;
 }
+
+export const getPathSearchParams = function(url: string = window.location.search) {
+	let obj = {},
+		str: string = "",
+		strArr: string[] = [];
+	const splitSearchParamReg = /([^=]+)=(.+)/;
+
+	if (url.trim() === "" || url[0] !== "?") {
+		return obj;
+	} else {
+		str = url.substring(1);
+		strArr = str.split("&");
+		for (let i = 0; i < strArr.length; i++) {
+			const s = strArr[i];
+			if (s.indexOf("=") !== -1) {
+				const result = s.match(splitSearchParamReg);
+				if (result !== null) {
+					const prp = result[1];
+					const val = result[2];
+					obj[prp] = decodeURIComponent(val);
+				}
+			}
+		}
+		return obj;
+	}
+};
+
+export function getSearchParamValue(searchKey, url: string = window.location.search) {
+	const searchParams = getPathSearchParams(url);
+	const keyReg = new RegExp(`^${searchKey}$`, "i");
+	let value: string = "";
+
+	for (let prp in searchParams) {
+		if (keyReg.test(prp)) {
+			value = searchParams[prp];
+		}
+	}
+
+	return value;
+}

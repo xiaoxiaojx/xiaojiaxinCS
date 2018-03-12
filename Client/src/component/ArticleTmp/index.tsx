@@ -48,7 +48,7 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
         return (
             <LazyLoad height={205}>
                 <div className="ArticleTmpWrap">
-                    <div  className="imageContentWrap">
+                    <div className="imageContentWrap">
                         <div>
                             <div className="avatar">
                                 <IconButton

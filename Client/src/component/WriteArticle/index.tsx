@@ -7,11 +7,12 @@ import {
     RadioButtonGroup
 } from "material-ui/RadioButton";
 import Tooltip from "../Tooltip";
+import FolderTmp from "../FolderTmp";
 import {
     TextField,
     RaisedButton,
     SelectField,
-    MenuItem
+    MenuItem,
 } from "material-ui";
 import Store from "../../store";
 import {
@@ -96,7 +97,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
             const { userInfo } = this.state;
             const { userName } = userInfo;
             const { articleData, initArticleData, currentEditArticleId } = store;
-            const { editor, title, quillVal, markVal, chipType } = articleData;
+            const { editor, title, quillVal, markVal, chipType, folder } = articleData;
             const isAddArticle = currentEditArticleId === "";
             const date = getFormatDate();
             const data = {
@@ -105,7 +106,8 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                 content: editor === "富文本" ? quillVal : markVal,
                 date,
                 userName,
-                chipType
+                chipType,
+                folder
             } as PublishArticleReq;
             isAddArticle ?
             PublishArticle(data)
@@ -130,7 +132,8 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                     editor,
                     content: editor === "富文本" ? quillVal : markVal,
                     date,
-                    chipType
+                    chipType,
+                    folder
                 }
             }).then(result => {
                 if (!result.error) {
@@ -165,8 +168,13 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
         const { store } = this.props;
         const { tooltip } = this.state;
         const { setArticleData, articleData, currentEditArticleId } = store;
-        const { editor, title, quillVal, markVal, chipType } = articleData;
+        const { editor, title, quillVal, markVal, chipType, folder } = articleData;
         const ChipsItems = Chips.default.slice(1);
+        const folders = store.localStorageQaqData ? Array.from(new Set(
+            store.articles
+                .filter(item => item.userName === store.localStorageQaqData["userName"])
+                .reduce((preVal, cVal) => preVal.concat(cVal.folder), [] as string[])
+        )).reverse() : [""];
 
         return (
             <div className="ArticlesWrap">
@@ -237,6 +245,28 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                                     source={markVal} />
                             </div>
                         }
+                    </div>
+                    <div className="foldersWrap">
+                        <div>
+                            <label className="articlesLabel">
+                                <img src="/staticImage/label.svg" /> 个人收藏夹:
+                            </label>
+                        </div>
+                        <div className="folders">
+                            {
+                                <FolderTmp
+                                    folders={folders.map(item => ({name: item}))}
+                                    folder={folder}
+                                    onChange={val => store.setArticleData({
+                                        folder: val
+                                    })} />
+                            }
+                            <TextField
+                                style={{width: 150, marginLeft: "20px"}}
+                                hintText="新增收藏夹"
+                                value={folder}
+                                onChange={ (e: any) => setArticleData({folder: e.target.value}) } />
+                        </div>
                     </div>
                 </section>
                 <footer>
