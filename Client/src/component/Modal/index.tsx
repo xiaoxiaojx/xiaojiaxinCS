@@ -3,13 +3,12 @@ import {
     FlatButton,
     Dialog
 } from "material-ui";
-import { ReactChild } from "react";
 
 interface ModalProps {
     okText?: string;
     cancelText?: string;
-    children?: ReactChild;
-    title?: ReactChild;
+    children?: React.ReactNode;
+    title?: React.ReactNode;
     visible: boolean;
     onOk?: Function;
     onCancel: Function;

@@ -93,3 +93,15 @@
         }
     }
 }
+
+.addFolderItems {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 700px;
+    min-height: 100px;
+
+    & > :nth-child(1) {
+        font-size: 12px;
+    }
+}

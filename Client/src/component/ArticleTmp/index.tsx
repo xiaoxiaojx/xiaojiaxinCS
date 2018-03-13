@@ -3,6 +3,8 @@ import LazyLoad from "react-lazy-load";
 import {
     IconButton,
     Avatar,
+    SelectField,
+    MenuItem
 } from "material-ui";
 import IChat from "material-ui/svg-icons/communication/chat";
 import IFavorite from "material-ui/svg-icons/action/favorite";
@@ -22,6 +24,9 @@ import "./index.scss";
 
 interface ArticleTmpProps {
     article: PublishArticlesRes;
+    folders?: string[];
+    folder?: string;
+    onChange?: (val: string) => void;
 }
 
 class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
@@ -41,7 +46,7 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
         return <span className="tags"> {text} </span> ;
     }
     render() {
-        const { article } = this.props;
+        const { article, folders, folder, onChange = () => {} } = this.props;
         const contentImage = this.contentImage();
 
         return (
@@ -73,11 +78,27 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                                 </div>
                             </div>
                         </div>
-                        <img
-                            className="imageContent"
-                            style={{display: contentImage ? "block" : "none"}}
-                            src={contentImage}
-                            alt="图片未正确显示" />
+                        <div className="imageContent">
+                        {
+                            folders ?
+                            <SelectField
+                                value={folder}
+                                onChange={ (event, index, value) => onChange(value) }
+                                className="moveFolder"
+                                floatingLabelText="移动收藏夹"
+                                style={{width: "150px", marginTop: "-40px"}}>
+                                {
+                                    folders.map((item, index) =>
+                                        <MenuItem key={index} value={item} primaryText={item} />,
+                                    )
+                                }
+                            </SelectField> : null
+                        }
+                            <img
+                                style={{display: contentImage ? "block" : "none"}}
+                                src={contentImage}
+                                alt="图片未正确显示" />
+                        </div>
                     </div>
                     <div className="comment">
                         { this.renderTags(article.chipType) }

@@ -81,8 +81,12 @@
 
         .imageContent {
             margin: 10px 0 0 10px;
-            width: 150px !important;
-            max-height: 120px !important;
+            width: 150px;
+
+            img {
+                width: 150px !important;
+                max-height: 120px !important;
+            }
         }
     }
 
@@ -91,6 +95,9 @@
         border: 1px solid $baseColor;
         border-radius: 2px;
         padding: 0 6px;
+    }
+
+    .moveFolder {
     }
 }
 
