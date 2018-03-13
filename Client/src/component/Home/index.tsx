@@ -38,23 +38,20 @@ interface HomeState {
     visible: boolean;
 }
 
-const defaultFolder = location.hash.includes("?") ?
-    getSearchParamValue("folder", "?" + location.hash.split("?")[1])
-    : "";
-
 @inject("store")
 @observer
 class Home extends React.Component<HomeProps, HomeState> {
     state: HomeState = {
         userInfo: {},
         articles: [],
-        folder: defaultFolder,
+        folder: "",
         visible: false
     };
 
     componentDidMount() {
         this.getUserInfo();
         this.getArticles();
+        this.initFolder();
     }
     getUserInfo() {
         const { match } = this.props;
@@ -73,6 +70,14 @@ class Home extends React.Component<HomeProps, HomeState> {
                 if (result.data)
                     this.setState({articles: result.data.reverse()});
             });
+    }
+    initFolder() {
+        const defaultFolder = location.hash.includes("?") ?
+            decodeURIComponent(getSearchParamValue("folder", "?" + location.hash.split("?")[1]))
+            : "";
+        this.setState({
+            folder: defaultFolder
+        });
     }
     setArticleFolder(id: string, folder: string) {
         SetArticle({

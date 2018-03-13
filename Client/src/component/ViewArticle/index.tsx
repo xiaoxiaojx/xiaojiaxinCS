@@ -278,7 +278,7 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                                 article.like.map((item, index) =>
                                     <Avatar
                                         key={index}
-                                        onClick={() => redirect(`/home/${article.userName}`)}
+                                        onClick={() => redirect(`/home/${item.userName}`)}
                                         size={30}
                                         src={item.avatar}
                                         />

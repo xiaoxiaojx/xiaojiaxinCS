@@ -76,6 +76,14 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                 message
             }
         });
+        setTimeout(() => {
+            this.setState({
+                modalData: {
+                    showModal: false,
+                    message: ""
+                }
+            });
+        }, 2000);
     }
     register(): boolean {
         const { user } = this.state;

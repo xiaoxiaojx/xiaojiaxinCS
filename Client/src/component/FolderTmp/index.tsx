@@ -12,7 +12,7 @@ interface FolderTmpProps {
 
 export default function FolderTmp (props: FolderTmpProps) {
     return (
-        <div>
+        <div className="FolderTmpWrap">
             {
                 props.folders.map((item, index) =>
                 <span

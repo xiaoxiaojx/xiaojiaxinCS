@@ -90,6 +90,7 @@
 
         .articleFolder {
             @extend .flexAlignCenter;
+            flex-wrap: wrap;
         }
     }
 }
