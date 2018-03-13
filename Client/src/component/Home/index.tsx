@@ -82,13 +82,13 @@ class Home extends React.Component<HomeProps, HomeState> {
         const src = avatar ? avatar : DEFAULT_AVATAR_IMG;
         const likeTotal = articles.reduce((preVal, cVal) => preVal + (cVal.like || 0), 0);
         const viewTotal = articles.reduce((preVal, cVal) => preVal + (cVal.views || 0), 0);
-        const currentArticles = articles.filter(item => item.folder === folder);
+        const currentArticles = articles.filter(item => item.folder === folder || !folder || folder === "全部");
         const folders = Array.from(new Set(
             articles
                 .reduce((preVal, cVal) => preVal.concat(cVal.folder), [] as string[])
         )).reverse().map(item => ({
             name: item,
-            total: articles.filter(art => art.folder === item).length
+            total: articles.filter(art => !item || item === "全部" || art.folder === item).length
         }));
 
         return (

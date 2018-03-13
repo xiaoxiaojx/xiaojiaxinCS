@@ -6,7 +6,6 @@ import {
 } from "material-ui";
 import IChat from "material-ui/svg-icons/communication/chat";
 import IFavorite from "material-ui/svg-icons/action/favorite";
-import IFace from "material-ui/svg-icons/action/face";
 import {
     redirect,
     replaceHtmlTag,
@@ -82,7 +81,7 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                     </div>
                     <div className="comment">
                         { this.renderTags(article.chipType) }
-                        <IFace />
+                        <img src="/staticImage/eye.svg"/>
                         <span> {article.views} </span>
                         <IChat />
                         <span> {article.comment} </span>

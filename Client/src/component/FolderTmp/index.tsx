@@ -19,7 +19,7 @@ export default function FolderTmp (props: FolderTmpProps) {
                     key={index}
                     onClick={ val => props.onChange(item.name) }
                     className={props.folder === item.name ?  "folderItem highlightColor" : "folderItem"} >
-                    { item.name ? item.name : "全部" } { item.total ? `( ${item.total} )` : "" }
+                    { item.name || "全部" } { item.total }
                 </span>
                 )
             }
