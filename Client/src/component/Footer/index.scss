@@ -28,6 +28,7 @@
 
     .bigBottomLogo {
         @extend .flexAlignCenter;
+        color: $highlightColor;
         justify-content: center;
         visibility: hidden;
         width: 500px;
