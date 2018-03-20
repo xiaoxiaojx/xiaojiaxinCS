@@ -44,7 +44,7 @@ var config = {
     },
     output: {
         path: joinDir("../dist/js"),
-        filename: "[name].js",
+        filename: "[name].[hash].js",
         library: "[name]_[hash]"
     },
     plugins: currentPlugins.concat([
