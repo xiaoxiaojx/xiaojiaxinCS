@@ -5,6 +5,7 @@ import About from "../component/About";
 import WriteArticle from "../component/WriteArticle";
 import Index from "../component/Index";
 import ViewArticle from "../component/ViewArticle";
+import NotFound from "../component/NotFound";
 
 export interface RouterItem {
     path: string;
@@ -42,5 +43,9 @@ export default [{
     path: "/settings",
     component: Settings,
     public: false,
+    exact: false
+}, {
+    component: NotFound,
+    public: true,
     exact: false
 }];

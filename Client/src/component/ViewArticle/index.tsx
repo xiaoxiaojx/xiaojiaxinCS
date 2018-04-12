@@ -1,6 +1,5 @@
 import * as React from "react";
 import { observer, inject } from "mobx-react";
-import * as ReactMarkdown from "react-markdown";
 import {
     Avatar,
     TextField,
@@ -19,6 +18,7 @@ import {
 import Store from "../../store";
 import CommentTmp from "../CommentTmp";
 import WithTotal from "../WithTotal";
+import Markdown from "../Markdown";
 import {
     replaceHtmlTag,
     redirect,
@@ -242,7 +242,7 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                     <div className="content">
                     {
                         article.editor === "Markdown" ?
-                        <ReactMarkdown
+                        <Markdown
                             source={article.content} />
                         :
                         <p dangerouslySetInnerHTML={{__html: article.content}}>

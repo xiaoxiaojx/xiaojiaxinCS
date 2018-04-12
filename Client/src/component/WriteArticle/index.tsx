@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as ReactQuill from "react-quill";
-import * as ReactMarkdown from "react-markdown";
 import { observer, inject } from "mobx-react";
 import {
     RadioButton,
@@ -8,6 +7,7 @@ import {
 } from "material-ui/RadioButton";
 import Tooltip from "../Tooltip";
 import FolderTmp from "../FolderTmp";
+import Markdown from "../Markdown";
 import {
     TextField,
     RaisedButton,
@@ -240,7 +240,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                                     onKeyDown={initKeyboardEvent}
                                     value={markVal}
                                     onChange={ (e: any) =>  setArticleData({markVal: e.target.value})} />
-                                <ReactMarkdown
+                                <Markdown
                                     className="breakAll"
                                     source={markVal} />
                             </div>
