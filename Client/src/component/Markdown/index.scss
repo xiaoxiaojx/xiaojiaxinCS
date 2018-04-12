@@ -1,3 +1,5 @@
+@import "../../common/baseStyle";
+
 .MarkdownWrap {
 	  .markdown-controls {
 		position: relative;
@@ -33,8 +35,24 @@
 	  }
 	  
 	  pre {
-		border: 1px solid #ccc;
-	  }
+			padding: 16px;
+			overflow: auto;
+			font-size: 85%;
+			line-height: 1.45;
+			background-color: #f6f8fa;
+			border-radius: 3px;
+			word-wrap: normal;
+			margin-top: 0;
+    	margin-bottom: 16px;
+		}
+		
+		a {
+			color: $highlightColor;
+
+			&:hover {
+				color: aqua;
+			}
+		}
 	  
 	  blockquote {
 		color: #666;
