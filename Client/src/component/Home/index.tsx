@@ -140,7 +140,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                     <div className="like">
                         <img src="/staticImage/readlilght.svg" />
                         <span> 文章被阅读 {viewTotal} 次 </span>
-                        <IFavorite />
+                        <IFavorite style={{margin: "0 4px"}}/>
                         <span> 获得喜欢 {likeTotal} 次 </span>
                     </div>
                     {
@@ -166,7 +166,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                           this.isSelf() ?
                           <RaisedButton
                             label=" ＋ 新增收藏夹"
-                            style={{transform: "scale(0.85)"}}
+                            style={{transform: "scale(0.85)", margin: "-4px 0 0 -5px"}}
                             onClick={() => this.setState({visible: true})}
                             primary />
                             : null
