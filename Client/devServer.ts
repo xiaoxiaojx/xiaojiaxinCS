@@ -8,7 +8,7 @@ import config from "./webpack.config";
 const app = express();
 const compiler = webpack(config);
 
-app.use(express.static(path.join(__dirname, "../asset")));
+app.use(express.static(path.join(__dirname, "../asset")) as any);
 
 app.use(webpackDevMiddleware(compiler, {
     stats: {
@@ -17,7 +17,7 @@ app.use(webpackDevMiddleware(compiler, {
         children: false
     }
 }));
-app.use(webpackHotMiddleware(compiler));
+app.use(webpackHotMiddleware(compiler) as any);
 
 
 app.listen(3333, err => {

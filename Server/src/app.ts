@@ -8,8 +8,8 @@ import * as cors from "cors";
 import * as multer from "multer";
 import * as compression from "compression";
 
-import * as homeController from "./controllers/home";
-import * as test from "./controllers/test";
+import * as Proxy from "./controllers/proxy";
+import * as Test from "./controllers/test";
 import * as Services from "./controllers";
 import * as Articles from "./controllers/article";
 import * as Upload from "./controllers/upload";
@@ -38,8 +38,9 @@ app.use(express.static(path.join(__dirname, "dist"), {maxAge: 31536000}));
 app.use(express.static(path.join(__dirname, "uploads"), {maxAge: 31536000}));
 app.use(express.static(path.join(__dirname, "asset"), {maxAge: 31536000}));
 
-app.get("/", homeController.index);
-app.post("/api/test", test.test);
+app.get("/proxy", Proxy.start);
+
+app.post("/api/test", Test.test);
 app.post("/api/register", Services.register);
 app.post("/api/login", Services.login);
 app.post("/api/getUserInfo", Services.getUserInfo);
