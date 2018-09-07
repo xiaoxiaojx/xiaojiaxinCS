@@ -72,10 +72,10 @@ class Footer extends React.Component<FooterProps, FooterState> {
                 <section>
                     <div className="baseline">
                         <div className="bottomLogo">
-                            <img src="/staticImage/Dog_32px_1183911_easyicon.net.png"/>
+                            <img src="./staticImage/Dog_32px_1183911_easyicon.net.png"/>
                             <div className="bigBottomLogo">
                                 <img
-                                    src="/staticImage/dog128.png"/>
+                                    src="./staticImage/dog128.png"/>
                                 <span>
                                     Wish you a happy year of dog
                                 </span>
@@ -100,7 +100,7 @@ class Footer extends React.Component<FooterProps, FooterState> {
                         onCancel={this.onCancelM1}>
                             <div className="loginLogo">
                                 <img
-                                    src="/staticImage/dog.png"/>
+                                    src="./staticImage/dog.png"/>
                             </div>
                     </Modal>
                     <Modal

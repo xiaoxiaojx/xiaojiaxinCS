@@ -249,7 +249,7 @@ class Articles extends React.Component<ArticlesProps, ArticlesState> {
                     <div className="foldersWrap">
                         <div>
                             <label className="articlesLabel">
-                                <img src="/staticImage/label.svg" /> 个人收藏夹:
+                                <img src="./staticImage/label.svg" /> 个人收藏夹:
                             </label>
                         </div>
                         <div className="folders">

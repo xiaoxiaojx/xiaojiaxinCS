@@ -87,7 +87,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
                 <div className="main">
                     <div className="logo">
                         <div className="logoMain">
-                            <img src="/staticImage/32logo.png" alt="logo"/>
+                            <img src="./staticImage/32logo.png" alt="logo"/>
                             <div className="dividing"/>
                             <span>Awkward Article</span>
                         </div>
@@ -96,7 +96,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 								className="writeArticle"
 								onClick={() => store.setArticleData(defaultArticleData)}>
 								<span>写文章</span>
-								<img src="/staticImage/write.png" />
+								<img src="./staticImage/write.png" />
 							</Link>
 							{
 								data ?

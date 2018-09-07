@@ -195,14 +195,14 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                                 style={{width: "30px", height: "30px"}}
                                 onClick={() => window.scrollTo(0, scrolltHeight)}
                                 className="likeSvg"
-                                src="/staticImage/comment.svg"/>
+                                src="./staticImage/comment.svg"/>
                         </WithTotal>
                         <WithTotal
                             total={article.views}>
                             <img
                                 style={{width: "26px", height: "26px"}}
                                 className="likeSvg"
-                                src="/staticImage/read.svg"/>
+                                src="./staticImage/read.svg"/>
                         </WithTotal>
                     </div>
                     : null
@@ -250,14 +250,14 @@ class ViewArticle extends React.Component<ViewArticleProps, ViewArticleState> {
                     }
                     </div>
                     <div className="categoryWrap">
-                        <img src="/staticImage/category.svg" />
+                        <img src="./staticImage/category.svg" />
                         <a onClick={() => {
                             store.setFilterArticles({ chipType: article.chipType || ChipType.All });
                             redirect("/");
                         }}>
                             {article.chipType || ChipType.Prose}
                         </a>
-                        <img src="/staticImage/label.svg" />
+                        <img src="./staticImage/label.svg" />
                         <a onClick={ () => {
                             redirect(`/home/${article.userName}?folder=${article.folder}`);
                         }

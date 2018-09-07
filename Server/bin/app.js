@@ -18,6 +18,8 @@ var app = express();
 var upload = multer({ dest: "uploads/" });
 var NODE_ENV = process.env.NODE_ENV;
 var isDevelopment = NODE_ENV === "development";
+console.log("Server run" + NODE_ENV);
+var whitelist = ["http://xiaojiaxin.com", "https://xiaoxiaojx.github.io", "https://xiaoxiaojx.github.io/blog"];
 mongoose.connect("mongodb://localhost:27017");
 mongoose.connection.on("error", function () {
     console.log("MongoDB connection error. Please make sure MongoDB is running...");
@@ -26,7 +28,7 @@ mongoose.connection.on("error", function () {
 if (isDevelopment) {
     console.log("Cross-domain access is allowed only in development mode, and hosts must be http://localhost:3333 !");
 }
-app.use(cors({ "origin": isDevelopment ? "http://localhost:3333" : "http://xiaojiaxin.com" }));
+app.use(cors({ "origin": isDevelopment ? "http://localhost:3333" : whitelist }));
 app.use(compression());
 app.use(logger("dev"));
 app.use(bodyParser.json());

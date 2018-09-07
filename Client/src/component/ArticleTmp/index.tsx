@@ -102,7 +102,7 @@ class ArticleTmp extends React.PureComponent<ArticleTmpProps, {}> {
                     </div>
                     <div className="comment">
                         { this.renderTags(article.chipType) }
-                        <img src="/staticImage/eye.svg"/>
+                        <img src="./staticImage/eye.svg"/>
                         <span> {article.views} </span>
                         <IChat />
                         <span> {article.comment} </span>

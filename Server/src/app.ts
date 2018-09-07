@@ -16,8 +16,10 @@ import * as Upload from "./controllers/upload";
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
- const NODE_ENV = process.env.NODE_ENV;
- const isDevelopment: boolean = NODE_ENV === "development";
+const NODE_ENV = process.env.NODE_ENV;
+const isDevelopment: boolean = NODE_ENV === "development";
+console.log("Server run" + NODE_ENV);
+const whitelist = ["http://xiaojiaxin.com", "https://xiaoxiaojx.github.io", "https://xiaoxiaojx.github.io/blog"];
 
 mongoose.connect("mongodb://localhost:27017");
 mongoose.connection.on("error", () => {
@@ -28,7 +30,7 @@ mongoose.connection.on("error", () => {
 if (isDevelopment) {
   console.log("Cross-domain access is allowed only in development mode, and hosts must be http://localhost:3333 !");
 }
-app.use(cors({ "origin": isDevelopment ? "http://localhost:3333" : "http://xiaojiaxin.com" }));
+app.use(cors({ "origin": isDevelopment ? "http://localhost:3333" : whitelist }));
 app.use(compression());
 app.use(logger("dev"));
 app.use(bodyParser.json());

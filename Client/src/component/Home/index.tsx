@@ -138,7 +138,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                     </div>
                     <div className="selfIntroduction"> {selfIntroduction} </div>
                     <div className="like">
-                        <img src="/staticImage/readlilght.svg" />
+                        <img src="./staticImage/readlilght.svg" />
                         <span> 文章被阅读 {viewTotal} 次 </span>
                         <IFavorite style={{margin: "0 4px"}}/>
                         <span> 获得喜欢 {likeTotal} 次 </span>
@@ -155,7 +155,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                 </header>
                 <main>
                     <div className="articleFolder">
-                        <img src="/staticImage/label.svg" />
+                        <img src="./staticImage/label.svg" />
                         <FolderTmp
                             folders={folders}
                             folder={folder}
