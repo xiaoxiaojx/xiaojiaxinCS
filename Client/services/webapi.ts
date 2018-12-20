@@ -8,7 +8,7 @@ export function getApiPrefix(): string {
       case "localhost":
         return `http://localhost:${process.env.PORT || "3000"}/api/`;
       default:
-        return "http://www.xiaojiaxin.com/api/";
+        return "http://47.100.96.203/api/";
     }
 }
 
