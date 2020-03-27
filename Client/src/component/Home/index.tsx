@@ -12,7 +12,8 @@ import FolderTmp from "../FolderTmp";
 import Modal from "../Modal";
 import {
     redirect,
-    getSearchParamValue
+    getSearchParamValue,
+    getCompleteImgUrl
 } from "../../common/utils";
 import {
 	DEFAULT_AVATAR_IMG
@@ -106,7 +107,7 @@ class Home extends React.Component<HomeProps, HomeState> {
             selfIntroduction = "个人介绍(赶紧去设置吧)",
             email = "邮箱(赶紧去设置吧)"
         } = userInfo;
-        const src = avatar ? avatar : DEFAULT_AVATAR_IMG;
+        const src = avatar ? getCompleteImgUrl(avatar) : DEFAULT_AVATAR_IMG;
         const likeTotal = articles.reduce((preVal, cVal) => preVal + (cVal.like || 0), 0);
         const viewTotal = articles.reduce((preVal, cVal) => preVal + (cVal.views || 0), 0);
         const currentArticles = articles.filter(item => item.folder === folder || !folder || folder === "全部");

@@ -8,8 +8,6 @@ import {
 
 
 export default [{
-    img: "http://upload-images.jianshu.io/upload_images/2738521-72b26ecb7788fa6c.jpg"
-}, {
     img: SHUAI_YI
 }, {
     img: MO_CA

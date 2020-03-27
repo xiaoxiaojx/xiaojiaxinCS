@@ -35,7 +35,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "dist"), { maxAge: 31536000 }));
+// prod
 app.use(express.static(path.join(__dirname, "uploads"), { maxAge: 31536000 }));
+// dev
+app.use(express.static(path.join(__dirname, "../uploads"), { maxAge: 31536000 }));
 app.use(express.static(path.join(__dirname, "asset"), { maxAge: 31536000 }));
 app.get("/proxy", Proxy.start);
 app.post("/api/test", Test.test);

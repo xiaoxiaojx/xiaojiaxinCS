@@ -5,7 +5,7 @@ import {
 } from "material-ui";
 import IFavorite from "material-ui/svg-icons/action/favorite";
 import {
-    redirect
+    redirect, getCompleteImgUrl
 } from "../../common/utils";
 import {
     PublishArticlesRes
@@ -25,7 +25,7 @@ class LikeListTmp extends React.Component<LikeListTmpProps, {}> {
                     onClick={() => redirect(`/home/${data.userName}`)}
                     tooltip="点击进入我的主页">
                     <Avatar
-                        src={data.avatar}
+                        src={getCompleteImgUrl(data.avatar)}
                         size={30}/>
                 </IconButton>
                 <div>
